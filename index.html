@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Danubria — The flow of EUROPE — The power and logistics</title>
+  <meta name="description" content="Danubria - European freight transport and logistics. Reliable, sustainable and connected across Europe." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <img src="assets/DA.png" alt="Danubria logo" class="logo" />
+      <nav class="main-nav">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#fleet">Fleet</a>
+        <a href="#network">Network</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Danubria</h1>
+          <p class="lead">The flow of <strong>EUROPE</strong> — The power and logistics</p>
+          <a class="btn" href="#contact">Get a Quote</a>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <!-- simple decorative truck svg -->
+          <svg class="truck-illustration" viewBox="0 0 800 400" role="img">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#9fd1ff" />
+                <stop offset="1" stop-color="#0066cc" />
+              </linearGradient>
+            </defs>
+            <g transform="translate(40,40) scale(0.9)">
+              <rect x="0" y="120" width="560" height="120" rx="14" fill="url(#g1)" opacity="0.12"/>
+              <rect x="440" y="60" width="160" height="140" rx="10" fill="url(#g1)" opacity="0.22"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About Danubria</h2>
+        <p>Danubria is a Barcelona-based freight transport company operating across Europe. We combine owned vehicles and a trusted network of partners to deliver on-time, safe and compliant transport services.</p>
+      </div>
+    </section>
+
+    <section id="services" class="section alt">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="grid">
+          <div class="card"><h3>International Transport</h3><p>Cross-border road freight across EU. Full truckload and groupage.</p></div>
+          <div class="card"><h3>Logistics Management</h3><p>End-to-end logistics and supply chain optimization.</p></div>
+          <div class="card"><h3>Warehousing</h3><p>Short and long-term storage with handling and inventory support.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fleet" class="section">
+      <div class="container">
+        <h2>Fleet</h2>
+        <p>Modern Euro VI trucks, GPS-tracked and maintained to the highest standards. We combine owned and partner units for flexible capacity.</p>
+        <div class="fleet-grid">
+          <div class="fleet-card">Rigid & Tractor Units</div>
+          <div class="fleet-card">Reefer & ADR</div>
+          <div class="fleet-card">Trailers & Intermodal</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="network" class="section fullwidth-map">
+      <div class="container narrow">
+        <h2>Network — Europe</h2>
+        <p>Interactive map with our main hubs and corridors. Click a dot to see hub details.</p>
+      </div>
+      <div id="mapid"></div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="contact-wrap">
+          <form id="contactForm" class="contact-form">
+            <input name="name" placeholder="Your name" required>
+            <input name="email" type="email" placeholder="Email" required>
+            <textarea name="message" rows="5" placeholder="Message" required></textarea>
+            <button class="btn" type="submit">Send Message</button>
+          </form>
+          <div class="contact-info">
+            <p><strong>Danubria</strong></p>
+            <p>Barcelona, Spain</p>
+            <p>info@danubria.com</p>
+            <p>+34 600 000 000</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Danubria. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
