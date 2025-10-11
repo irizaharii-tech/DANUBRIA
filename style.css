@@ -1,61 +1,344 @@
+/* Culori Cheie */
+:root {
+    --primary-blue: #004AAD; /* Albastru profesional Danubria */
+    --secondary-blue: #007BFF;
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --bg-light-gray: #f9f9f9;
+}
+
+/* Reset și Font-uri */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-body { color: #0a1f44; background: #fff; line-height: 1.6; }
-.navbar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.5rem 8%; position: fixed; width: 100%; top: 0;
-  background: rgba(255,255,255,0.9); box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  z-index: 1000;
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
 }
-.logo { height: 50px; }
-.nav-links { list-style: none; display: flex; gap: 2rem; }
-.nav-links a {
-  text-decoration: none; color: #0a1f44; font-weight: 500; transition: 0.3s;
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
-.nav-links a:hover { color: #007bff; }
-#hero {
-  background: linear-gradient(to bottom right, #007bff, #004aad); color: white;
-  height: 100vh; display: flex; flex-direction: column; justify-content: center;
-  align-items: center; text-align: center; padding: 0 1rem;
+
+/* Butoane Generice */
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    cursor: pointer;
 }
-.hero-content h1 { font-size: 3rem; margin-bottom: 1rem; }
-.hero-content p { max-width: 600px; margin: 0 auto 1.5rem; font-size: 1.1rem; opacity: 0.9; }
+
 .btn-primary {
-  background: white; color: #004aad; padding: 0.8rem 2rem; border-radius: 30px;
-  font-weight: bold; text-decoration: none; transition: all 0.3s;
+    background-color: var(--primary-blue);
+    color: var(--text-light);
 }
-.btn-primary:hover { background: #004aad; color: white; }
-.section { padding: 6rem 10%; text-align: center; }
-.section.alt { background: #f7f9fc; }
-h2 { font-size: 2rem; margin-bottom: 1.5rem; }
-p { font-size: 1.05rem; }
-.cards {
-  display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; margin-top: 2rem;
+
+.btn-primary:hover {
+    background-color: var(--secondary-blue);
 }
-.card {
-  background: white; border-radius: 12px; padding: 2rem; width: 300px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s;
+
+.btn-large {
+    padding: 15px 35px;
+    font-size: 1.1em;
 }
-.card:hover { transform: translateY(-5px); }
-.fleet-gallery {
-  display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;
+
+/* Secțiunile */
+.section-padding {
+    padding: 80px 0;
 }
-.fleet-item { width: 280px; height: 180px; background: #cce0ff; border-radius: 10px; }
-.contact-form {
-  display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: 2rem auto;
+
+.section-description {
+    text-align: center;
+    max-width: 700px;
+    margin: 15px auto 50px;
+    font-size: 1.1em;
+    color: #555;
 }
-.contact-form input, .contact-form textarea {
-  padding: 1rem; border: 1px solid #ccd6e0; border-radius: 8px; font-size: 1rem;
+
+h1, h2, h3 {
+    margin-bottom: 20px;
+    font-weight: 700;
 }
-footer { background: #0a1f44; color: white; text-align: center; padding: 1.5rem 0; font-size: 0.9rem; }
-.fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-@media (max-width: 768px) {
-  .cards { flex-direction: column; align-items: center; }
-  .nav-links { display: none; }
+
+h2 {
+    font-size: 2.5em;
+    text-align: center;
+}
+
+h2 strong {
+    color: var(--primary-blue);
+}
+
+/* Header */
+.header {
+    background-color: var(--text-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: var(--text-dark);
+    margin: 0 15px;
+    font-weight: 500;
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-menu ul li a:hover {
+    color: var(--primary-blue);
+    border-bottom: 2px solid var(--primary-blue);
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 70vh; /* Înălțime mai mare pentru impact vizual */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Suprapunere întunecată */
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    color: var(--text-light);
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* Services Section */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.service-card {
+    background-color: var(--bg-light-gray);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+    color: var(--primary-blue);
+    font-size: 1.5em;
+    border-bottom: 2px solid var(--secondary-blue);
+    padding-bottom: 10px;
+}
+
+.service-link {
+    display: block;
+    margin-top: 15px;
+    color: var(--secondary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Fleet Section */
+.fleet-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 80px;
+}
+
+.fleet-item:last-child {
+    margin-bottom: 0;
+}
+
+.fleet-item.reverse {
+    flex-direction: row-reverse;
+}
+
+.fleet-details {
+    flex: 1;
+}
+
+.fleet-details h3 {
+    font-size: 2em;
+    color: var(--primary-blue);
+}
+
+.fleet-details ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.fleet-details ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.bullet {
+    color: var(--secondary-blue);
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.fleet-image {
+    flex: 1;
+    max-width: 50%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Why Us Section */
+.bg-light-blue {
+    background-color: var(--primary-blue);
+}
+
+.why-us-section h2 {
+    color: var(--text-light);
+}
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.why-us-card {
+    background-color: var(--text-light);
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.why-us-card h3 {
+    color: var(--primary-blue);
+    font-size: 1.4em;
+}
+
+.icon-circle {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+    background-color: #222;
+    color: var(--text-light);
+    padding: 50px 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    color: var(--secondary-blue);
+    margin-bottom: 20px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.footer-col p, .footer-col ul li {
+    font-size: 0.9em;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-col ul li a:hover {
+    color: var(--secondary-blue);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+    font-size: 0.8em;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .fleet-item, .fleet-item.reverse {
+        flex-direction: column;
+    }
+    .fleet-image {
+        max-width: 100%;
+        margin-top: 30px;
+    }
+    .nav-menu {
+        display: none; /* Simplificăm meniul pe mobil */
+    }
+    .header .container {
+        justify-content: space-around;
+    }
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
 }
