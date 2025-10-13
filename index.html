@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Danubria — The flow of Europe, the power of logistics</title>
+<meta name="description" content="Danubria — The flow of Europe, the power of logistics">
+<style>
+:root{--bg:#041226;--accent:#0A84FF;--muted:#9fb6d9}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg),#07182a);color:#fff}
+.container{max-width:1400px;margin:0 auto;padding:28px}
+header{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:56px}
+.slogan{font-size:12px;color:var(--muted)}
+nav{display:flex;gap:10px;align-items:center}
+nav button,nav select{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:#fff}
+.hero{display:grid;grid-template-columns:1fr 640px;gap:28px;align-items:center;margin:28px 0}
+.hero-left h1{font-size:42px;margin:0 0 10px}
+.lead{color:var(--muted);margin:0 0 18px}
+.hero-canvas{height:580px;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 18px 80px rgba(3,8,20,0.7);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+.hero-overlay{position:absolute;left:22px;bottom:22px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:12px 14px;border-radius:12px;backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center;z-index:5}
+.network{padding:60px 0}
+.map-wrap{position:relative;width:100%;height:520px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+.map-canvas{width:100%;height:100%;display:block}
+.dot-tooltip{position:absolute;pointer-events:none;background:linear-gradient(90deg,rgba(10,132,255,0.15),rgba(0,200,255,0.08));padding:8px 10px;border-radius:8px;color:#fff;font-size:13px;border:1px solid rgba(255,255,255,0.04)}
+@media(max-width:1000px){.hero{grid-template-columns:1fr}.hero-canvas{height:420px}.map-wrap{height:360px}}
+@media(max-width:600px){.container{padding:16px}.brand img{height:44px}.map-wrap{height:300px}}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand"><img src="logo.png" alt="Danubria logo" id="logo"><div><div style="font-weight:700">Danubria</div><div class="slogan">The flow of Europe, the power of logistics</div></div></div>
+      <nav><button id="btnNetwork">Our Network</button><button id="btnQuote">Request a Quote</button><select id="langSelect"><option value="en">EN</option><option value="es">ES</option><option value="it">IT</option></select></nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <h1 id="headline">Danubria — The flow of Europe, the power of logistics</h1>
+          <p class="lead" id="sub">Full-width network, real-time planning, and reliable deliveries across Europe.</p>
+          <div class="cta"><button class="btn-primary" id="ctaQuote" style="background:linear-gradient(90deg,#0A84FF,#00c1ff);border:none;color:#001;padding:12px 18px;border-radius:12px">Get a Quote</button><button class="btn-ghost" id="ctaNetwork" style="margin-left:10px">Our Network</button></div>
+          <div style="margin-top:16px;color:var(--muted);font-size:13px">Email: <a href="mailto:info@danubria.com" style="color:#fff">info@danubria.com</a></div>
+        </div>
+        <div class="hero-canvas" id="heroCanvas">
+          <canvas id="scene"></canvas>
+          <div class="hero-overlay" id="heroOverlay" style="display:none"><div style="width:48px;height:36px;background:linear-gradient(90deg,#fff,#0A84FF);border-radius:8px"></div><div><div style="font-weight:700">Live Network</div><div style="color:var(--muted)">Interactive Europe • Real partners</div></div></div>
+        </div>
+      </section>
+
+      <section id="network" class="network">
+        <h2>Our Network</h2>
+        <p style="color:var(--muted)">Cities with active operations & partners — click a dot on the map to see details.</p>
+        <div class="map-wrap">
+          <canvas id="mapCanvas" class="map-canvas"></canvas>
+          <div id="mapTooltip" class="dot-tooltip" style="display:none"></div>
+        </div>
+      </section>
+
+      <section id="quote" class="quote">
+        <h3>Request a Quote</h3>
+        <form id="quoteForm">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div><label>Origin (city / postcode)</label><input name="origin" required></div>
+            <div><label>Destination (city / postcode)</label><input name="destination" required></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+            <div><label>Transport type</label><select name="type"><option>Road</option><option>FTL</option><option>LTL</option></select></div>
+            <div><label>Temperature controlled?</label><select name="temperature"><option>No</option><option>Yes</option></select></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+            <div><label>Body</label><select name="body"><option>Curtain</option><option>Box</option><option>Reefer</option></select></div>
+            <div><label>Weight (tonnes)</label><input name="weight" type="number" step="0.01"></div>
+          </div>
+          <label style="margin-top:8px">Dimensions (L x W x H in meters)</label>
+          <input name="dimensions" placeholder="e.g. 6 x 2.4 x 2.6">
+          <label>Notes</label>
+          <textarea name="notes" rows="4"></textarea>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+            <button class="btn-primary" type="submit">Submit</button>
+            <button class="btn-ghost" type="button" id="resetBtn">Reset</button>
+          </div>
+        </form>
+      </section>
+
+    </main>
+
+    <footer style="padding:24px 0;color:var(--muted);display:flex;justify-content:space-between">
+      <div>© Danubria — the flow of europe.</div>
+      <div>Built for demo • Email: info@danubria.com</div>
+    </footer>
+  </div>
+
+<script>
+const CITIES = [{"id": "irun", "name": "Irun, ES", "lat": 43.3389, "lon": -1.79, "info": "Border hub (Spain)"}, {"id": "madrid", "name": "Madrid, ES", "lat": 40.4168, "lon": -3.7038, "info": "Central distribution"}, {"id": "valencia", "name": "Valencia, ES", "lat": 39.4699, "lon": -0.3763, "info": "Mediterranean port operations"}, {"id": "barcelona", "name": "Barcelona, ES", "lat": 41.3851, "lon": 2.1734, "info": "Iberian operations & logistics"}, {"id": "zaragoza", "name": "Zaragoza, ES", "lat": 41.6488, "lon": -0.8891, "info": "Inland transport hub"}, {"id": "montpellier", "name": "Montpellier, FR", "lat": 43.6119, "lon": 3.8772, "info": "Southern France partner"}, {"id": "marseille", "name": "Marseille, FR", "lat": 43.2965, "lon": 5.3698, "info": "Port & Mediterranean gateway"}, {"id": "nice", "name": "Nice, FR", "lat": 43.7102, "lon": 7.262, "info": "Coastal logistics"}, {"id": "milano", "name": "Milano, IT", "lat": 45.4642, "lon": 9.19, "info": "Northern Italy hub"}, {"id": "bologna", "name": "Bologna, IT", "lat": 44.4949, "lon": 11.3426, "info": "Inland distribution Italy"}, {"id": "venezia", "name": "Venezia, IT", "lat": 45.4408, "lon": 12.3155, "info": "Venice port & logistics"}];
+
+// Map image (public domain) — will be loaded into canvas
+const mapImgSrc = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Blank_map_of_Europe_with_borders_%28blue%29.png/1280px-Blank_map_of_Europe_with_borders_%28blue%29.png';
+
+(function(){
+  const canvas = document.getElementById('mapCanvas');
+  const ctx = canvas.getContext('2d');
+  const tooltip = document.getElementById('mapTooltip');
+  let img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = mapImgSrc;
+  const dots = [];
+  function latLonToXY(lat, lon, w, h){
+    const x = (lon + 25) / 65 * w;
+    const y = (72 - lat) / 38 * h;
+    return {x, y};
+  }
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    draw();
+  }
+  window.addEventListener('resize', resize);
+  img.onload = ()=>{
+    resize();
+    draw();
+  };
+  function draw(){
+    if(!img.complete) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const aspect = img.width / img.height;
+    let drawW = canvas.width;
+    let drawH = canvas.width / aspect;
+    if(drawH < canvas.height){ drawH = canvas.height; drawW = canvas.height * aspect; }
+    const dx = (canvas.width - drawW)/2;
+    const dy = (canvas.height - drawH)/2;
+    ctx.globalAlpha = 0.98;
+    ctx.drawImage(img, dx, dy, drawW, drawH);
+    dots.length = 0;
+    CITIES.forEach(c=>{
+      const p = latLonToXY(c.lat, c.lon, drawW, drawH);
+      const x = dx + p.x;
+      const y = dy + p.y;
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, 30);
+      gradient.addColorStop(0, 'rgba(255,255,255,1)');
+      gradient.addColorStop(0.2, 'rgba(10,132,255,0.9)');
+      gradient.addColorStop(1, 'rgba(10,132,255,0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(x, y, 18, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI*2);
+      ctx.fill();
+      dots.push({x,y,r:18,data:c});
+    });
+  }
+  function getMousePos(evt){const rect = canvas.getBoundingClientRect();return {x: evt.clientX - rect.left, y: evt.clientY - rect.top};}
+  canvas.addEventListener('mousemove', e=>{
+    const pos = getMousePos(e);
+    const hit = dots.find(d => Math.hypot(d.x-pos.x, d.y-pos.y) < d.r);
+    if(hit){ tooltip.style.display = 'block'; tooltip.textContent = hit.data.name; tooltip.style.left = (e.clientX + 12) + 'px'; tooltip.style.top = (e.clientY + 12) + 'px'; }
+    else { tooltip.style.display = 'none'; }
+  });
+  canvas.addEventListener('click', e=>{
+    const pos = getMousePos(e);
+    const hit = dots.find(d => Math.hypot(d.x-pos.x, d.y-pos.y) < d.r);
+    if(hit){ alert(hit.data.name + "\n" + hit.data.info); }
+  });
+})(); // end map module
+
+// Hero truck simple canvas animation (guaranteed to run without external libs)
+(function(){
+  const canvas = document.getElementById('scene'); const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; }
+  window.addEventListener('resize', resize); resize();
+  let t = 0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const g = ctx.createLinearGradient(0,0,0,canvas.height); g.addColorStop(0,'rgba(10,20,40,1)'); g.addColorStop(1,'rgba(2,6,18,1)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,canvas.width,canvas.height);
+    const cx = canvas.width/2 + Math.sin(t*0.002)* (canvas.width*0.25); const cy = canvas.height*0.62;
+    ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(cx-120, cy+36, 240, 18);
+    ctx.fillStyle = '#0A84FF'; ctx.fillRect(cx-80, cy-30, 160, 60);
+    ctx.fillStyle = '#0066cc'; ctx.fillRect(cx+50, cy-18, 36, 36);
+    ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(cx-40, cy+30, 14, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx+40, cy+30, 14, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = 'rgba(255,200,120,0.9)'; ctx.fillRect(cx+84, cy-2, 6, 6);
+    t++; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// form mailto fallback and nav
+document.getElementById('quoteForm').addEventListener('submit', function(e){ e.preventDefault(); const fd = new FormData(this); const obj = {}; for(const [k,v] of fd.entries()) obj[k]=v; const subject = encodeURIComponent('Quote request — Danubria'); const body = encodeURIComponent(JSON.stringify(obj, null, 2)); window.location.href = `mailto:info@danubria.com?subject=${subject}&body=${body}`; });
+document.getElementById('btnNetwork').addEventListener('click', ()=>document.getElementById('network').scrollIntoView({behavior:'smooth'}));
+document.getElementById('btnQuote').addEventListener('click', ()=>document.getElementById('quote').scrollIntoView({behavior:'smooth'}));
+</script>
+</body>
+</html>
