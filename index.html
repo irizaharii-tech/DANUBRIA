@@ -1,42 +1,276 @@
 <!doctype html>
-<!--
-  DANUBRIA - FINAL index.html
--->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Danubria — The flow of Europe, the power of logistics</title>
-  <meta name="description" content="Danubria — European logistics network. Seamless freight across Europe with real-time planning and an interactive network map.">
-  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23005BBB'/><path d='M20 60 L45 30 L80 65' stroke='%23fff' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
-  <style>body{font-family:Inter,system-ui,Arial;margin:0;background:#041226;color:#fff} .wrap{max-width:1400px;margin:0 auto;padding:28px} header{display:flex;justify-content:space-between;align-items:center} .brand img{height:48px} .hero{display:grid;grid-template-columns:1fr 560px;gap:28px;align-items:center}.hero-canvas{height:520px;border-radius:16px;overflow:hidden;box-shadow:0 12px 60px rgba(3,8,20,0.6)}canvas{width:100%;height:100%;display:block}.card{background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}</style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Danubria — The flow of Europe, the power of logistics</title>
+<meta name="description" content="Danubria — European logistics network. Cinematic 3D hero, interactive map and fast quotes."/>
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23005BBB'/><path d='M20 60 L45 30 L80 65' stroke='%23fff' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>'>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<style>
+:root{--bg:#041226;--accent:#0A84FF;--muted:#9fb6d9}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg),#07182a);color:#fff}
+.container{max-width:1400px;margin:0 auto;padding:28px}
+header{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:56px}
+.slogan{font-size:12px;color:var(--muted)}
+nav{display:flex;gap:10px;align-items:center}
+nav button,nav select{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:#fff}
+.hero{display:grid;grid-template-columns:1fr 640px;gap:28px;align-items:center;margin:28px 0}
+.hero-left h1{font-size:48px;margin:0 0 10px}
+.lead{color:var(--muted);margin:0 0 18px}
+.hero-canvas{height:580px;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 18px 80px rgba(3,8,20,0.7);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+.hero-overlay{position:absolute;left:22px;bottom:22px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:12px 14px;border-radius:12px;backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.04);display:flex;gap:12px;align-items:center}
+.network{padding:60px 0}
+.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.quote{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+@media(max-width:1000px){.hero{grid-template-columns:1fr}.hero-canvas{height:420px}.network-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.network-grid{grid-template-columns:1fr}.container{padding:16px}.brand img{height:44px}}
+.reveal{opacity:0;transform:translateY(18px);transition:all 700ms cubic-bezier(.2,.9,.2,1)}
+.reveal.show{opacity:1;transform:none}
+.dot-tooltip{position:absolute;background:linear-gradient(90deg,rgba(10,132,255,0.15),rgba(0,200,255,0.08));padding:8px 10px;border-radius:8px;color:#fff;font-size:13px;border:1px solid rgba(255,255,255,0.04);pointer-events:none}
+</style>
 </head>
 <body>
-<div class="wrap">
-<header><div class="brand"><img src="logo.png" alt="logo"><div style="margin-left:10px"><div style="font-weight:700">Danubria</div><div style="font-size:12px;color:#9fb6d9">the flow of europe — the power of logistics</div></div></div><nav><button id="btnWork">Work With Us</button><button id="btnNetwork">Our Network</button><select id="langSelect"><option value="en">EN</option><option value="es">ES</option><option value="it">IT</option></select></nav></header>
-<main>
-<section class="hero">
-<div>
-<h1 id="headline">European logistics that move at scale</h1>
-<p id="sub" style="color:#9fb6d9">Full-width network, real-time planning, and reliable deliveries across Europe.</p>
-<div><button id="ctaQuote" style="background:linear-gradient(90deg,#0A84FF,#00c1ff);border:none;color:#001;padding:12px 18px;border-radius:12px">Get a Quote</button><button id="ctaNetwork" style="margin-left:10px">Our Network</button></div>
-</div>
-<div class="hero-canvas"><canvas id="scene"></canvas></div>
-</section>
-<section id="network"><h2>Our Network</h2><div id="cities" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"></div></section>
-<section><h3>Request a Quote</h3><div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:12px"><form id="quoteForm"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label>Origin</label><input name="origin"></div><div><label>Destination</label><input name="destination"></div></div><div style="display:flex;justify-content:flex-end"><button type="submit">Submit</button></div></form></div></section>
-</main>
-<footer style="padding:28px 0;color:#9fb6d9">© Danubria — the flow of europe. Email: info@danubria.com</footer>
-</div>
+  <div class="container">
+    <header>
+      <div class="brand"><img src="logo.png" alt="Danubria logo" id="logo"><div><div style="font-weight:700">Danubria</div><div class="slogan">The flow of Europe, the power of logistics</div></div></div>
+      <nav>
+        <button id="btnWork">Work With Us</button>
+        <button id="btnNetwork">Our Network</button>
+        <select id="langSelect" aria-label="Language"><option value="en">EN</option><option value="es">ES</option><option value="it">IT</option></select>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <h1 id="headline">Danubria — The flow of Europe, the power of logistics</h1>
+          <p class="lead" id="sub">Full-width network, real-time planning, and reliable deliveries across Europe.</p>
+          <div class="cta"><button class="btn-primary" id="ctaQuote" style="background:linear-gradient(90deg,#0A84FF,#00c1ff);border:none;color:#001;padding:12px 18px;border-radius:12px">Get a Quote</button><button class="btn-ghost" id="ctaNetwork" style="margin-left:10px">Our Network</button></div>
+          <div style="margin-top:16px;color:var(--muted);font-size:13px">Email: <a href="mailto:info@danubria.com" style="color:#fff">info@danubria.com</a></div>
+        </div>
+
+        <div class="hero-canvas" id="heroCanvas">
+          <canvas id="scene"></canvas>
+          <div class="hero-overlay" id="heroOverlay" style="display:none">
+            <div style="width:48px;height:36px;background:linear-gradient(90deg,#fff,#0A84FF);border-radius:8px"></div>
+            <div><div style="font-weight:700">Live Network</div><div style="color:var(--muted)">Interactive Europe • Real partners</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="network reveal" id="network">
+        <h2>Our Network</h2>
+        <p style="color:var(--muted)">Cities with active operations & partners — click a dot on the map to see details.</p>
+        <div class="network-grid" id="cities"></div>
+      </section>
+
+      <section class="reveal">
+        <h3>Request a Quote</h3>
+        <div class="quote">
+          <form id="quoteForm">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div><label>Origin (city / postcode)</label><input name="origin" required></div>
+              <div><label>Destination (city / postcode)</label><input name="destination" required></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+              <div><label>Transport type</label><select name="type"><option>Road</option><option>FTL</option><option>LTL</option></select></div>
+              <div><label>Temperature controlled?</label><select name="temperature"><option>No</option><option>Yes</option></select></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+              <div><label>Body</label><select name="body"><option>Curtain</option><option>Box</option><option>Reefer</option></select></div>
+              <div><label>Weight (tonnes)</label><input name="weight" type="number" step="0.01"></div>
+            </div>
+            <label style="margin-top:8px">Dimensions (L x W x H in meters)</label>
+            <input name="dimensions" placeholder="e.g. 6 x 2.4 x 2.6">
+            <label>Notes</label>
+            <textarea name="notes" rows="4"></textarea>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+              <button class="btn-primary" type="submit" style="background:linear-gradient(90deg,#0A84FF,#00c1ff);border:none;color:#001;padding:10px 14px;border-radius:10px">Submit</button>
+              <button class="btn-ghost" type="button" id="resetBtn" style="margin-left:6px">Reset</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer style="padding:24px 0;color:var(--muted);display:flex;justify-content:space-between">
+      <div>© Danubria — the flow of europe.</div>
+      <div>Built for demo • Email: info@danubria.com</div>
+    </footer>
+  </div>
+
+  <div id="dotTooltip" class="dot-tooltip" style="display:none"></div>
+
 <script>
-const LOCALES={en:{headline:'European logistics that move at scale',sub:'Full-width network, real-time planning, and reliable deliveries across Europe.',quote:'Get a Quote',network:'Our Network'},es:{headline:'Logística europea que se mueve a gran escala',sub:'Red completa, planificación en tiempo real y entregas fiables por toda Europa.',quote:'Solicitar cotización',network:'Nuestra Red'},it:{headline:'Logistica europea che opera su larga scala',sub:'Rete completa, pianificazione in tempo reale e consegne affidabili in tutta Europa.',quote:'Richiedi un preventivo',network:'La Nostra Rete'}};const langSelect=document.getElementById('langSelect');function setLang(l){const t=LOCALES[l]||LOCALES.en;document.getElementById('headline').textContent=t.headline;document.getElementById('sub').textContent=t.sub;document.getElementById('ctaQuote').textContent=t.quote;document.getElementById('ctaNetwork').textContent=t.network}langSelect.addEventListener('change',()=>setLang(langSelect.value));setLang('en');
-const cities=[{name:'Vienna, AT',lat:48.2082,lon:16.3738},{name:'Budapest, HU',lat:47.4979,lon:19.0402},{name:'Bucharest, RO',lat:44.4268,lon:26.1025},{name:'Genoa, IT',lat:44.4056,lon:8.9463},{name:'Barcelona, ES',lat:41.3851,lon:2.1734},{name:'Rotterdam, NL',lat:51.9244,lon:4.4777}];const citiesEl=document.getElementById('cities');cities.forEach(c=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${c.name}</strong><div style="color:#9fb6d9;font-size:13px">Active partner</div></div><div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(180deg,#fff,#0A84FF);box-shadow:0 0 14px rgba(10,132,255,0.6)"></div></div>`;citiesEl.appendChild(d)});
-document.getElementById('quoteForm').addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.target);const obj={};for(const [k,v] of fd.entries()) obj[k]=v;const subject=encodeURIComponent('Quote request from Danubria');const body=encodeURIComponent(JSON.stringify(obj,null,2));window.location.href=`mailto:info@danubria.com?subject=${subject}&body=${body}`});
-// three.js scene (simplified)
-(function(){const canvas=document.getElementById('scene');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});renderer.setPixelRatio(window.devicePixelRatio);const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(38,1,0.1,2000);camera.position.set(0,60,180);const hemi=new THREE.HemisphereLight(0xffffff,0x080820,0.9);scene.add(hemi);const dir=new THREE.DirectionalLight(0xffffff,0.8);dir.position.set(100,200,100);scene.add(dir);const loader=new THREE.TextureLoader();const mapUrl='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Blank_map_of_Europe_with_borders_%28blue%29.png/1280px-Blank_map_of_Europe_with_borders_%28blue%29.png';loader.load(mapUrl,tex=>{const geom=new THREE.PlaneGeometry(260,150,1,1);const mat=new THREE.MeshStandardMaterial({map:tex,transparent:true,opacity:0.96});const plane=new THREE.Mesh(geom,mat);plane.rotation.x=-Math.PI/2;plane.position.y=-10;scene.add(plane)});const floorGeo=new THREE.PlaneGeometry(800,800);const floorMat=new THREE.MeshStandardMaterial({color:0x031425,metalness:0.2,roughness:0.6});const floor=new THREE.Mesh(floorGeo,floorMat);floor.rotation.x=-Math.PI/2;floor.position.y=-12;scene.add(floor);const spriteMat=new THREE.SpriteMaterial({map:new THREE.CanvasTexture((function(){const c=document.createElement('canvas');c.width=64;c.height=64;const ctx=c.getContext('2d');const g=ctx.createRadialGradient(32,32,4,32,32,32);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(0.25,'rgba(10,132,255,0.95)');g.addColorStop(1,'rgba(10,132,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,64,64);return c})()),transparent:true});function latLonToXY(lat,lon){const x=(lon+25)/65*260-130;const y=(lat-34)/(72-34)*150-75;return{x:x,y:y}};const spriteGroup=new THREE.Group();cities.forEach(c=>{const p=latLonToXY(c.lat,c.lon);const sp=new THREE.Sprite(spriteMat.clone());sp.scale.set(12,12,1);sp.position.set(p.x,0,p.y);spriteGroup.add(sp)});scene.add(spriteGroup);const gltfLoader=new THREE.GLTFLoader();const truckUrl='https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/CesiumMilkTruck/glTF/CesiumMilkTruck.gltf';gltfLoader.load(truckUrl,gltf=>{const model=gltf.scene;model.scale.set(12,12,12);model.position.set(-50,-10,18);scene.add(model);scene.userData.model=model},undefined,err=>console.warn('truck load failed',err));const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.enablePan=false;controls.enableZoom=false;controls.minPolarAngle=0.5;controls.maxPolarAngle=1.3;function resize(){const w=canvas.clientWidth;const h=canvas.clientHeight;renderer.setSize(w,h,true);camera.aspect=w/h;camera.updateProjectionMatrix()}window.addEventListener('resize',resize);resize();let last=performance.now();function loop(now){const dt=now-last;last=now;if(scene.userData.model){const m=scene.userData.model;m.position.x=-40+Math.sin(now*0.0006)*80;m.rotation.y=Math.sin(now*0.0004)*0.22}camera.position.x=Math.sin(now*0.0002)*8;controls.update();renderer.render(scene,camera);requestAnimationFrame(loop)}requestAnimationFrame(loop);})();
+// Localization (EN/ES/IT)
+const LOCALES = {
+  en:{headline:'Danubria — The flow of Europe, the power of logistics', sub:'Full-width network, real-time planning, and reliable deliveries across Europe.', quote:'Get a Quote', network:'Our Network'},
+  es:{headline:'Danubria — The flow of Europe, the power of logistics', sub:'Red completa, planificación en tiempo real y entregas fiables por toda Europa.', quote:'Solicitar cotización', network:'Nuestra Red'},
+  it:{headline:'Danubria — The flow of Europe, the power of logistics', sub:'Rete completa, pianificazione in tempo reale e consegne affidabili in tutta Europa.', quote:'Richiedi un preventivo', network:'La Nostra Rete'}
+};
+
+// Cities data placeholder
+const CITIES = [{"id": "irun", "name": "Irun, ES", "lat": 43.3389, "lon": -1.79, "info": "Border hub (Spain)"}, {"id": "madrid", "name": "Madrid, ES", "lat": 40.4168, "lon": -3.7038, "info": "Central distribution"}, {"id": "valencia", "name": "Valencia, ES", "lat": 39.4699, "lon": -0.3763, "info": "Mediterranean port operations"}, {"id": "barcelona", "name": "Barcelona, ES", "lat": 41.3851, "lon": 2.1734, "info": "Iberian operations & logistics"}, {"id": "zaragoza", "name": "Zaragoza, ES", "lat": 41.6488, "lon": -0.8891, "info": "Inland transport hub"}, {"id": "montpellier", "name": "Montpellier, FR", "lat": 43.6119, "lon": 3.8772, "info": "Southern France partner"}, {"id": "marseille", "name": "Marseille, FR", "lat": 43.2965, "lon": 5.3698, "info": "Port & Mediterranean gateway"}, {"id": "nice", "name": "Nice, FR", "lat": 43.7102, "lon": 7.262, "info": "Coastal logistics"}, {"id": "milano", "name": "Milano, IT", "lat": 45.4642, "lon": 9.19, "info": "Northern Italy hub"}, {"id": "bologna", "name": "Bologna, IT", "lat": 44.4949, "lon": 11.3426, "info": "Inland distribution Italy"}, {"id": "venezia", "name": "Venezia, IT", "lat": 45.4408, "lon": 12.3155, "info": "Venice port & logistics"}];
+
+// populate network cards
+const citiesEl = document.getElementById('cities');
+CITIES.forEach(c=>{
+  const card = document.createElement('div'); card.className='card';
+  card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><h4 style="margin:0">${'$'}{c.name}</h4><div style="color:var(--muted);font-size:13px">${'$'}{c.info}</div></div><div style="width:12px;height:12px;border-radius:50%;box-shadow:0 0 14px rgba(10,132,255,0.6);background:linear-gradient(180deg,#fff,#0A84FF)"></div></div>`;
+  citiesEl.appendChild(card);
+});
+
+// reveal on scroll
+const io = new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show') }),{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// quote form -> mailto fallback
+document.getElementById('quoteForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const obj = {}; for(const [k,v] of fd.entries()) obj[k]=v;
+  const subject = encodeURIComponent('Quote request — Danubria');
+  const body = encodeURIComponent(JSON.stringify(obj,null,2));
+  window.location.href = `mailto:info@danubria.com?subject=${subject}&body=${body}`;
+});
+document.getElementById('resetBtn').addEventListener('click',()=>document.getElementById('quoteForm').reset());
+
+// Three.js Scene: Europe map + glowing dots + animated truck
+(function(){
+  const canvas = document.getElementById('scene');
+  const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(window.devicePixelRatio);
+  const scene = new THREE.Scene();
+
+  // Camera
+  const camera = new THREE.PerspectiveCamera(36,1,0.1,2000);
+  camera.position.set(0,58,170);
+
+  // Lights
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x081422, 0.95); scene.add(hemi);
+  const dir = new THREE.DirectionalLight(0xffffff, 0.9); dir.position.set(120,200,120); scene.add(dir);
+
+  // Environment
+  const envGeo = new THREE.SphereGeometry(600, 32, 16);
+  const envMat = new THREE.MeshBasicMaterial({color:0x021427, side: THREE.BackSide, transparent:true, opacity:0.06});
+  const env = new THREE.Mesh(envGeo, envMat); scene.add(env);
+
+  // Map texture
+  const loaderTex = new THREE.TextureLoader();
+  const mapUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Blank_map_of_Europe_with_borders_%28blue%29.png/1280px-Blank_map_of_Europe_with_borders_%28blue%29.png';
+  loaderTex.load(mapUrl, tex => {
+    const geom = new THREE.PlaneGeometry(320, 182, 1, 1);
+    const mat = new THREE.MeshStandardMaterial({map:tex, transparent:true, opacity:0.95});
+    const plane = new THREE.Mesh(geom, mat); plane.rotation.x = -Math.PI/2; plane.position.y = -10; scene.add(plane);
+  });
+
+  // Floor
+  const floorGeo = new THREE.PlaneGeometry(1000,1000); const floorMat = new THREE.MeshStandardMaterial({color:0x031425, metalness:0.15, roughness:0.6});
+  const floor = new THREE.Mesh(floorGeo, floorMat); floor.rotation.x=-Math.PI/2; floor.position.y=-12; scene.add(floor);
+
+  // Sprites for city glow
+  function createSpriteMaterial(){
+    const c = document.createElement('canvas'); c.width=128; c.height=128;
+    const ctx = c.getContext('2d'); const g = ctx.createRadialGradient(64,64,4,64,64,64);
+    g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(0.15,'rgba(10,132,255,0.95)'); g.addColorStop(1,'rgba(10,132,255,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,128,128); const tex = new THREE.CanvasTexture(c);
+    return new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false});
+  }
+  const spriteMat = createSpriteMaterial();
+
+  function latLonToXY(lat, lon){
+    const x = (lon + 25) / 65 * 320 - 160;
+    const z = (lat - 34) / (72 - 34) * 182 - 91;
+    return {x:x, z:z};
+  }
+
+  const spriteGroup = new THREE.Group();
+  const tooltip = document.getElementById('dotTooltip');
+
+  const citiesData = CITIES;
+
+  citiesData.forEach(c => {
+    const p = latLonToXY(c.lat, c.lon);
+    const sp = new THREE.Sprite(spriteMat.clone());
+    sp.scale.set(14,14,1); sp.position.set(p.x, 0.5, p.z);
+    sp.userData = {id:c.id, name:c.name, info:c.info};
+    spriteGroup.add(sp);
+  });
+  scene.add(spriteGroup);
+
+  // Raycaster for interaction
+  const raycaster = new THREE.Raycaster(); const pointer = new THREE.Vector2();
+
+  function onPointerMove(e){
+    const bounds = canvas.getBoundingClientRect();
+    pointer.x = ((e.clientX - bounds.left) / bounds.width) * 2 - 1;
+    pointer.y = - ((e.clientY - bounds.top) / bounds.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const intersects = raycaster.intersectObjects(spriteGroup.children);
+    if(intersects.length>0){
+      const it = intersects[0].object;
+      tooltip.style.display='block';
+      tooltip.textContent = it.userData.name;
+      tooltip.style.left = (e.clientX + 12) + 'px';
+      tooltip.style.top = (e.clientY + 12) + 'px';
+      document.getElementById('heroOverlay').style.display = 'flex';
+    } else {
+      tooltip.style.display='none';
+      document.getElementById('heroOverlay').style.display = 'none';
+  }
+  }
+  canvas.addEventListener('pointermove', onPointerMove);
+
+  canvas.addEventListener('click', e => {
+    const bounds = canvas.getBoundingClientRect();
+    pointer.x = ((e.clientX - bounds.left) / bounds.width) * 2 - 1;
+    pointer.y = - ((e.clientY - bounds.top) / bounds.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const intersects = raycaster.intersectObjects(spriteGroup.children);
+    if(intersects.length>0){
+      const it = intersects[0].object;
+      const data = it.userData;
+      alert(data.name + "\n" + data.info);
+    }
+  });
+
+  // Load truck GLTF (open-source sample)
+  const gltfLoader = new THREE.GLTFLoader();
+  const truckUrl = 'https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/CesiumMilkTruck/glTF/CesiumMilkTruck.gltf';
+  gltfLoader.load(truckUrl, gltf => {
+    const model = gltf.scene; model.scale.set(12,12,12); model.position.set(-90,-11,30); model.rotation.y = Math.PI*0.5; scene.add(model); scene.userData.truck = model;
+  }, undefined, err => console.warn('truck load failed', err));
+
+  // Controls
+  const controls = new THREE.OrbitControls(camera, renderer.domElement); controls.enablePan=false; controls.enableZoom=false; controls.minPolarAngle=0.55; controls.maxPolarAngle=1.3;
+
+  function resize(){ const w = canvas.clientWidth; const h = canvas.clientHeight; renderer.setSize(w,h,true); camera.aspect = w/h; camera.updateProjectionMatrix(); }
+  window.addEventListener('resize', resize);
+  resize();
+
+  let last = performance.now();
+  function animate(now){
+    const dt = now - last; last = now;
+    if(scene.userData.truck){ const t = now * 0.0006; scene.userData.truck.position.x = -90 + Math.sin(t) * 160; scene.userData.truck.rotation.y = Math.sin(t*0.4) * 0.25 + Math.PI*0.5; }
+    camera.position.x = Math.sin(now * 0.0002) * 8;
+    controls.update(); renderer.render(scene, camera); requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+})(); // end three.js
+
+// nav behavior
+document.getElementById('btnNetwork').addEventListener('click', ()=>document.getElementById('network').scrollIntoView({behavior:'smooth'}));
+document.getElementById('btnWork').addEventListener('click', ()=>document.querySelector('.quote').scrollIntoView({behavior:'smooth'}));
+document.getElementById('ctaNetwork').addEventListener('click', ()=>document.getElementById('network').scrollIntoView({behavior:'smooth'}));
+document.getElementById('ctaQuote').addEventListener('click', ()=>document.querySelector('.quote').scrollIntoView({behavior:'smooth'}));
 </script>
 </body>
 </html>
