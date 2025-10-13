@@ -145,7 +145,7 @@ window.addEventListener('load', ()=>{
   const glow = new THREE.Mesh(new THREE.SphereGeometry(3,16,12), new THREE.MeshBasicMaterial({color:0xffd7b0,transparent:true,opacity:0.2})); glow.position.set(84,2,0); scene.add(glow);
 
   // controls
-  const renderer = renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.shadowMap.enabled = true;
   const controls = new OrbitControls(camera, renderer.domElement); controls.enablePan=false; controls.enableZoom=false; controls.minPolarAngle=0.6; controls.maxPolarAngle=1.35;
