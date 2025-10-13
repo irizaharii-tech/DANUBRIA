@@ -1,16 +1,18 @@
-# Danubria Website
+# Danubria Website (Static Ready)
 
-Modern European logistics landing page inspired by terminal-industries.com, built for GitHub Pages.
+✅ Fully static build for GitHub Pages — no Jekyll processing errors.
 
-## Structure
-- `index.html` — Full site with cinematic 3D hero, Europe map, multilingual UI, quote form.
-- `logo.png` — Danubria logo (provided).
-- `.nojekyll` — Prevents GitHub Pages from ignoring files starting with underscore.
+## Contents
+- `index.html` — main site file
+- `logo.png` — your logo
+- `.nojekyll` — disables Jekyll build
+- `_config.yml` — disables GitHub Pages theme
 
-## Deployment (GitHub Pages)
-1. Upload all files to your repository root.
-2. In GitHub > Settings > Pages, select the **main branch** and root (`/`).
-3. Wait ~1 minute, your site will be live at: `https://<yourusername>.github.io/danubria/`
-4. Contact email: info@danubria.com
+## Upload Instructions
+1. Upload **all files** in this ZIP to your GitHub repository root.
+2. Go to **Settings → Pages → Source → Main branch (/root)**.
+3. Wait for deployment (~1 min).
+4. You should now see: `GitHub Pages: Skipping Jekyll` (no build errors).
+5. Your site will be live at `https://<username>.github.io/danubria/`.
 
-Enjoy — *The flow of Europe, the power of logistics.*
+Contact: info@danubria.com
