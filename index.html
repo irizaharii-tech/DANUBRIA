@@ -5,23 +5,28 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Danubria — The flow of Europe, the power of logistics</title>
 <meta name="description" content="Danubria — cinematic logistics across Europe">
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23005BBB'/><path d='M20 60 L45 30 L80 65' stroke='%23fff' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-<!-- Three.js from CDN -->
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23005BBB'/><path d='M20 60 L45 30 L80 65' stroke='%23fff' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>'>
+<!-- Three.js CDN (safe with .nojekyll) -->
 <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
 <style>
 :root{--accent:#0A84FF;--muted:#1e6f9f}
 html,body{height:100%;margin:0;font-family:Inter,Arial;background:linear-gradient(180deg,#eaf6ff 0%, #d7efff 35%, #cfe8ff 65%, #edf9ff 100%);color:#04243a;overflow-x:hidden}
-body::before{content:'';position:fixed;left:0;right:0;top:0;height:50vh;background:radial-gradient(800px 240px at 10% 20%, rgba(10,132,255,0.08), transparent), radial-gradient(700px 200px at 80% 40%, rgba(0,190,255,0.06), transparent);pointer-events:none;z-index:0;filter:blur(10px)}
-header{position:fixed;left:0;right:0;top:0;padding:14px 36px;display:flex;justify-content:space-between;align-items:center;z-index:40;background:rgba(255,255,255,0.6);backdrop-filter: blur(6px);box-shadow:0 6px 18px rgba(4,36,58,0.06)}
+/* animated subtle waves background using CSS */
+body::before{content:'';position:fixed;left:0;right:0;top:0;height:60vh;background:
+  radial-gradient(800px 240px at 10% 20%, rgba(10,132,255,0.08), transparent),
+  radial-gradient(700px 200px at 80% 40%, rgba(0,190,255,0.06), transparent);
+  pointer-events:none;z-index:0;filter:blur(10px);animation:floaty 12s linear infinite}
+@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+header{position:fixed;left:0;right:0;top:0;padding:14px 36px;display:flex;justify-content:space-between;align-items:center;z-index:40;background:rgba(255,255,255,0.7);backdrop-filter: blur(6px);box-shadow:0 6px 18px rgba(4,36,58,0.06)}
 .brand img{height:52px}
 .container{max-width:1400px;margin:0 auto;padding:110px 28px 60px;position:relative;z-index:20}
 .hero{display:grid;grid-template-columns:1fr 720px;gap:28px;align-items:center}
 .hero-left h1{font-size:42px;margin:0;color:#022b3a}
 .lead{color:var(--muted);margin-top:12px}
 .btn{display:inline-block;padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#00c1ff);color:#001;font-weight:700;border:none;cursor:pointer}
-.hero-canvas{height:620px;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 30px 100px rgba(2,36,58,0.08);background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(240,250,255,0.95));border:1px solid rgba(2,36,58,0.04)}
-.map-wrap{margin-top:40px;border-radius:12px;padding:18px;background:rgba(255,255,255,0.9);box-shadow:0 20px 60px rgba(4,36,58,0.05)}
+.hero-canvas{height:620px;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 30px 100px rgba(2,36,58,0.08);background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(240,250,255,0.95));border:1px solid rgba(2,36,58,0.04);}
+.map-wrap{margin-top:40px;border-radius:12px;padding:18px;background:rgba(255,255,255,0.92);box-shadow:0 20px 60px rgba(4,36,58,0.05);}
 .map-canvas{width:100%;height:520px;border-radius:8px;display:block;background:#f6fdff}
 .dot-tooltip{position:absolute;pointer-events:none;background:linear-gradient(90deg,rgba(10,132,255,0.12),rgba(0,200,255,0.06));padding:8px 10px;border-radius:8px;color:#04243a;font-size:13px;border:1px solid rgba(0,0,0,0.03)}
 @media(max-width:1000px){.hero{grid-template-columns:1fr}.hero-canvas{height:420px}.map-canvas{height:360px}}
@@ -73,84 +78,61 @@ header{position:fixed;left:0;right:0;top:0;padding:14px 36px;display:flex;justif
 </div>
 
 <script>
-const CITIES = [{"id":"irun","name":"Irun, ES","lat":43.3389,"lon":-1.79,"info":"Border hub (Spain)"},{"id":"madrid","name":"Madrid, ES","lat":40.4168,"lon":-3.7038,"info":"Central distribution"},{"id":"valencia","name":"Valencia, ES","lat":39.4699,"lon":-0.3763,"info":"Mediterranean port operations"},{"id":"barcelona","name":"Barcelona, ES","lat":41.3851,"lon":2.1734,"info":"Iberian operations & logistics"},{"id":"zaragoza","name":"Zaragoza, ES","lat":41.6488,"lon":-0.8891,"info":"Inland transport hub"},{"id":"montpellier","name":"Montpellier, FR","lat":43.6119,"lon":3.8772,"info":"Southern France partner"},{"id":"marseille","name":"Marseille, FR","lat":43.2965,"lon":5.3698,"info":"Port & Mediterranean gateway"},{"id":"nice","name":"Nice, FR","lat":43.7102,"lon":7.2620,"info":"Coastal logistics"},{"id":"milano","name":"Milano, IT","lat":45.4642,"lon":9.19,"info":"Northern Italy hub"},{"id":"bologna","name":"Bologna, IT","lat":44.4949,"lon":11.3426,"info":"Inland distribution Italy"},{"id":"venezia","name":"Venezia, IT","lat":45.4408,"lon":12.3155,"info":"Venice port & logistics"}];
+const CITIES = [{"id": "barcelona", "name": "Barcelona, ES", "lat": 41.3851, "lon": 2.1734, "info": "Iberian operations & logistics"}, {"id": "madrid", "name": "Madrid, ES", "lat": 40.4168, "lon": -3.7038, "info": "Central distribution"}, {"id": "irun", "name": "Irun, ES", "lat": 43.3389, "lon": -1.79, "info": "Border hub (Spain)"}, {"id": "valencia", "name": "Valencia, ES", "lat": 39.4699, "lon": -0.3763, "info": "Mediterranean port operations"}, {"id": "montpellier", "name": "Montpellier, FR", "lat": 43.6119, "lon": 3.8772, "info": "Southern France partner"}, {"id": "marseille", "name": "Marseille, FR", "lat": 43.2965, "lon": 5.3698, "info": "Port & Mediterranean gateway"}, {"id": "nice", "name": "Nice, FR", "lat": 43.7102, "lon": 7.262, "info": "Coastal logistics"}, {"id": "milano", "name": "Milano, IT", "lat": 45.4642, "lon": 9.19, "info": "Northern Italy hub"}, {"id": "novarra", "name": "Novara, IT", "lat": 45.4459, "lon": 8.6222, "info": "Logistics in Piedmont"}, {"id": "venetia", "name": "Venezia, IT", "lat": 45.4408, "lon": 12.3155, "info": "Venice port & logistics"}, {"id": "bologna", "name": "Bologna, IT", "lat": 44.4949, "lon": 11.3426, "info": "Inland distribution Italy"}];
 
 // Map canvas drawing with glow dots
-(function(){
+(function(){{
   const canvas = document.getElementById('mapCanvas');
   const ctx = canvas.getContext('2d');
   const img = new Image(); img.crossOrigin='anonymous';
   img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Blank_map_of_Europe_with_borders_%28blue%29.png/1280px-Blank_map_of_Europe_with_borders_%28blue%29.png';
   let dots = [];
-  function latLonToXY(lat, lon, w, h){ const x = (lon + 25) / 65 * w; const y = (72 - lat) / 38 * h; return {x,y}; }
-  function resize(){ const r = canvas.parentElement.getBoundingClientRect(); canvas.width = r.width; canvas.height = r.height; draw(); }
+  function latLonToXY(lat, lon, w, h){{ const x = (lon + 25) / 65 * w; const y = (72 - lat) / 38 * h; return {{x,y}}; }}
+  function resize(){{ const r = canvas.parentElement.getBoundingClientRect(); canvas.width = r.width; canvas.height = r.height; draw(); }}
   window.addEventListener('resize', resize);
-  img.onload = ()=>{ resize(); };
-  function draw(){ if(!img.complete) return; ctx.clearRect(0,0,canvas.width,canvas.height); const aspect = img.width/img.height; let drawW=canvas.width; let drawH=canvas.width/aspect; if(drawH < canvas.height){ drawH = canvas.height; drawW = canvas.height * aspect; } const dx = (canvas.width-drawW)/2; const dy = (canvas.height-drawH)/2; ctx.drawImage(img, dx, dy, drawW, drawH); dots = []; CITIES.forEach(c=>{ const p = latLonToXY(c.lat,c.lon,drawW,drawH); const x = dx + p.x; const y = dy + p.y; const g = ctx.createRadialGradient(x,y,0,x,y,44); g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(0.12,'rgba(10,132,255,0.95)'); g.addColorStop(0.4,'rgba(10,132,255,0.6)'); g.addColorStop(1,'rgba(10,132,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,38,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fill(); dots.push({x,y,r:34,data:c}); }); }
-  function getMousePos(e){ const r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
-  canvas.addEventListener('mousemove', e=>{ const pos=getMousePos(e); const hit = dots.find(d=>Math.hypot(d.x-pos.x,d.y-pos.y)<d.r); const tip=document.getElementById('mapTooltip'); if(hit){ tip.style.display='block'; tip.textContent = hit.data.name; tip.style.left=(e.clientX+12)+'px'; tip.style.top=(e.clientY+12)+'px'; } else tip.style.display='none'; });
-  canvas.addEventListener('click', e=>{ const pos=getMousePos(e); const hit=dots.find(d=>Math.hypot(d.x-pos.x,d.y-pos.y)<d.r); if(hit) alert(hit.data.name + "\n" + hit.data.info); });
-})();
+  img.onload = ()=>{{ resize(); }};
+  function draw(){{ if(!img.complete) return; ctx.clearRect(0,0,canvas.width,canvas.height); const aspect = img.width/img.height; let drawW=canvas.width; let drawH=canvas.width/aspect; if(drawH < canvas.height){{ drawH = canvas.height; drawW = canvas.height * aspect; }} const dx = (canvas.width-drawW)/2; const dy = (canvas.height-drawH)/2; ctx.drawImage(img, dx, dy, drawW, drawH); dots = []; CITIES.forEach(c=>{{ const p = latLonToXY(c.lat,c.lon,drawW,drawH); const x = dx + p.x; const y = dy + p.y; const g = ctx.createRadialGradient(x,y,0,x,y,44); g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(0.12,'rgba(10,132,255,0.95)'); g.addColorStop(0.4,'rgba(10,132,255,0.6)'); g.addColorStop(1,'rgba(10,132,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,38,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fill(); dots.push({{x,y,r:34,data:c}}); }}); }}
+  function getMousePos(e){{ const r=canvas.getBoundingClientRect(); return {{x:e.clientX-r.left, y:e.clientY-r.top}}; }}
+  canvas.addEventListener('mousemove', e=>{{ const pos=getMousePos(e); const hit = dots.find(d=>Math.hypot(d.x-pos.x,d.y-pos.y)<d.r); const tip=document.getElementById('mapTooltip'); if(hit){{ tip.style.display='block'; tip.textContent = hit.data.name; tip.style.left=(e.clientX+12)+'px'; tip.style.top=(e.clientY+12)+'px'; }} else tip.style.display='none'; }});
+  canvas.addEventListener('click', e=>{{ const pos=getMousePos(e); const hit=dots.find(d=>Math.hypot(d.x-pos.x,d.y-pos.y)<d.r); if(hit) alert(hit.data.name + "\n" + hit.data.info); }});
+}})();
 
-// Hero Three.js scene: realistic-looking truck built from primitives, integrated in hero
-(function(){
+// Hero Three.js scene: procedural realistic truck integrated in hero
+(function(){{
   const canvas = document.getElementById('scene');
   const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(window.devicePixelRatio);
   const scene = new THREE.Scene();
-  // soft sky-blue background to match hero area
   scene.background = new THREE.Color(0xeaf8ff);
   const camera = new THREE.PerspectiveCamera(40,1,0.1,2000); camera.position.set(0,30,140);
   // lights
-  const hemi = new THREE.HemisphereLight(0xffffff,0x080820,0.9); scene.add(hemi);
+  const hemi = new THREE.HemisphereLight(0xffffff,0xddddff,0.9); scene.add(hemi);
   const key = new THREE.DirectionalLight(0xffffff,1.0); key.position.set(80,120,80); scene.add(key);
   const rim = new THREE.DirectionalLight(0xa6f0ff,0.5); rim.position.set(-80,40,-60); scene.add(rim);
   // ground plane for soft reflection
   const groundMat = new THREE.MeshStandardMaterial({color:0xdfeff6, metalness:0.05, roughness:0.7});
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(800,800), groundMat); ground.rotation.x = -Math.PI/2; ground.position.y = -14; scene.add(ground);
-
-  // Truck group
+  // Truck group (procedural)
   const truck = new THREE.Group();
-  // trailer (white)
   const trailerMat = new THREE.MeshStandardMaterial({color:0xffffff, metalness:0.02, roughness:0.6});
   const trailer = new THREE.Mesh(new THREE.BoxGeometry(140,36,36), trailerMat); trailer.position.set(-40,6,0); truck.add(trailer);
-  // cab body
   const cabMat = new THREE.MeshStandardMaterial({color:0x0a84ff, metalness:0.25, roughness:0.35});
   const cab = new THREE.Mesh(new THREE.BoxGeometry(34,30,30), cabMat); cab.position.set(50,6,0); truck.add(cab);
-  // cabin edge
   const cabinWindowMat = new THREE.MeshStandardMaterial({color:0xcef3ff, metalness:0.05, roughness:0.2, opacity:0.95, transparent:true});
   const windowMesh = new THREE.Mesh(new THREE.BoxGeometry(20,18,1), cabinWindowMat); windowMesh.position.set(60,8,13); truck.add(windowMesh);
-  // chassis
-  const chassis = new THREE.Mesh(new THREE.BoxGeometry(140,6,10), new THREE.MeshStandardMaterial({color:0x12343e, metalness:0.3, roughness:0.4}));
-  chassis.position.set(-40,-6,0); truck.add(chassis);
-  // wheels
+  const chassis = new THREE.Mesh(new THREE.BoxGeometry(140,6,10), new THREE.MeshStandardMaterial({color:0x12343e, metalness:0.3, roughness:0.4})); chassis.position.set(-40,-6,0); truck.add(chassis);
   const wheelMat = new THREE.MeshStandardMaterial({color:0x0b0b0b, metalness:0.6, roughness:0.4});
-  function addWheel(x,z){ const w=new THREE.Mesh(new THREE.CylinderGeometry(6,6,8,28), wheelMat); w.rotation.z=Math.PI/2; w.position.set(x,-12,z); truck.add(w); }
+  function addWheel(x,z){{ const w=new THREE.Mesh(new THREE.CylinderGeometry(6,6,8,28), wheelMat); w.rotation.z=Math.PI/2; w.position.set(x,-12,z); truck.add(w); }}
   addWheel(60,14); addWheel(60,-14); addWheel(20,14); addWheel(20,-14); addWheel(-20,14); addWheel(-20,-14); addWheel(-60,14); addWheel(-60,-14);
-
-  truck.scale.set(0.8,0.8,0.8); truck.position.set(0,-6,0);
-  scene.add(truck);
-
-  // subtle exhaust glow
-  const glowGeo = new THREE.SphereGeometry(3,16,12);
-  const glowMat = new THREE.MeshBasicMaterial({color:0xffd7b0, opacity:0.25, transparent:true});
-  const glow = new THREE.Mesh(glowGeo, glowMat); glow.position.set(70,2,0); scene.add(glow);
-
-  // controls limited
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enablePan=false; controls.enableZoom=false; controls.minPolarAngle=0.6; controls.maxPolarAngle=1.35;
-
-  function resize(){ const w = canvas.clientWidth; const h = canvas.clientHeight; renderer.setSize(w,h,true); camera.aspect = w/h; camera.updateProjectionMatrix(); }
+  truck.scale.set(0.8,0.8,0.8); truck.position.set(0,-6,0); scene.add(truck);
+  const glowGeo = new THREE.SphereGeometry(3,16,12); const glowMat = new THREE.MeshBasicMaterial({color:0xffd7b0, opacity:0.25, transparent:true}); const glow = new THREE.Mesh(glowGeo, glowMat); glow.position.set(70,2,0); scene.add(glow);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement); controls.enablePan=false; controls.enableZoom=false; controls.minPolarAngle=0.6; controls.maxPolarAngle=1.35;
+  function resize(){{ const w=canvas.clientWidth; const h=canvas.clientHeight; renderer.setSize(w,h,true); camera.aspect = w/h; camera.updateProjectionMatrix(); }}
   window.addEventListener('resize', resize); resize();
-
-  // animate: truck bob and slight drive movement, camera gentle orbit
-  let t=0;
-  function animate(){ t += 0.01; truck.position.x = Math.sin(t)*8; truck.rotation.y = Math.sin(t*0.25)*0.06; glow.material.opacity = 0.15 + Math.abs(Math.sin(t*0.6))*0.15; camera.position.x = Math.sin(t*0.06)*6; controls.update(); renderer.render(scene,camera); requestAnimationFrame(animate); }
-  requestAnimationFrame(animate);
-})();
+  let t=0; function animate(){{ t += 0.01; truck.position.x = Math.sin(t)*8; truck.rotation.y = Math.sin(t*0.25)*0.06; glow.material.opacity = 0.15 + Math.abs(Math.sin(t*0.6))*0.15; camera.position.x = Math.sin(t*0.06)*6; controls.update(); renderer.render(scene,camera); requestAnimationFrame(animate); }} requestAnimationFrame(animate);
+}})();
 
 // form mailto fallback
-document.getElementById('quoteForm').addEventListener('submit', function(e){ e.preventDefault(); const fd = new FormData(this); const obj = {}; for(const [k,v] of fd.entries()) obj[k]=v; const subject = encodeURIComponent('Quote request — Danubria'); const body = encodeURIComponent(JSON.stringify(obj,null,2)); window.location.href = `mailto:info@danubria.com?subject=${subject}&body=${body}`; });
-
+document.getElementById('quoteForm').addEventListener('submit', function(e){{ e.preventDefault(); const fd = new FormData(this); const obj = {{}}; for(const [k,v] of fd.entries()) obj[k]=v; const subject = encodeURIComponent('Quote request — Danubria'); const body = encodeURIComponent(JSON.stringify(obj,null,2)); window.location.href = `mailto:info@danubria.com?subject=${subject}&body=${body}`; }});
 </script>
 </body></html>
