@@ -1,12 +1,11 @@
 
-Danubria — Final Cinematic (All-in-one)
---------------------------------------
-Files included:
-- index.html (hero with integrated 3D truck and interactive map)
-- logo.png (converted to transparent if you uploaded one)
+Danubria — Modern Clean (All-in-one)
+-----------------------------------
+- index.html (single-file site; 3D truck integrated; interactive map; modern clean UI)
+- logo.png (if provided; optimized)
 - .nojekyll and _config.yml
 
-Deploy steps:
-1. Upload all files to the repository root (branch main).
+Deploy:
+1. Upload all files to repo root (branch: main).
 2. Enable GitHub Pages (main branch, root).
-3. Wait 1-2 minutes and open your site. If old content appears, use Ctrl+F5.
+3. If content appears old, clear cache (Ctrl+F5).
