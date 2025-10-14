@@ -1,307 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Danubria — The flow of Europe, the power of logistics</title>
-<meta name="description" content="Danubria — cinematic logistics across Europe" />
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23005BBB'/><path d='M20 60 L45 30 L80 65' stroke='%23fff' stroke-width='6' fill='none'/></svg>">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-:root{--accent:#0A84FF;--muted:#6b8aa0;--bg1:#e6f6ff;--bg2:#f6fbff}
-*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#04243a;background:linear-gradient(180deg,var(--bg1),var(--bg2))}
-header{position:fixed;left:0;right:0;top:0;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;z-index:60;background:rgba(255,255,255,0.6);backdrop-filter:blur(6px)}
-.brand img{height:44px}
-.container{max-width:1200px;margin:0 auto;padding:120px 20px 80px}
-.grid{display:grid;grid-template-columns:1fr 640px;gap:28px;align-items:start}
-.left h1{font-size:34px;margin:0 0 12px;line-height:1.03}
-.lead{color:var(--muted);margin-bottom:16px}
-.actions{display:flex;gap:12px}
-.btn-primary{background:linear-gradient(90deg,var(--accent),#00c1ff);border:none;color:#001;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
-.card{background:rgba(255,255,255,0.95);border-radius:14px;box-shadow:0 18px 50px rgba(10,60,90,0.06);padding:18px}
-.hero-canvas{height:520px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fbfeff,#eef9ff)}
-.map-section{margin-top:36px}
-.map-3d{height:520px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fbfeff,#eef9ff);display:flex;align-items:center;justify-content:center}
-.footer{margin-top:28px;color:var(--muted)}
-/* responsive */
-@media(max-width:980px){.grid{grid-template-columns:1fr}.hero-canvas{height:360px}.map-3d{height:360px}.container{padding:90px 16px 60px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-en="Danubria - The Flow of Europe, The Power of Logistics" data-lang-it="Danubria - Il Flusso d'Europa, La Potenza della Logistica" data-lang-es="Danubria - El Flujo de Europa, El Poder de la Logística">Danubria - The Flow of Europe, The Power of Logistics</title>
+    <meta name="description" content="Danubria offers top-tier European logistics and transport solutions. The Flow of Europe, The Power of Logistics. Cinematic and professional service.">
+    
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-  <div class="brand"><img src="logo.png" alt="Danubria"></div>
-  <div>
-    <button onclick="document.getElementById('network').scrollIntoView({behavior:'smooth'})">Our Network</button>
-    <button onclick="document.getElementById('quote').scrollIntoView({behavior:'smooth'})">Request Quote</button>
-  </div>
-</header>
 
-<main class="container">
-  <div class="grid">
-    <div class="left">
-      <h1>Danubria — The flow of Europe, the power of logistics</h1>
-      <p class="lead">Modern European logistics — transparent routes, on-time deliveries and live network visibility.</p>
-      <div class="actions">
-        <button class="btn-primary" id="getQuote">Get a Quote</button>
-        <button class="btn-primary" id="viewNetwork" style="background:transparent;border:1px solid rgba(10,132,255,0.12);color:var(--accent)">View Network</button>
-      </div>
-      <p style="color:var(--muted);margin-top:14px">Email: <a href="mailto:info@danubria.com">info@danubria.com</a></p>
-    </div>
-    <div class="card hero-canvas">
-      <canvas id="sceneTruck" style="width:100%;height:100%"></canvas>
-    </div>
-  </div>
+    <header class="header">
+        <div class="container nav">
+            <div class="logo-container">
+                <h1>DANUBRIA <span class="slogan-secondary" data-lang-en="| The Flow of Europe" data-lang-it="| Il Flusso d'Europa" data-lang-es="| El Flujo de Europa">| The Flow of Europe</span></h1>
+            </div>
+            <nav class="nav-links" id="main-nav">
+                <a href="#hero" data-lang-en="Home" data-lang-it="Home" data-lang-es="Inicio">Home</a>
+                <a href="#network" data-lang-en="Our Network" data-lang-it="La Nostra Rete" data-lang-es="Nuestra Red">Our Network</a>
+                <a href="quote.html" data-lang-en="Get Quote" data-lang-it="Richiedi Preventivo" data-lang-es="Solicitar Cotización">Get Quote</a>
+                <a href="#" class="cta" data-lang-en="Work With Us" data-lang-it="Lavora con Noi" data-lang-es="Trabaja con Nosotros">Work With Us</a>
+                
+                <select id="language-switcher" onchange="switchLanguage(this.value)">
+                    <option value="en">EN</option>
+                    <option value="it">IT</option>
+                    <option value="es">ES</option>
+                </select>
+            </nav>
+        </div>
+    </header>
 
-  <section id="network" class="map-section card">
-    <h3 style="margin:0 0 8px;color:#034b63">Our Network — 3D map</h3>
-    <p style="margin:0 0 12px;color:var(--muted)">Interactive 3D view: rotate, zoom, click markers for city info.</p>
-    <div class="map-3d">
-      <canvas id="sceneMap" style="width:100%;height:100%"></canvas>
-    </div>
-  </section>
+    <section id="hero" class="hero-section">
+        <div class="hero-3d-background">
+            </div>
+        <div class="hero-content animate-on-scroll">
+            <h1 class="slogan-primary" data-lang-en="THE FLOW OF EUROPE" data-lang-it="IL FLUSSO D'EUROPA" data-lang-es="EL FLUJO DE EUROPA">THE FLOW OF EUROPE</h1>
+            <h1 class="slogan-secondary" data-lang-en="THE POWER OF LOGISTICS" data-lang-it="LA POTENZA DELLA LOGISTICA" data-lang-es="EL PODER DE LA LOGÍSTICA">THE POWER OF LOGISTICS</h1>
+            <p data-lang-en="Redefining European transport with technology and precision. Your full-service FTL partner." data-lang-it="Ridefinizione del trasporto europeo con tecnologia e precisione. Il tuo partner FTL a servizio completo." data-lang-es="Redefiniendo el transporte europeo con tecnología y precisión. Tu socio FTL de servicio completo.">Redefining European transport with technology and precision. Your full-service FTL partner.</p>
+            <a href="quote.html" class="button-submit" style="width: 300px; margin: 0 auto;" data-lang-en="GET A TRANSPORT QUOTATION" data-lang-it="RICHIEDI UN PREVENTIVO DI TRASPORTO" data-lang-es="SOLICITA UNA COTIZACIÓN DE TRANSPORTE">GET A TRANSPORT QUOTATION</a>
+        </div>
+    </section>
 
-  <section id="quote" style="margin-top:24px" class="card">
-    <h3 style="margin:0 0 8px;color:#034b63">Request a Quote</h3>
-    <form id="quoteForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
-      <input name="origin" placeholder="Origin (city/postcode)" required>
-      <input name="destination" placeholder="Destination (city/postcode)" required>
-      <select name="type"><option>Road</option><option>FTL</option><option>LTL</option></select>
-      <select name="temperature"><option>No</option><option>Yes</option></select>
-      <select name="body"><option>Curtain</option><option>Box</option><option>Reefer</option></select>
-      <input name="weight" placeholder="Weight (tonnes)" type="number" step="0.01">
-      <input name="dimensions" placeholder="Dimensions (L x W x H)">
-      <textarea name="notes" placeholder="Notes" style="grid-column:1 / -1"></textarea>
-      <div style="grid-column:1 / -1;display:flex;justify-content:flex-end;gap:10px">
-        <button type="submit" class="btn-primary">Submit</button>
-        <button type="reset" class="btn-primary" style="background:transparent;border:1px solid rgba(10,132,255,0.12);color:var(--accent)">Reset</button>
-      </div>
-    </form>
-  </section>
+    <section id="network" class="section network-section">
+        <div class="container animate-on-scroll">
+            <h2 style="text-align: center; margin-bottom: 50px;" data-lang-en="Our Network: Real-Time European Coverage" data-lang-it="La Nostra Rete: Copertura Europea in Tempo Reale" data-lang-es="Nuestra Red: Cobertura Europea en Tiempo Real">Our Network: Real-Time European Coverage</h2>
 
-  <footer class="footer">© Danubria — The flow of Europe • info@danubria.com</footer>
-</main>
+            <div class="interactive-map-placeholder glass-card">
+                <p class="map-title" data-lang-en="3D Interactive Map Placeholder" data-lang-it="Placeholder Mappa Interattiva 3D" data-lang-es="Marcador de Posición Mapa Interactivo 3D">3D Interactive Map Placeholder</p>
+                <div class="map-dot dot-berlin" title="Berlin"></div>
+                <div class="map-dot dot-paris" title="Paris"></div>
+                <div class="map-dot dot-madrid" title="Madrid"></div>
+                <div class="map-dot dot-rome" title="Rome"></div>
+                <div class="map-dot dot-bucharest" title="Bucharest"></div>
+            </div>
+            
+            <p style="text-align: center;" data-lang-en="Connect with Europe's industrial heart. Our strategically placed hubs ensure reliable and fast deliveries across the continent." data-lang-it="Connettiti con il cuore industriale d'Europa. I nostri hub posizionati strategicamente garantiscono consegne affidabili e veloci in tutto il continente." data-lang-es="Conéctate con el corazón industrial de Europa. Nuestros centros estratégicamente ubicados garantizan entregas fiables y rápidas en todo el continente.">Connect with Europe's industrial heart. Our strategically placed hubs ensure reliable and fast deliveries across the continent.</p>
+        </div>
+    </section>
 
-<script type="module">
-/* Load ES module builds directly from CDN (unpkg) so this works on static GitHub Pages */
-import * as THREE from 'https://unpkg.com/three@0.165.0/build/three.module.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.165.0/examples/jsm/controls/OrbitControls.js';
+    <section id="services" class="section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px;" data-lang-en="Our Core Services" data-lang-it="I Nostri Servizi Principali" data-lang-es="Nuestros Servicios Centrales">Our Core Services</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="glass-card animate-on-scroll">
+                    <h3 style="color: var(--color-blue); margin-bottom: 15px;" data-lang-en="Full Truck Load (FTL)" data-lang-it="Carico Completo (FTL)" data-lang-es="Carga de Camión Completa (FTL)">Full Truck Load (FTL)</h3>
+                    <p data-lang-en="Dedicated transport solutions for maximum capacity and speed across Europe." data-lang-it="Soluzioni di trasporto dedicate per massima capacità e velocità in tutta Europa." data-lang-es="Soluciones de transporte dedicadas para máxima capacidad y velocidad en toda Europa.">Dedicated transport solutions for maximum capacity and speed across Europe.</p>
+                </div>
+                <div class="glass-card animate-on-scroll">
+                    <h3 style="color: var(--color-blue); margin-bottom: 15px;" data-lang-en="Temperature Controlled" data-lang-it="A Temperatura Controllata" data-lang-es="Temperatura Controlada">Temperature Controlled</h3>
+                    <p data-lang-en="Safe and compliant logistics for sensitive goods, including pharma and food." data-lang-it="Logistica sicura e conforme per merci sensibili, inclusi prodotti farmaceutici e alimentari." data-lang-es="Logística segura y conforme para mercancías sensibles, incluyendo farmacéuticos y alimentos.">Safe and compliant logistics for sensitive goods, including pharma and food.</p>
+                </div>
+                <div class="glass-card animate-on-scroll">
+                    <h3 style="color: var(--color-blue); margin-bottom: 15px;" data-lang-en="Express & Time Critical" data-lang-it="Espresso & Urgente" data-lang-es="Express & Crítico en Tiempo">Express & Time Critical</h3>
+                    <p data-lang-en="When speed matters. Your urgent cargo delivered on time, every time." data-lang-it="Quando la velocità conta. Il tuo carico urgente consegnato in tempo, ogni volta." data-lang-es="Cuando la velocidad importa. Tu carga urgente entregada a tiempo, siempre.">When speed matters. Your urgent cargo delivered on time, every time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-window.addEventListener('load', () => {
+    <section id="cta" class="section quote-section" style="padding: 50px 0; background-color: #1a1f2c;">
+        <div class="container animate-on-scroll" style="text-align: center;">
+            <h2 data-lang-en="Ready for the Future of Logistics?" data-lang-it="Pronto per il Futuro della Logistica?" data-lang-es="¿Listo para el Futuro de la Logística?">Ready for the Future of Logistics?</h2>
+            <p style="margin-bottom: 30px;" data-lang-en="Join the flow. Get a detailed quotation for your next European transport." data-lang-it="Unisciti al flusso. Ottieni un preventivo dettagliato per il tuo prossimo trasporto europeo." data-lang-es="Únete al flujo. Solicita una cotización detallada para tu próximo transporte europeo.">Join the flow. Get a detailed quotation for your next European transport.</p>
+            <a href="quote.html" class="button-submit" style="width: 300px; margin: 0 auto; background-color: #00BFFF; border: 1px solid #00BFFF;" data-lang-en="START YOUR QUOTE" data-lang-it="INIZIA IL TUO PREVENTIVO" data-lang-es="INICIA TU COTIZACIÓN">START YOUR QUOTE</a>
+        </div>
+    </section>
 
-  // -------- HERO TRUCK SCENE (one renderer: rendererTruck) --------
-  const canvasTruck = document.getElementById('sceneTruck');
-  const rendererTruck = new THREE.WebGLRenderer({ canvas: canvasTruck, antialias: true, alpha: true });
-  rendererTruck.setPixelRatio(window.devicePixelRatio);
-  rendererTruck.shadowMap.enabled = true;
+    <footer class="section" style="padding: 40px 0; border-top: 1px solid var(--color-glass-border); text-align: center;">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Danubria. All rights reserved. | <a href="mailto:info@danubria.com" style="color: var(--color-blue); text-decoration: none;">info@danubria.com</a></p>
+            <p data-lang-en="The Flow of Europe, The Power of Logistics." data-lang-it="Il Flusso d'Europa, La Potenza della Logistica." data-lang-es="El Flujo de Europa, El Poder de la Logística.">The Flow of Europe, The Power of Logistics.</p>
+        </div>
+    </footer>
 
-  const sceneTruck = new THREE.Scene();
-  sceneTruck.background = new THREE.Color(0xf7feff);
-
-  const cameraTruck = new THREE.PerspectiveCamera(38, canvasTruck.clientWidth / canvasTruck.clientHeight, 0.1, 2000);
-  cameraTruck.position.set(0, 28, 140);
-
-  // lights
-  const hemi = new THREE.HemisphereLight(0xffffff, 0x808fb3, 0.9); sceneTruck.add(hemi);
-  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(80, 120, 80); key.castShadow = true; sceneTruck.add(key);
-  const rim = new THREE.DirectionalLight(0xa6f0ff, 0.35); rim.position.set(-80, 40, -60); sceneTruck.add(rim);
-
-  // ground
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(900, 900),
-    new THREE.MeshStandardMaterial({ color: 0xecfbff, metalness: 0.02, roughness: 0.75 })
-  );
-  ground.rotation.x = -Math.PI / 2; ground.position.y = -16; sceneTruck.add(ground);
-
-  // truck (procedural)
-  const truck = new THREE.Group();
-  const trailer = new THREE.Mesh(new THREE.BoxGeometry(160, 36, 36), new THREE.MeshStandardMaterial({ color: 0xffffff }));
-  trailer.position.set(-30, 8, 0); trailer.castShadow = true; truck.add(trailer);
-  const cab = new THREE.Mesh(new THREE.BoxGeometry(36, 30, 30), new THREE.MeshStandardMaterial({ color: 0x0a84ff }));
-  cab.position.set(58, 8, 0); cab.castShadow = true; truck.add(cab);
-  const cabFront = new THREE.Mesh(new THREE.BoxGeometry(18, 18, 30), new THREE.MeshStandardMaterial({ color: 0x0a84ff }));
-  cabFront.position.set(75, 2, 0); cabFront.castShadow = true; truck.add(cabFront);
-  const chassis = new THREE.Mesh(new THREE.BoxGeometry(160, 6, 12), new THREE.MeshStandardMaterial({ color: 0x12343e }));
-  chassis.position.set(-30, -6, 0); truck.add(chassis);
-
-  // wheels
-  const wheelMat = new THREE.MeshStandardMaterial({ color: 0x0b0b0b });
-  function addWheel(x, z) {
-    const w = new THREE.Mesh(new THREE.CylinderGeometry(6.5, 6.5, 8, 32), wheelMat);
-    w.rotation.z = Math.PI / 2;
-    w.position.set(x, -12, z);
-    w.castShadow = true;
-    truck.add(w);
-  }
-  [72, 32, -8, -48].forEach(x => { addWheel(x, 14); addWheel(x, -14); });
-
-  truck.scale.set(0.86, 0.86, 0.86);
-  truck.position.set(0, -8, 0);
-  sceneTruck.add(truck);
-
-  // logo on trailer
-  const lc = document.createElement('canvas'); lc.width = 512; lc.height = 128;
-  const lctx = lc.getContext('2d'); lctx.fillStyle = '#0A84FF'; lctx.fillRect(0,0,512,128);
-  lctx.fillStyle = '#fff'; lctx.font = '36px sans-serif'; lctx.fillText('Danubria', 20, 78);
-  const logoTex = new THREE.CanvasTexture(lc);
-  const logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(60, 18), new THREE.MeshStandardMaterial({ map: logoTex }));
-  logoPlane.position.set(-30, 10, 18.5); logoPlane.rotation.y = -0.02; truck.add(logoPlane);
-
-  const glow = new THREE.Mesh(new THREE.SphereGeometry(3, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffd7b0, transparent: true, opacity: 0.2 }));
-  glow.position.set(84, 2, 0); sceneTruck.add(glow);
-
-  const controlsTruck = new OrbitControls(cameraTruck, rendererTruck.domElement);
-  controlsTruck.enablePan = false; controlsTruck.enableZoom = false; controlsTruck.minPolarAngle = 0.6; controlsTruck.maxPolarAngle = 1.35;
-
-  function resizeTruck() {
-    const w = canvasTruck.clientWidth, h = canvasTruck.clientHeight;
-    rendererTruck.setSize(w, h, true);
-    cameraTruck.aspect = w / h;
-    cameraTruck.updateProjectionMatrix();
-  }
-  window.addEventListener('resize', resizeTruck);
-  resizeTruck();
-
-  let t = 0;
-  function animateTruck() {
-    t += 0.008;
-    truck.position.x = Math.sin(t) * 10;
-    truck.rotation.y = Math.sin(t * 0.18) * 0.08;
-    glow.material.opacity = 0.12 + Math.abs(Math.sin(t * 0.6)) * 0.12;
-    cameraTruck.position.x = Math.sin(t * 0.04) * 9;
-    cameraTruck.lookAt(truck.position.x, 6, 0);
-    controlsTruck.update();
-    rendererTruck.render(sceneTruck, cameraTruck);
-    requestAnimationFrame(animateTruck);
-  }
-  requestAnimationFrame(animateTruck);
-
-  // -------- 3D MAP SCENE (separate renderer: rendererMap) --------
-  const canvasMap = document.getElementById('sceneMap');
-  const rendererMap = new THREE.WebGLRenderer({ canvas: canvasMap, antialias: true, alpha: true });
-  rendererMap.setPixelRatio(window.devicePixelRatio);
-  rendererMap.shadowMap.enabled = true;
-
-  const sceneMap = new THREE.Scene();
-  sceneMap.background = new THREE.Color(0xf7feff);
-
-  const cameraMap = new THREE.PerspectiveCamera(40, canvasMap.clientWidth / canvasMap.clientHeight, 0.1, 2000);
-  cameraMap.position.set(0, 140, 320);
-
-  const hemiM = new THREE.HemisphereLight(0xffffff, 0x808fb3, 0.9); sceneMap.add(hemiM);
-  const keyM = new THREE.DirectionalLight(0xffffff, 1.0); keyM.position.set(80,120,80); sceneMap.add(keyM);
-
-  // plane (map base) with subtle relief
-  const planeGeo = new THREE.PlaneGeometry(680, 420, 40, 40);
-  for (let i = 0; i < planeGeo.attributes.position.count; i++) {
-    const z = (Math.random() - 0.5) * 4;
-    planeGeo.attributes.position.setZ(i, z);
-  }
-  const planeMat = new THREE.MeshStandardMaterial({ color: 0xeef9ff, metalness: 0.02, roughness: 0.9, side: THREE.DoubleSide });
-  const plane = new THREE.Mesh(planeGeo, planeMat);
-  plane.rotation.x = -Math.PI / 2;
-  plane.position.y = -6;
-  sceneMap.add(plane);
-
-  // city markers data (approx positions on plane)
-  const cityData = [
-    { id: 'barcelona', name: 'Barcelona, ES', x: 160, z: -40, info: 'Iberian operations & logistics' },
-    { id: 'madrid', name: 'Madrid, ES', x: 80, z: -20, info: 'Central distribution' },
-    { id: 'irun', name: 'Irun, ES', x: 40, z: -80, info: 'Border hub (Spain)' },
-    { id: 'valencia', name: 'Valencia, ES', x: 190, z: -10, info: 'Mediterranean port operations' },
-    { id: 'montpellier', name: 'Montpellier, FR', x: 220, z: -60, info: 'Southern France partner' },
-    { id: 'marseille', name: 'Marseille, FR', x: 260, z: -50, info: 'Port & Mediterranean gateway' },
-    { id: 'nice', name: 'Nice, FR', x: 300, z: -40, info: 'Coastal logistics' },
-    { id: 'milano', name: 'Milano, IT', x: 360, z: 10, info: 'Northern Italy hub' },
-    { id: 'novarra', name: 'Novara, IT', x: 340, z: 30, info: 'Logistics in Piedmont' },
-    { id: 'venetia', name: 'Venezia, IT', x: 420, z: 40, info: 'Venice port & logistics' },
-    { id: 'bologna', name: 'Bologna, IT', x: 400, z: 20, info: 'Inland distribution Italy' }
-  ];
-
-  const markers = new THREE.Group();
-  const pinGeo = new THREE.ConeGeometry(6, 18, 18);
-  const pinMat = new THREE.MeshStandardMaterial({ color: 0x0a84ff, metalness: 0.3, roughness: 0.35 });
-
-  cityData.forEach(c => {
-    const pin = new THREE.Mesh(pinGeo, pinMat);
-    pin.position.set(c.x - 340, 2, c.z + 10);
-    pin.rotation.x = Math.PI;
-    pin.userData = c;
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(3, 12, 12), new THREE.MeshStandardMaterial({ color: 0xffffff }));
-    dot.position.set(c.x - 340, 10, c.z + 10);
-    markers.add(pin);
-    markers.add(dot);
-  });
-  sceneMap.add(markers);
-
-  // sample routes
-  function addRoute(a, b) {
-    const material = new THREE.LineBasicMaterial({ color: 0x0A84FF, linewidth: 2 });
-    const pts = [ new THREE.Vector3(a.x - 340, 12, a.z + 10), new THREE.Vector3(b.x - 340, 12, b.z + 10) ];
-    const geo = new THREE.BufferGeometry().setFromPoints(pts);
-    const line = new THREE.Line(geo, material);
-    sceneMap.add(line);
-  }
-  addRoute(cityData[1], cityData[0]);
-  addRoute(cityData[0], cityData[7]);
-  addRoute(cityData[5], cityData[6]);
-
-  const controlsMap = new OrbitControls(cameraMap, rendererMap.domElement);
-  controlsMap.enablePan = true; controlsMap.enableZoom = true;
-  controlsMap.maxPolarAngle = Math.PI/2 + 0.2; controlsMap.minDistance = 150; controlsMap.maxDistance = 700;
-
-  function resizeMap() {
-    const w = canvasMap.clientWidth, h = canvasMap.clientHeight;
-    rendererMap.setSize(w, h, true);
-    cameraMap.aspect = w / h;
-    cameraMap.updateProjectionMatrix();
-  }
-  window.addEventListener('resize', resizeMap);
-  resizeMap();
-
-  // click handling for markers
-  const raycaster = new THREE.Raycaster();
-  const mouse = new THREE.Vector2();
-  canvasMap.addEventListener('click', (ev) => {
-    const rect = canvasMap.getBoundingClientRect();
-    mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
-    raycaster.setFromCamera(mouse, cameraMap);
-    const intersects = raycaster.intersectObjects(markers.children, true);
-    if (intersects.length) {
-      const obj = intersects[0].object;
-      const data = obj.userData || (obj.parent && obj.parent.userData) || null;
-      if (data) alert(data.name + "\\n" + data.info);
-    }
-  });
-
-  // animate map (gentle motion)
-  let tm = 0;
-  function animateMap() {
-    tm += 0.006;
-    markers.children.forEach((m, i) => {
-      if (m.geometry && m.geometry.type === 'SphereGeometry') {
-        m.scale.setScalar(1 + 0.08 * Math.sin(tm * 3 + i));
-      }
-    });
-    cameraMap.position.x = Math.sin(tm * 0.2) * 60;
-    cameraMap.lookAt(0, 0, 0);
-    rendererMap.render(sceneMap, cameraMap);
-    requestAnimationFrame(animateMap);
-  }
-  requestAnimationFrame(animateMap);
-
-}); // end load
-
-// mailto fallback for quote form
-document.getElementById('quoteForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const fd = new FormData(this);
-  const obj = {};
-  for (const [k, v] of fd.entries()) obj[k] = v;
-  const subj = encodeURIComponent('Quote request — Danubria');
-  const body = encodeURIComponent(JSON.stringify(obj, null, 2));
-  window.location.href = `mailto:info@danubria.com?subject=${subj}&body=${body}`;
-});
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
