@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-en="Get a Quote | Danubria Logistics" data-lang-it="Richiedi Preventivo | Danubria Logistics" data-lang-es="Solicitar Cotización | Danubria Logistics">Get a Quote | Danubria Logistics</title>
+    <title data-lang-en="Get a Quote | Danubria" data-lang-it="Richiedi Preventivo | Danubria" data-lang-es="Solicitar Cotización | Danubria">Get a Quote | Danubria Logistics</title>
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: var(--color-dark);">
 
-    <header class="header">
+    <header class="header scrolled">
         <div class="container nav">
             <div class="logo-container">
                 <h1><a href="index.html" style="color: var(--color-blue); text-decoration: none;">DANUBRIA</a> <span data-lang-en="| The Flow of Europe" data-lang-it="| Il Flusso d'Europa" data-lang-es="| El Flujo de Europa">| The Flow of Europe</span></h1>
@@ -26,11 +26,12 @@
         </div>
     </header>
 
-    <section id="quote" class="section quote-section" style="min-height: 100vh; padding-top: 120px;">
+    <section id="quote" class="section" style="min-height: 100vh; padding-top: 120px;">
         <div class="container quote-form-container animate-on-scroll glass-card">
-            <h2 style="text-align: center; margin-bottom: 40px; color: var(--color-light-blue);" data-lang-en="Request a Transport Quotation" data-lang-it="Richiedi un Preventivo di Trasporto" data-lang-es="Solicita una Cotización de Transporte">Request a Transport Quotation</h2>
+            <h2 style="text-align: center; margin-bottom: 40px; color: var(--color-light-blue);" data-lang-en="Request Your Transport Quotation" data-lang-it="Richiedi il Tuo Preventivo di Trasporto" data-lang-es="Solicita tu Cotización de Transporte">Request Your Transport Quotation</h2>
             
             <form action="mailto:info@danubria.com" method="post" enctype="text/plain">
+                
                 <h3 style="margin-bottom: 20px; color: var(--color-blue);" data-lang-en="1. Contact Details" data-lang-it="1. Dati di Contatto" data-lang-es="1. Datos de Contacto">1. Contact Details</h3>
                 <div class="form-group">
                     <label for="name" data-lang-en="Full Name" data-lang-it="Nome Completo" data-lang-es="Nombre Completo">Full Name *</label>
@@ -60,13 +61,13 @@
                         <option value="" data-lang-en="Select Type" data-lang-it="Seleziona Tipo" data-lang-es="Selecciona Tipo">-- Select Type --</option>
                         <option value="FTL" data-lang-en="Full Truck Load (FTL)" data-lang-it="Carico Completo (FTL)" data-lang-es="Carga Completa (FTL)">Full Truck Load (FTL)</option>
                         <option value="LTL" data-lang-en="Less Than Truck Load (LTL)" data-lang-it="Carico Parziale (LTL)" data-lang-es="Carga Parcial (LTL)">Less Than Truck Load (LTL)</option>
-                        <option value="Express" data-lang-en="Express / Time Critical" data-lang-it="Espresso / Urgente" data-lang-es="Express / Crítico">Express / Time Critical</option>
+                        <option value="Express" data-lang-en="Express / Critical" data-lang-it="Espresso / Urgente" data-lang-es="Express / Crítico">Express / Critical</option>
                     </select>
                 </div>
 
                 <div style="display: flex; gap: 20px;">
                     <div class="form-group" style="flex: 1;">
-                        <label for="temp_control" data-lang-en="Temperature Control Needed?" data-lang-it="Controllo Temperatura Necessario?" data-lang-es="¿Control de Temperatura Necesario?">Temperature Control?</label>
+                        <label for="temp_control" data-lang-en="Temperature Control?" data-lang-it="Controllo Temperatura?" data-lang-es="¿Control de Temperatura?">Temperature Control?</label>
                         <select id="temp_control" name="temp_control">
                             <option value="No" data-lang-en="No" data-lang-it="No" data-lang-es="No">No</option>
                             <option value="Yes_Refrigerated" data-lang-en="Yes (Refrigerated)" data-lang-it="Sì (Refrigerato)" data-lang-es="Sí (Refrigerado)">Yes (Refrigerated)</option>
@@ -74,10 +75,10 @@
                         </select>
                     </div>
                     <div class="form-group" style="flex: 1;">
-                        <label for="trailer_type" data-lang-en="Trailer Type (Tarp/Box)" data-lang-it="Tipo di Rimorchio (Telone/Box)" data-lang-es="Tipo de Remolque (Lona/Caja)">Trailer Type (Tarp/Box) *</label>
+                        <label for="trailer_type" data-lang-en="Trailer Type (Tarp/Box)" data-lang-it="Tipo Rimorchio (Telone/Box)" data-lang-es="Tipo Remolque (Lona/Caja)">Trailer Type (Tarp/Box) *</label>
                         <select id="trailer_type" name="trailer_type" required>
-                            <option value="Tautliner" data-lang-en="Tautliner / Curtainsider (Tarp)" data-lang-it="Centinato (Telone)" data-lang-es="Tauliner / Lona">Tautliner / Curtainsider (Tarp)</option>
-                            <option value="Box" data-lang-en="Box / Dry Van (Box)" data-lang-it="Furgone / Box" data-lang-es="Caja / Furgón Seco">Box / Dry Van (Box)</option>
+                            <option value="Tautliner" data-lang-en="Tautliner (Tarp)" data-lang-it="Centinato (Telone)" data-lang-es="Tauliner (Lona)">Tautliner (Tarp)</option>
+                            <option value="Box" data-lang-en="Box / Dry Van" data-lang-it="Furgone / Box" data-lang-es="Caja / Furgón Seco">Box / Dry Van</option>
                             <option value="Mega" data-lang-en="Mega Trailer" data-lang-it="Mega Rimorchio" data-lang-es="Mega Remolque">Mega Trailer</option>
                         </select>
                     </div>
@@ -89,22 +90,22 @@
                         <input type="number" id="weight" name="weight" min="0" step="0.1" required>
                     </div>
                     <div class="form-group" style="flex: 1;">
-                        <label for="dimensions" data-lang-en="Total Dimensions (L x W x H in meters)" data-lang-it="Dimensioni Totali (L x L x H in metri)" data-lang-es="Dimensiones Totales (L x A x H en metros)">Total Dimensions (L x W x H in meters) *</label>
+                        <label for="dimensions" data-lang-en="Total Dimensions (L x W x H in meters)" data-lang-it="Dimensioni Totale (L x L x H in metri)" data-lang-es="Dimensiones Totales (L x A x H en metros)">Total Dimensions (L x W x H in meters) *</label>
                         <input type="text" id="dimensions" name="dimensions" placeholder="e.g. 13.6 x 2.45 x 2.7" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="notes" data-lang-en="Additional Notes" data-lang-it="Note Aggiuntive" data-lang-es="Notas Adicionales">Additional Notes</label>
-                    <textarea id="notes" name="notes" rows="4"></textarea>
+                    <textarea id="notes" name="notes" rows="4" style="min-height: 100px;"></textarea>
                 </div>
                 
-                <button type="submit" class="button-submit" data-lang-en="SEND QUOTATION REQUEST" data-lang-it="INVIA RICHIESTA DI PREVENTIVO" data-lang-es="ENVIAR SOLICITUD DE COTIZACIÓN">SEND QUOTATION REQUEST</button>
+                <button type="submit" class="button-main" data-lang-en="SEND QUOTATION REQUEST" data-lang-it="INVIA RICHIESTA DI PREVENTIVO" data-lang-es="ENVIAR SOLICITUD DE COTIZACIÓN">SEND QUOTATION REQUEST</button>
             </form>
         </div>
     </section>
 
-    <footer class="section" style="padding: 40px 0; border-top: 1px solid var(--color-glass-border); text-align: center;">
+    <footer class="section" style="padding: 40px 0; border-top: 1px solid var(--color-glass-border); text-align: center; background-color: var(--color-dark);">
         <div class="container">
             <p>&copy; <span id="year"></span> Danubria. All rights reserved. | info@danubria.com</p>
         </div>
