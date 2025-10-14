@@ -1,22 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danubria — The Flow of Europe, The Power of Logistics</title>
-    <link rel="stylesheet" href="./index-DKW8K0VP.css" />
-  </head>
-  <body style="margin:0; background: radial-gradient(circle at 30% 30%, #001f3f, #000b1a); color:white; font-family:'Outfit',sans-serif;">
-    
-    <!-- ✅ React will render here -->
-    <div id="root"></div>
-    
-    <noscript>You need to enable JavaScript to view this site.</noscript>
-    
-    <!-- ✅ Load the compiled React bundle after DOM is ready -->
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        import("./index-SgvjoOuD.js");
-      });
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Danubria — The flow of Europe, the power of logistics</title>
+  <meta name="description" content="Danubria — Modern European logistics. The flow of Europe, the power of logistics." />
+  <link rel="icon" href="assets/DA_transparent.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <img src="assets/DA_transparent.png" alt="Danubria logo" class="brand-logo-header">
+      <span class="brand-text">Danubria</span>
+    </div>
+    <nav class="site-nav">
+      <a href="#" data-i18n="nav.home" class="active">Home</a>
+      <a href="#network" data-i18n="nav.network">Our Network</a>
+      <a href="#quote" data-i18n="nav.quote">Get a Quote</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switch">
+        <button data-lang="en" class="lang-btn">EN</button>
+        <button data-lang="es" class="lang-btn">ES</button>
+        <button data-lang="it" class="lang-btn">IT</button>
+      </div>
+      <a href="#quote" class="contact-btn" data-i18n="btn.contact">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <h1 data-i18n="hero.title">Danubria — The flow of Europe, the power of logistics</h1>
+        <p class="lead" data-i18n="hero.lead">Modern European logistics — transparent routes, on-time deliveries and live network visibility.</p>
+        <div class="hero-ctas">
+          <a class="btn primary" href="#quote" data-i18n="btn.quote">Get a Quote</a>
+          <a class="btn ghost" href="#network" data-i18n="btn.network">Our Network</a>
+        </div>
+      </div>
+
+      <!-- ART: camion (transparent PNG) -->
+      <div class="hero-art" aria-hidden="true">
+        <img src="assets/DA_transparent.png" alt="" class="truck-bg">
+      </div>
+    </section>
+
+    <section id="network" class="card network-section">
+      <h2 data-i18n="network.title">Our Network — Europe map</h2>
+      <p class="muted" data-i18n="network.lead">Click a glowing dot to see city details.</p>
+      <div id="map" class="map-container"></div>
+    </section>
+
+    <section id="quote" class="card quote-section">
+      <h2 data-i18n="quote.title">Request a Quote</h2>
+      <form id="quoteForm" class="quote-form">
+        <div class="row">
+          <input name="origin" placeholder="Origin (city/postcode)" required>
+          <input name="destination" placeholder="Destination (city/postcode)" required>
+        </div>
+        <div class="row">
+          <select name="transport">
+            <option>Road</option><option>FTL</option><option>LTL</option>
+          </select>
+          <select name="temp">
+            <option>No</option><option>Yes</option>
+          </select>
+        </div>
+        <div class="row">
+          <select name="body">
+            <option>Curtain</option><option>Box</option><option>Reefer</option>
+          </select>
+          <input name="weight" placeholder="Weight (tonnes)" type="number" step="0.01">
+        </div>
+        <textarea name="notes" placeholder="Notes"></textarea>
+        <div class="row actions">
+          <button type="submit" class="btn primary" data-i18n="btn.send">Send Request</button>
+        </div>
+      </form>
+    </section>
+
+    <footer class="site-footer">
+      <div>© Danubria — The flow of Europe • <a href="mailto:info@danubria.com">info@danubria.com</a></div>
+    </footer>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
