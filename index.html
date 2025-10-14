@@ -23,7 +23,6 @@ header{position:fixed;left:0;right:0;top:0;padding:12px 22px;display:flex;justif
 .map-section{margin-top:36px}
 .map-3d{height:520px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fbfeff,#eef9ff);display:flex;align-items:center;justify-content:center}
 .footer{margin-top:28px;color:var(--muted)}
-
 /* responsive */
 @media(max-width:980px){.grid{grid-template-columns:1fr}.hero-canvas{height:360px}.map-3d{height:360px}.container{padding:90px 16px 60px}}
 </style>
@@ -83,133 +82,226 @@ header{position:fixed;left:0;right:0;top:0;padding:12px 22px;display:flex;justif
 </main>
 
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
+/* Load ES module builds directly from CDN (unpkg) so this works on static GitHub Pages */
+import * as THREE from 'https://unpkg.com/three@0.165.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.165.0/examples/jsm/controls/OrbitControls.js';
 
-window.addEventListener('load', ()=>{
+window.addEventListener('load', () => {
 
-  // HERO truck scene
+  // -------- HERO TRUCK SCENE (one renderer: rendererTruck) --------
   const canvasTruck = document.getElementById('sceneTruck');
   const rendererTruck = new THREE.WebGLRenderer({ canvas: canvasTruck, antialias: true, alpha: true });
   rendererTruck.setPixelRatio(window.devicePixelRatio);
   rendererTruck.shadowMap.enabled = true;
+
   const sceneTruck = new THREE.Scene();
   sceneTruck.background = new THREE.Color(0xf7feff);
-  const cameraTruck = new THREE.PerspectiveCamera(38, canvasTruck.clientWidth/canvasTruck.clientHeight, 0.1, 2000);
-  cameraTruck.position.set(0,28,140);
 
-  const hemi = new THREE.HemisphereLight(0xffffff,0x808fb3,0.9); sceneTruck.add(hemi);
-  const key = new THREE.DirectionalLight(0xffffff,1.1); key.position.set(80,120,80); key.castShadow = true; sceneTruck.add(key);
-  const rim = new THREE.DirectionalLight(0xa6f0ff,0.35); rim.position.set(-80,40,-60); sceneTruck.add(rim);
+  const cameraTruck = new THREE.PerspectiveCamera(38, canvasTruck.clientWidth / canvasTruck.clientHeight, 0.1, 2000);
+  cameraTruck.position.set(0, 28, 140);
 
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(900,900), new THREE.MeshStandardMaterial({color:0xecfbff,metalness:0.02,roughness:0.75}));
-  ground.rotation.x = -Math.PI/2; ground.position.y = -16; sceneTruck.add(ground);
+  // lights
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x808fb3, 0.9); sceneTruck.add(hemi);
+  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(80, 120, 80); key.castShadow = true; sceneTruck.add(key);
+  const rim = new THREE.DirectionalLight(0xa6f0ff, 0.35); rim.position.set(-80, 40, -60); sceneTruck.add(rim);
 
+  // ground
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(900, 900),
+    new THREE.MeshStandardMaterial({ color: 0xecfbff, metalness: 0.02, roughness: 0.75 })
+  );
+  ground.rotation.x = -Math.PI / 2; ground.position.y = -16; sceneTruck.add(ground);
+
+  // truck (procedural)
   const truck = new THREE.Group();
-  const trailerMat = new THREE.MeshStandardMaterial({color:0xffffff,metalness:0.02,roughness:0.55});
-  const trailer = new THREE.Mesh(new THREE.BoxGeometry(160,36,36), trailerMat); trailer.position.set(-30,8,0); trailer.castShadow = true; truck.add(trailer);
-  const cabMat = new THREE.MeshStandardMaterial({color:0x0a84ff,metalness:0.28,roughness:0.32});
-  const cabBase = new THREE.Mesh(new THREE.BoxGeometry(36,30,30), cabMat); cabBase.position.set(58,8,0); cabBase.castShadow = true; truck.add(cabBase);
-  const cabFront = new THREE.Mesh(new THREE.BoxGeometry(18,18,30), cabMat); cabFront.position.set(75,2,0); cabFront.castShadow = true; truck.add(cabFront);
-  const winMat = new THREE.MeshStandardMaterial({color:0xcdeffb,metalness:0.05,roughness:0.15,opacity:0.95,transparent:true});
-  const win = new THREE.Mesh(new THREE.BoxGeometry(16,14,1), winMat); win.position.set(68,10,15); truck.add(win);
-  const chassis = new THREE.Mesh(new THREE.BoxGeometry(160,6,12), new THREE.MeshStandardMaterial({color:0x12343e,metalness:0.3,roughness:0.35})); chassis.position.set(-30,-6,0); truck.add(chassis);
-  const wheelMat = new THREE.MeshStandardMaterial({color:0x0b0b0b,metalness:0.6,roughness:0.4});
-  function addWheel(x,z){ const w = new THREE.Mesh(new THREE.CylinderGeometry(6.5,6.5,8,32), wheelMat); w.rotation.z = Math.PI/2; w.position.set(x,-12,z); w.castShadow = true; truck.add(w); }
-  addWheel(72,14); addWheel(72,-14); addWheel(32,14); addWheel(32,-14); addWheel(-8,14); addWheel(-8,-14); addWheel(-48,14); addWheel(-48,-14);
-  truck.scale.set(0.86,0.86,0.86); truck.position.set(0,-8,0); sceneTruck.add(truck);
+  const trailer = new THREE.Mesh(new THREE.BoxGeometry(160, 36, 36), new THREE.MeshStandardMaterial({ color: 0xffffff }));
+  trailer.position.set(-30, 8, 0); trailer.castShadow = true; truck.add(trailer);
+  const cab = new THREE.Mesh(new THREE.BoxGeometry(36, 30, 30), new THREE.MeshStandardMaterial({ color: 0x0a84ff }));
+  cab.position.set(58, 8, 0); cab.castShadow = true; truck.add(cab);
+  const cabFront = new THREE.Mesh(new THREE.BoxGeometry(18, 18, 30), new THREE.MeshStandardMaterial({ color: 0x0a84ff }));
+  cabFront.position.set(75, 2, 0); cabFront.castShadow = true; truck.add(cabFront);
+  const chassis = new THREE.Mesh(new THREE.BoxGeometry(160, 6, 12), new THREE.MeshStandardMaterial({ color: 0x12343e }));
+  chassis.position.set(-30, -6, 0); truck.add(chassis);
 
-  const logoCanvas = document.createElement('canvas'); logoCanvas.width = 512; logoCanvas.height = 128; const lctx = logoCanvas.getContext('2d'); lctx.fillStyle = '#0A84FF'; lctx.fillRect(0,0,512,128); lctx.fillStyle = '#fff'; lctx.font = '36px sans-serif'; lctx.fillText('Danubria',20,78);
-  const logoTex = new THREE.CanvasTexture(logoCanvas); const logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(60,18), new THREE.MeshStandardMaterial({map:logoTex})); logoPlane.position.set(-30,10,18.5); logoPlane.rotation.y = -0.02; truck.add(logoPlane);
+  // wheels
+  const wheelMat = new THREE.MeshStandardMaterial({ color: 0x0b0b0b });
+  function addWheel(x, z) {
+    const w = new THREE.Mesh(new THREE.CylinderGeometry(6.5, 6.5, 8, 32), wheelMat);
+    w.rotation.z = Math.PI / 2;
+    w.position.set(x, -12, z);
+    w.castShadow = true;
+    truck.add(w);
+  }
+  [72, 32, -8, -48].forEach(x => { addWheel(x, 14); addWheel(x, -14); });
 
-  const glow = new THREE.Mesh(new THREE.SphereGeometry(3,16,12), new THREE.MeshBasicMaterial({color:0xffd7b0,transparent:true,opacity:0.2})); glow.position.set(84,2,0); sceneTruck.add(glow);
+  truck.scale.set(0.86, 0.86, 0.86);
+  truck.position.set(0, -8, 0);
+  sceneTruck.add(truck);
 
-  const controlsTruck = new OrbitControls(cameraTruck, rendererTruck.domElement); controlsTruck.enablePan = false; controlsTruck.enableZoom = false; controlsTruck.minPolarAngle = 0.6; controlsTruck.maxPolarAngle = 1.35;
+  // logo on trailer
+  const lc = document.createElement('canvas'); lc.width = 512; lc.height = 128;
+  const lctx = lc.getContext('2d'); lctx.fillStyle = '#0A84FF'; lctx.fillRect(0,0,512,128);
+  lctx.fillStyle = '#fff'; lctx.font = '36px sans-serif'; lctx.fillText('Danubria', 20, 78);
+  const logoTex = new THREE.CanvasTexture(lc);
+  const logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(60, 18), new THREE.MeshStandardMaterial({ map: logoTex }));
+  logoPlane.position.set(-30, 10, 18.5); logoPlane.rotation.y = -0.02; truck.add(logoPlane);
 
-  function resizeTruck(){ const w = canvasTruck.clientWidth; const h = canvasTruck.clientHeight; rendererTruck.setSize(w,h,true); cameraTruck.aspect = w/h; cameraTruck.updateProjectionMatrix(); }
-  window.addEventListener('resize', resizeTruck); resizeTruck();
+  const glow = new THREE.Mesh(new THREE.SphereGeometry(3, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffd7b0, transparent: true, opacity: 0.2 }));
+  glow.position.set(84, 2, 0); sceneTruck.add(glow);
+
+  const controlsTruck = new OrbitControls(cameraTruck, rendererTruck.domElement);
+  controlsTruck.enablePan = false; controlsTruck.enableZoom = false; controlsTruck.minPolarAngle = 0.6; controlsTruck.maxPolarAngle = 1.35;
+
+  function resizeTruck() {
+    const w = canvasTruck.clientWidth, h = canvasTruck.clientHeight;
+    rendererTruck.setSize(w, h, true);
+    cameraTruck.aspect = w / h;
+    cameraTruck.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resizeTruck);
+  resizeTruck();
 
   let t = 0;
-  function animateTruck(){ t += 0.008; truck.position.x = Math.sin(t)*10; truck.rotation.y = Math.sin(t*0.18)*0.08; glow.material.opacity = 0.12 + Math.abs(Math.sin(t*0.6))*0.12; cameraTruck.position.x = Math.sin(t*0.04)*9; cameraTruck.lookAt(truck.position.x,6,0); controlsTruck.update(); rendererTruck.render(sceneTruck, cameraTruck); requestAnimationFrame(animateTruck); }
+  function animateTruck() {
+    t += 0.008;
+    truck.position.x = Math.sin(t) * 10;
+    truck.rotation.y = Math.sin(t * 0.18) * 0.08;
+    glow.material.opacity = 0.12 + Math.abs(Math.sin(t * 0.6)) * 0.12;
+    cameraTruck.position.x = Math.sin(t * 0.04) * 9;
+    cameraTruck.lookAt(truck.position.x, 6, 0);
+    controlsTruck.update();
+    rendererTruck.render(sceneTruck, cameraTruck);
+    requestAnimationFrame(animateTruck);
+  }
   requestAnimationFrame(animateTruck);
 
-  // ---------- 3D MAP SCENE ----------
+  // -------- 3D MAP SCENE (separate renderer: rendererMap) --------
   const canvasMap = document.getElementById('sceneMap');
   const rendererMap = new THREE.WebGLRenderer({ canvas: canvasMap, antialias: true, alpha: true });
   rendererMap.setPixelRatio(window.devicePixelRatio);
   rendererMap.shadowMap.enabled = true;
+
   const sceneMap = new THREE.Scene();
   sceneMap.background = new THREE.Color(0xf7feff);
-  const cameraMap = new THREE.PerspectiveCamera(40, canvasMap.clientWidth/canvasMap.clientHeight, 0.1, 2000);
+
+  const cameraMap = new THREE.PerspectiveCamera(40, canvasMap.clientWidth / canvasMap.clientHeight, 0.1, 2000);
   cameraMap.position.set(0, 140, 320);
 
-  const hemiM = new THREE.HemisphereLight(0xffffff,0x808fb3,0.9); sceneMap.add(hemiM);
-  const keyM = new THREE.DirectionalLight(0xffffff,1.0); keyM.position.set(80,120,80); sceneMap.add(keyM);
+  const hemiM = new THREE.HemisphereLight(0xffffff, 0x808fb3, 0.9); sceneMap.add(hemiM);
+  const keyM = new THREE.DirectionalLight(0xffffff, 1.0); keyM.position.set(80,120,80); sceneMap.add(keyM);
 
-  const planeGeo = new THREE.PlaneGeometry(680,420,40,40);
-  for(let i=0;i<planeGeo.attributes.position.count;i++){ const z = (Math.random()-0.5)*4; planeGeo.attributes.position.setZ(i,z); }
-  const planeMat = new THREE.MeshStandardMaterial({color:0xeef9ff,metalness:0.02,roughness:0.9,side:THREE.DoubleSide});
-  const plane = new THREE.Mesh(planeGeo, planeMat); plane.rotation.x = -Math.PI/2; plane.position.y = -6; sceneMap.add(plane);
+  // plane (map base) with subtle relief
+  const planeGeo = new THREE.PlaneGeometry(680, 420, 40, 40);
+  for (let i = 0; i < planeGeo.attributes.position.count; i++) {
+    const z = (Math.random() - 0.5) * 4;
+    planeGeo.attributes.position.setZ(i, z);
+  }
+  const planeMat = new THREE.MeshStandardMaterial({ color: 0xeef9ff, metalness: 0.02, roughness: 0.9, side: THREE.DoubleSide });
+  const plane = new THREE.Mesh(planeGeo, planeMat);
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.y = -6;
+  sceneMap.add(plane);
 
+  // city markers data (approx positions on plane)
   const cityData = [
-    {id:'barcelona',name:'Barcelona, ES',x:160,z:-40,info:'Iberian operations & logistics'},
-    {id:'madrid',name:'Madrid, ES',x:80,z:-20,info:'Central distribution'},
-    {id:'irun',name:'Irun, ES',x:40,z:-80,info:'Border hub (Spain)'},
-    {id:'valencia',name:'Valencia, ES',x:190,z:-10,info:'Mediterranean port operations'},
-    {id:'montpellier',name:'Montpellier, FR',x:220,z:-60,info:'Southern France partner'},
-    {id:'marseille',name:'Marseille, FR',x:260,z:-50,info:'Port & Mediterranean gateway'},
-    {id:'nice',name:'Nice, FR',x:300,z:-40,info:'Coastal logistics'},
-    {id:'milano',name:'Milano, IT',x:360,z:10,info:'Northern Italy hub'},
-    {id:'novarra',name:'Novara, IT',x:340,z:30,info:'Logistics in Piedmont'},
-    {id:'venetia',name:'Venezia, IT',x:420,z:40,info:'Venice port & logistics'},
-    {id:'bologna',name:'Bologna, IT',x:400,z:20,info:'Inland distribution Italy'}
+    { id: 'barcelona', name: 'Barcelona, ES', x: 160, z: -40, info: 'Iberian operations & logistics' },
+    { id: 'madrid', name: 'Madrid, ES', x: 80, z: -20, info: 'Central distribution' },
+    { id: 'irun', name: 'Irun, ES', x: 40, z: -80, info: 'Border hub (Spain)' },
+    { id: 'valencia', name: 'Valencia, ES', x: 190, z: -10, info: 'Mediterranean port operations' },
+    { id: 'montpellier', name: 'Montpellier, FR', x: 220, z: -60, info: 'Southern France partner' },
+    { id: 'marseille', name: 'Marseille, FR', x: 260, z: -50, info: 'Port & Mediterranean gateway' },
+    { id: 'nice', name: 'Nice, FR', x: 300, z: -40, info: 'Coastal logistics' },
+    { id: 'milano', name: 'Milano, IT', x: 360, z: 10, info: 'Northern Italy hub' },
+    { id: 'novarra', name: 'Novara, IT', x: 340, z: 30, info: 'Logistics in Piedmont' },
+    { id: 'venetia', name: 'Venezia, IT', x: 420, z: 40, info: 'Venice port & logistics' },
+    { id: 'bologna', name: 'Bologna, IT', x: 400, z: 20, info: 'Inland distribution Italy' }
   ];
 
   const markers = new THREE.Group();
-  const pinGeo = new THREE.ConeGeometry(6,18,18);
-  const pinMat = new THREE.MeshStandardMaterial({color:0x0a84ff,metalness:0.3,roughness:0.35});
-  cityData.forEach(c=>{
+  const pinGeo = new THREE.ConeGeometry(6, 18, 18);
+  const pinMat = new THREE.MeshStandardMaterial({ color: 0x0a84ff, metalness: 0.3, roughness: 0.35 });
+
+  cityData.forEach(c => {
     const pin = new THREE.Mesh(pinGeo, pinMat);
-    pin.position.set(c.x-340, 2, c.z+10); pin.rotation.x = Math.PI; pin.userData = c;
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(3,12,12), new THREE.MeshStandardMaterial({color:0xffffff}));
-    dot.position.set(c.x-340, 10, c.z+10);
-    markers.add(pin); markers.add(dot);
+    pin.position.set(c.x - 340, 2, c.z + 10);
+    pin.rotation.x = Math.PI;
+    pin.userData = c;
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(3, 12, 12), new THREE.MeshStandardMaterial({ color: 0xffffff }));
+    dot.position.set(c.x - 340, 10, c.z + 10);
+    markers.add(pin);
+    markers.add(dot);
   });
   sceneMap.add(markers);
 
-  function addRoute(a,b){
-    const material = new THREE.LineBasicMaterial({color:0x0A84FF,linewidth:2,opacity:0.9});
-    const points = [ new THREE.Vector3(a.x-340,12,a.z+10), new THREE.Vector3(b.x-340,12,b.z+10) ];
-    const geo = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(geo, material); sceneMap.add(line);
+  // sample routes
+  function addRoute(a, b) {
+    const material = new THREE.LineBasicMaterial({ color: 0x0A84FF, linewidth: 2 });
+    const pts = [ new THREE.Vector3(a.x - 340, 12, a.z + 10), new THREE.Vector3(b.x - 340, 12, b.z + 10) ];
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    const line = new THREE.Line(geo, material);
+    sceneMap.add(line);
   }
   addRoute(cityData[1], cityData[0]);
   addRoute(cityData[0], cityData[7]);
   addRoute(cityData[5], cityData[6]);
 
-  const controlsMap = new OrbitControls(cameraMap, rendererMap.domElement); controlsMap.enablePan = true; controlsMap.enableZoom = true; controlsMap.maxPolarAngle = Math.PI/2 + 0.2; controlsMap.minDistance = 150; controlsMap.maxDistance = 700;
+  const controlsMap = new OrbitControls(cameraMap, rendererMap.domElement);
+  controlsMap.enablePan = true; controlsMap.enableZoom = true;
+  controlsMap.maxPolarAngle = Math.PI/2 + 0.2; controlsMap.minDistance = 150; controlsMap.maxDistance = 700;
 
-  function resizeMap(){ const w = canvasMap.clientWidth; const h = canvasMap.clientHeight; rendererMap.setSize(w,h,true); cameraMap.aspect = w/h; cameraMap.updateProjectionMatrix(); }
-  window.addEventListener('resize', resizeMap); resizeMap();
+  function resizeMap() {
+    const w = canvasMap.clientWidth, h = canvasMap.clientHeight;
+    rendererMap.setSize(w, h, true);
+    cameraMap.aspect = w / h;
+    cameraMap.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resizeMap);
+  resizeMap();
 
-  const raycaster = new THREE.Raycaster(); const mouse = new THREE.Vector2();
-  canvasMap.addEventListener('click',(ev)=>{
+  // click handling for markers
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  canvasMap.addEventListener('click', (ev) => {
     const rect = canvasMap.getBoundingClientRect();
-    mouse.x = ((ev.clientX-rect.left)/rect.width)*2 - 1;
-    mouse.y = -((ev.clientY-rect.top)/rect.height)*2 + 1;
+    mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(mouse, cameraMap);
     const intersects = raycaster.intersectObjects(markers.children, true);
-    if(intersects.length){ const obj = intersects[0].object; const data = obj.userData || (obj.parent && obj.parent.userData) || null; if(data) alert(data.name + "\n" + data.info); }
+    if (intersects.length) {
+      const obj = intersects[0].object;
+      const data = obj.userData || (obj.parent && obj.parent.userData) || null;
+      if (data) alert(data.name + "\\n" + data.info);
+    }
   });
 
+  // animate map (gentle motion)
   let tm = 0;
-  function animateMap(){ tm += 0.006; markers.children.forEach((m,i)=>{ if(m.geometry && m.geometry.type === 'SphereGeometry'){ m.scale.setScalar(1 + 0.08*Math.sin(tm*3 + i)); } }); cameraMap.position.x = Math.sin(tm*0.2) * 60; cameraMap.lookAt(0,0,0); rendererMap.render(sceneMap,cameraMap); requestAnimationFrame(animateMap); }
+  function animateMap() {
+    tm += 0.006;
+    markers.children.forEach((m, i) => {
+      if (m.geometry && m.geometry.type === 'SphereGeometry') {
+        m.scale.setScalar(1 + 0.08 * Math.sin(tm * 3 + i));
+      }
+    });
+    cameraMap.position.x = Math.sin(tm * 0.2) * 60;
+    cameraMap.lookAt(0, 0, 0);
+    rendererMap.render(sceneMap, cameraMap);
+    requestAnimationFrame(animateMap);
+  }
   requestAnimationFrame(animateMap);
 
 }); // end load
 
 // mailto fallback for quote form
-document.getElementById('quoteForm').addEventListener('submit', function(e){ e.preventDefault(); const fd = new FormData(this); const obj = {}; for(const [k,v] of fd.entries()) obj[k]=v; const subj = encodeURIComponent('Quote request — Danubria'); const body = encodeURIComponent(JSON.stringify(obj,null,2)); window.location.href = `mailto:info@danubria.com?subject=${subj}&body=${body}`; });
+document.getElementById('quoteForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const fd = new FormData(this);
+  const obj = {};
+  for (const [k, v] of fd.entries()) obj[k] = v;
+  const subj = encodeURIComponent('Quote request — Danubria');
+  const body = encodeURIComponent(JSON.stringify(obj, null, 2));
+  window.location.href = `mailto:info@danubria.com?subject=${subj}&body=${body}`;
+});
 </script>
 </body>
 </html>
