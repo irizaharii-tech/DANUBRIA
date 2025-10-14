@@ -13,16 +13,18 @@
 <body>
   <header class="site-header">
     <div class="header-left">
-      <img src="assets/DA_transparent.png" alt="Danubria logo" class="brand-logo-header">
+      <img src="assets/DA_transparent.png" alt="Danubria" class="brand-logo-header">
       <span class="brand-text">Danubria</span>
     </div>
-    <nav class="site-nav">
+
+    <nav class="site-nav" aria-label="Main">
       <a href="#" data-i18n="nav.home" class="active">Home</a>
       <a href="#network" data-i18n="nav.network">Our Network</a>
       <a href="#quote" data-i18n="nav.quote">Get a Quote</a>
     </nav>
+
     <div class="header-right">
-      <div class="lang-switch">
+      <div class="lang-switch" role="navigation" aria-label="Language">
         <button data-lang="en" class="lang-btn">EN</button>
         <button data-lang="es" class="lang-btn">ES</button>
         <button data-lang="it" class="lang-btn">IT</button>
@@ -42,8 +44,8 @@
         </div>
       </div>
 
-      <!-- ART: camion (transparent PNG) -->
       <div class="hero-art" aria-hidden="true">
+        <!-- Truck image (transparent PNG) -->
         <img src="assets/DA_transparent.png" alt="" class="truck-bg">
       </div>
     </section>
@@ -51,12 +53,12 @@
     <section id="network" class="card network-section">
       <h2 data-i18n="network.title">Our Network — Europe map</h2>
       <p class="muted" data-i18n="network.lead">Click a glowing dot to see city details.</p>
-      <div id="map" class="map-container"></div>
+      <div id="map" class="map-container" role="application" aria-label="Map of Europe"></div>
     </section>
 
     <section id="quote" class="card quote-section">
       <h2 data-i18n="quote.title">Request a Quote</h2>
-      <form id="quoteForm" class="quote-form">
+      <form id="quoteForm" class="quote-form" autocomplete="on">
         <div class="row">
           <input name="origin" placeholder="Origin (city/postcode)" required>
           <input name="destination" placeholder="Destination (city/postcode)" required>
