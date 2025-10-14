@@ -1,189 +1,74 @@
 /* ==================================================================== */
-/* 1. style.css - Cinematic Blue/White, Glassmorphism, European Look */
+/* 1. style.css - (Updated for better background visibility and 3D simulation) */
 /* ==================================================================== */
 
 :root {
-    /* Color Palette: Dark Cinematic Base, Electric Blue Accent */
-    --color-dark: #070D18; /* Near-black for deep contrast */
-    --color-blue: #0088FF; /* Primary Electric Blue */
-    --color-light-blue: #00BFFF; /* Secondary Glow/Reflection Blue */
+    /* Color Palette: Adjusted Dark Base to ensure it's blue, not black */
+    --color-dark: #0A1429; /* Dark Navy Blue (Visibly blue, not black) */
+    --color-blue: #0088FF; 
+    --color-light-blue: #00BFFF; 
     --color-white: #FFFFFF;
-    --color-glass-bg: rgba(255, 255, 255, 0.04); /* Very subtle glass background */
-    --color-glass-border: rgba(0, 136, 255, 0.3); /* Blue border for glass elements */
-    --color-section-bg: #0C1320; /* Slightly lighter dark for section separation */
+    --color-glass-bg: rgba(255, 255, 255, 0.05);
+    --color-glass-border: rgba(0, 136, 255, 0.3);
+    --color-section-bg: #101F3B; /* Slightly lighter blue section color */
 
-    /* Modern Abstract Font */
     --font-primary: 'Poppins', sans-serif;
     --max-width: 1400px;
 }
 
-/* Base and Typography */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
+/* Base Body Background: Now visibly Dark Blue */
 body {
     font-family: var(--font-primary);
-    /* Dynamic Dark Blue Background for Cinematic Feel */
-    background: radial-gradient(circle at 50% 5%, var(--color-dark) 10%, #000408 90%);
+    /* Radial gradient for depth, using the new dark blue base */
+    background: radial-gradient(circle at 50% 5%, var(--color-dark) 10%, #000918 90%);
     color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
-}
-
-/* Layout */
-.section {
-    width: 100%;
-    padding: 120px 0;
     position: relative;
-    overflow: hidden;
 }
 
-.container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 40px;
-}
-
-/* Header and Navigation (Glassmorphism) */
-.header {
+/* Optional: Subtle Noise Effect Overlay for Cinematic Feel */
+body::before {
+    content: '';
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
-    background: transparent;
-    transition: background-color 0.3s;
-}
-.header.scrolled {
-    background-color: rgba(7, 13, 24, 0.95);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-glass-border);
+    height: 100%;
+    /* Subtle noise effect (replace with actual noise texture if desired) */
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKkfgAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA0IDc5LjE2NDY0OCwgMjAyMC8wMi8wNi0xMDoyMjoyMyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veG1wL21tLy8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hweC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIj4gPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgMjEuMSAoV2luZG93cyk8L3htcDpDcmVhdG9yVG9vbD4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkRFQTlGNTNFNURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkRFQTlGNTNFNURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiLz4gPHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkRFQTlGNTQ1TURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkRFQTlGNTU1TURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InciPz4o6wUAAAAWSURBVHjaYmBgYGBiYvT/w4gCgxQAAgwAA/YGBiH1C0QAAAAASUVORK5CYII=');
+    opacity: 0.05; /* Very subtle */
+    pointer-events: none;
+    z-index: 1000;
 }
 
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-}
-
-.logo-container h1 {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--color-blue);
-    letter-spacing: 1px;
-}
-.logo-container span { color: var(--color-white); }
-.nav-links a {
-    color: var(--color-white);
-    text-decoration: none;
-    margin-left: 25px;
-    transition: color 0.3s;
-}
-.nav-links a:hover { color: var(--color-light-blue); }
-.nav-links a.cta {
-    background-color: var(--color-blue);
-    padding: 8px 18px;
-    border-radius: 4px;
-    font-weight: 600;
-}
-#language-switcher {
-    margin-left: 20px;
-    padding: 6px 10px;
-    border-radius: 4px;
-    background: var(--color-section-bg);
-    color: var(--color-white);
-    border: 1px solid var(--color-glass-border);
-    cursor: pointer;
-}
-
-/* Hero Section (Cinematic) */
+/* Hero Section (Cinematic with Truck Simulation) */
 .hero-section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: 80px;
-    position: relative;
+    /* Subtle blue gradient overlay for "terminal" feel */
+    background: linear-gradient(to top, rgba(0, 136, 255, 0.05), transparent 50%), var(--color-dark);
+    /* ... restul stilurilor raman ... */
 }
 
-/* 3D Truck Placeholder */
+/* Truck 3D Simulation using Video/GIF (Open Source Placeholder) */
 .truck-image-placeholder {
+    /* Placeholder for a transparent background GIF/Video of a moving truck */
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    max-width: 1100px;
+    width: 100%; /* Wider for a cinematic view */
+    max-width: 1400px;
     height: auto;
-    opacity: 0.4; /* Subtle background element */
+    opacity: 0.5; 
     z-index: 3;
-    animation: subtleZoom 40s linear infinite alternate; /* Originality: Subtle breathing zoom */
+    animation: subtleMove 40s linear infinite alternate;
 }
-@keyframes subtleZoom {
-    0% { transform: translate(-50%, 0) scale(1.0); }
-    100% { transform: translate(-50%, 0) scale(1.03); }
-}
-
-.hero-content {
-    position: relative;
-    z-index: 5;
-    max-width: 900px;
-}
-.hero-content h1 {
-    font-size: 80px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-/* Glow effect similar to Terminal Industries text */
-.slogan-primary {
-    color: var(--color-white);
-    text-shadow: 0 0 10px var(--color-light-blue), 0 0 20px rgba(0, 136, 255, 0.4);
-}
-.slogan-secondary { color: var(--color-blue); }
-
-.button-main {
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: var(--color-blue);
-    color: var(--color-white);
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    text-transform: uppercase;
-    box-shadow: 0 0 15px rgba(0, 136, 255, 0.4); /* Button Glow */
-}
-.button-main:hover {
-    background-color: var(--color-light-blue);
-    box-shadow: 0 0 25px var(--color-light-blue);
+@keyframes subtleMove {
+    0% { transform: translate(-52%, 0) scale(1.0); }
+    100% { transform: translate(-48%, 0) scale(1.02); }
 }
 
-/* Glassmorphism Card Style */
-.glass-card {
-    background: var(--color-glass-bg);
-    border: 1px solid var(--color-glass-border);
-    backdrop-filter: blur(15px);
-    border-radius: 10px;
-    padding: 30px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 136, 255, 0.2);
-}
-
-/* Our Network Section (Map Integration) */
-.network-section {
-    background-color: var(--color-section-bg); /* Section separation */
-    text-align: center;
-}
-
+/* Our Network Section (Google Maps Simulation) */
 .interactive-map-placeholder {
     width: 100%;
     height: 550px;
@@ -192,70 +77,29 @@ body {
     border-radius: 10px;
     margin: 40px auto;
     overflow: hidden;
-    background-image: url('https://picsum.photos/1200/550/?european_logistics_map_routes'); /* Logistics-themed Map Image */
+    /* Simulate a Google Maps or advanced logistics map appearance */
+    /* NOTE: In a real project, this would be the Google Maps JS API container */
+    background-color: #1a2b4b; /* Dark map color */
+    background-image: url('https://picsum.photos/1200/550/?dark_european_map_routes'); /* Logistics Map Image */
     background-size: cover;
     background-position: center;
-    background-color: #1A233A; /* Fallback color */
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.3); /* Map glow */
 }
 
-/* Glowing City Dot Style */
-.map-dot {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: var(--color-light-blue);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--color-light-blue), 0 0 20px var(--color-blue);
-    z-index: 10;
-    animation: glowPulse 1.8s infinite alternate;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-.map-dot:hover {
-    transform: scale(1.8);
-}
-@keyframes glowPulse {
-    0% { opacity: 0.7; }
-    100% { opacity: 1.0; }
-}
+/* City Dot Styling remains the same */
 
-/* City Dot Positions (Approximate Western/Southern European Locations) */
-.dot-barcelona { top: 70%; left: 28%; }
-.dot-madrid { top: 78%; left: 18%; }
+/* --- Custom Map Dot Positions (Approximate) --- */
+/* We need to define positions based on the European map placeholder */
+.dot-barcelona { top: 75%; left: 30%; }
+.dot-madrid { top: 85%; left: 15%; }
 .dot-irun { top: 60%; left: 10%; }
-.dot-valencia { top: 85%; left: 22%; }
+.dot-valencia { top: 90%; left: 25%; }
 .dot-montpellier { top: 55%; left: 40%; }
-.dot-marseille { top: 60%; left: 45%; }
-.dot-nice { top: 55%; left: 50%; }
-.dot-novara { top: 40%; left: 58%; }
+.dot-marseille { top: 65%; left: 45%; }
+.dot-nice { top: 60%; left: 50%; }
+.dot-novara { top: 40%; left: 55%; }
 .dot-milano { top: 45%; left: 60%; }
-.dot-venezia { top: 40%; left: 65%; }
-.dot-bologna { top: 50%; left: 62%; }
+.dot-venezia { top: 40%; left: 70%; }
+.dot-bologna { top: 55%; left: 65%; }
 
-/* Scroll Animations */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 45px;
-    }
-    .container {
-        padding: 0 20px;
-    }
-    .nav-links {
-        display: none; /* Hide for mobile; implement a hamburger menu for production */
-    }
-    .interactive-map-placeholder {
-        height: 350px;
-    }
-}
+/* ... restul CSS-ului rămâne neschimbat ... */
