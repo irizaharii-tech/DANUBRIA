@@ -1,0 +1,288 @@
+/* ==================================================================== */
+/* 2. style.css - Modern European, Cinematic Blue/White Design */
+/* ==================================================================== */
+
+:root {
+    /* Color Palette inspired by Terminal Industries (Abstract Blue/White/Dark) */
+    --color-dark: #0A0F1A; /* Main Background (Very Dark) */
+    --color-blue: #0077FF; /* Electric Blue Accent (Glow) */
+    --color-light-blue: #00BFFF; /* Lighter Blue for Reflections/Glow */
+    --color-white: #FFFFFF; /* Main Text */
+    --color-glass-bg: rgba(255, 255, 255, 0.05); /* Glassmorphism Background */
+    --color-glass-border: rgba(0, 119, 255, 0.2); /* Subtle Blue Glass Border */
+
+    /* Modern abstract font placeholder */
+    --font-primary: 'Poppins', sans-serif;
+    --max-width: 1400px;
+}
+
+/* Base Reset and Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Container and Section Structure (Full Width) */
+.section {
+    width: 100%;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* ==================================================================== */
+/* Header and Navigation */
+/* ==================================================================== */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: transparent;
+    backdrop-filter: blur(10px); /* Glassmorphism for header */
+    border-bottom: 1px solid var(--color-glass-border);
+    transition: background-color 0.3s, border-bottom 0.3s;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo-container h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-blue);
+    letter-spacing: 1px;
+}
+
+.logo-container span {
+    color: var(--color-white);
+}
+
+.nav-links a {
+    color: var(--color-white);
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 16px;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--color-blue);
+}
+
+.nav-links a.cta {
+    background-color: var(--color-blue);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+/* Language Switcher Styling */
+#language-switcher {
+    margin-left: 20px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: var(--color-dark);
+    color: var(--color-white);
+    border: 1px solid var(--color-blue);
+    cursor: pointer;
+}
+
+/* ==================================================================== */
+/* Hero Cinematic 3D (Simulation) */
+/* ==================================================================== */
+
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding-top: 80px;
+}
+
+/* 3D Placeholder: Where Three.js/WebGL scene will be integrated */
+.hero-3d-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0A0F1A;
+    background-image: radial-gradient(circle at 50% 50%, rgba(0, 119, 255, 0.1), rgba(0, 0, 0, 0.8));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Glow on Main Slogan */
+.slogan-primary {
+    color: var(--color-white);
+    text-shadow: 0 0 10px var(--color-light-blue), 0 0 20px rgba(0, 119, 255, 0.5);
+}
+
+.slogan-secondary {
+    color: var(--color-blue);
+}
+
+/* ==================================================================== */
+/* Glassmorphism Design */
+/* ==================================================================== */
+
+.glass-card {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Subtle Blue Reflection on Hover */
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 119, 255, 0.3);
+}
+
+/* ==================================================================== */
+/* Our Network (Interactive Map Simulation) */
+/* ==================================================================== */
+
+.interactive-map-placeholder {
+    width: 100%;
+    height: 600px;
+    background-color: #0A0F1A;
+    border: 2px solid var(--color-blue);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+/* City Dots (Glow Effect) */
+.map-dot {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-light-blue), 0 0 15px var(--color-blue);
+    z-index: 10;
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Example City Dot Positions */
+.dot-berlin { top: 20%; left: 45%; }
+.dot-paris { top: 35%; left: 30%; }
+.dot-madrid { top: 70%; left: 20%; }
+.dot-rome { top: 60%; left: 55%; }
+.dot-bucharest { top: 50%; left: 70%; }
+
+@keyframes glow {
+    from { transform: scale(0.9); opacity: 0.8; }
+    to { transform: scale(1.1); opacity: 1; }
+}
+
+/* ==================================================================== */
+/* Quote Form Section */
+/* ==================================================================== */
+
+.quote-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    /* Inherits Glassmorphism style from Glass Cards */
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--color-glass-border);
+    background: var(--color-glass-bg);
+    color: var(--color-white);
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.button-submit {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+}
+
+/* ==================================================================== */
+/* Scroll Animations */
+/* ==================================================================== */
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================================================================== */
+/* Responsive Mobile */
+/* ==================================================================== */
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 48px;
+    }
+    .nav-links {
+        /* Simple hide for mobile, a proper hamburger menu is recommended */
+        display: none; 
+    }
+}
