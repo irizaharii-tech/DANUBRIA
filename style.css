@@ -1,105 +1,72 @@
-/* ==================================================================== */
-/* 1. style.css - (Updated for better background visibility and 3D simulation) */
-/* ==================================================================== */
+:root{
+  --accent:#0A84FF;
+  --bg1:#f4fbff;
+  --muted:#6b8aa0;
+  --card:#ffffff;
+  --glass: rgba(255,255,255,0.86);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#e9f6ff,#f8fcff)}
+.site-header{position:fixed;top:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:10px 30px;background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);z-index:60;border-bottom:1px solid rgba(10,20,40,0.03)}
+.header-left{display:flex;align-items:center;gap:12px}
+.brand-logo-header{height:44px;width:auto;object-fit:contain}
+.brand-text{font-weight:700;color:#0b3b4a;font-size:18px}
+.site-nav{position:relative;display:flex;gap:28px}
+.site-nav a{color:#0b3b4a;text-decoration:none;padding:6px 4px;font-weight:600}
+.site-nav a.active{border-bottom:3px solid var(--accent);padding-bottom:3px}
+.header-right{display:flex;align-items:center;gap:12px}
+.lang-switch{display:flex;gap:6px}
+.lang-btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px 8px;border-radius:6px;cursor:pointer}
+.lang-btn.active{background:var(--accent);color:white}
+.contact-btn{background:transparent;border:1px solid rgba(10,132,255,0.12);padding:8px 12px;border-radius:8px;color:var(--accent);text-decoration:none}
 
-:root {
-    /* Color Palette: Adjusted Dark Base to ensure it's blue, not black */
-    --color-dark: #0A1429; /* Dark Navy Blue (Visibly blue, not black) */
-    --color-blue: #0088FF; 
-    --color-light-blue: #00BFFF; 
-    --color-white: #FFFFFF;
-    --color-glass-bg: rgba(255, 255, 255, 0.05);
-    --color-glass-border: rgba(0, 136, 255, 0.3);
-    --color-section-bg: #101F3B; /* Slightly lighter blue section color */
+main{padding-top:96px;max-width:1300px;margin:0 auto;padding-bottom:80px}
 
-    --font-primary: 'Poppins', sans-serif;
-    --max-width: 1400px;
+/* HERO */
+.hero{display:flex;gap:28px;align-items:center;justify-content:space-between;padding:36px 24px;position:relative}
+.hero-card{width:46%;background:var(--glass);padding:30px;border-radius:14px;box-shadow:0 14px 40px rgba(8,20,40,0.06)}
+.hero-card h1{font-size:32px;margin:0 0 8px;color:#062b36}
+.lead{color:var(--muted);margin-bottom:16px}
+.hero-ctas{display:flex;gap:12px}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#00c1ff);color:white}
+.btn.ghost{background:transparent;border:1px solid rgba(10,132,255,0.12);color:var(--accent)}
+
+/* HERO ART - camion transparent */
+.hero-art{width:54%;display:flex;align-items:center;justify-content:center;position:relative}
+.truck-bg{
+  width:100%;
+  max-width:980px;
+  height:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 28px 60px rgba(10,132,255,0.07));
+  transform-origin:left center;
+  /* dacă remorca trebuie mai lungă: scaleX */
+  transform: scaleX(1.10) translateY(2px);
+  will-change:transform,filter;
 }
 
-/* Base Body Background: Now visibly Dark Blue */
-body {
-    font-family: var(--font-primary);
-    /* Radial gradient for depth, using the new dark blue base */
-    background: radial-gradient(circle at 50% 5%, var(--color-dark) 10%, #000918 90%);
-    color: var(--color-white);
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
+/* cards */
+.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 18px 50px rgba(10,60,90,0.04);margin:20px}
+.map-container{height:520px;border-radius:10px;overflow:hidden}
+.network-section .muted{color:var(--muted);margin-bottom:12px}
+.quote-form .row{display:flex;gap:12px;margin-bottom:12px}
+.quote-form input,.quote-form textarea,.quote-form select{flex:1;padding:10px;border-radius:6px;border:1px solid #e6f0f5}
+.quote-form textarea{min-height:80px}
+.actions{justify-content:flex-end}
+
+.site-footer{padding:24px;text-align:center;color:var(--muted);margin:28px 0}
+
+/* leaflet marker glow style */
+.leaflet-marker-icon.glow {
+  box-shadow: 0 0 18px 6px rgba(10,132,255,0.16), inset 0 0 8px rgba(10,132,255,0.12);
+  border-radius:16px;
+  transform: translate(-50%,-50%);
 }
-
-/* Optional: Subtle Noise Effect Overlay for Cinematic Feel */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Subtle noise effect (replace with actual noise texture if desired) */
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKkfgAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA0IDc5LjE2NDY0OCwgMjAyMC8wMi8wNi0xMDoyMjoyMyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veG1wL21tLy8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hweC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIj4gPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgMjEuMSAoV2luZG93cyk8L3htcDpDcmVhdG9yVG9vbD4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkRFQTlGNTNFNURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkRFQTlGNTNFNURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiLz4gPHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkRFQTlGNTQ1TURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkRFQTlGNTU1TURDMjcxMTg2Qjk5M0FFQUJDMjMzQ0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InciPz4o6wUAAAAWSURBVHjaYmBgYGBiYvT/w4gCgxQAAgwAA/YGBiH1C0QAAAAASUVORK5CYII=');
-    opacity: 0.05; /* Very subtle */
-    pointer-events: none;
-    z-index: 1000;
+@media(max-width:980px){
+  .hero{flex-direction:column;padding:24px}
+  .hero-card,.hero-art{width:100%}
+  .map-container{height:360px}
+  .site-nav{display:none}
+  .truck-bg{max-width:100%;transform: scaleX(1) translateY(6px)}
 }
-
-/* Hero Section (Cinematic with Truck Simulation) */
-.hero-section {
-    /* Subtle blue gradient overlay for "terminal" feel */
-    background: linear-gradient(to top, rgba(0, 136, 255, 0.05), transparent 50%), var(--color-dark);
-    /* ... restul stilurilor raman ... */
-}
-
-/* Truck 3D Simulation using Video/GIF (Open Source Placeholder) */
-.truck-image-placeholder {
-    /* Placeholder for a transparent background GIF/Video of a moving truck */
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%; /* Wider for a cinematic view */
-    max-width: 1400px;
-    height: auto;
-    opacity: 0.5; 
-    z-index: 3;
-    animation: subtleMove 40s linear infinite alternate;
-}
-@keyframes subtleMove {
-    0% { transform: translate(-52%, 0) scale(1.0); }
-    100% { transform: translate(-48%, 0) scale(1.02); }
-}
-
-/* Our Network Section (Google Maps Simulation) */
-.interactive-map-placeholder {
-    width: 100%;
-    height: 550px;
-    position: relative;
-    border: 1px solid var(--color-glass-border);
-    border-radius: 10px;
-    margin: 40px auto;
-    overflow: hidden;
-    /* Simulate a Google Maps or advanced logistics map appearance */
-    /* NOTE: In a real project, this would be the Google Maps JS API container */
-    background-color: #1a2b4b; /* Dark map color */
-    background-image: url('https://picsum.photos/1200/550/?dark_european_map_routes'); /* Logistics Map Image */
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 0 20px rgba(0, 136, 255, 0.3); /* Map glow */
-}
-
-/* City Dot Styling remains the same */
-
-/* --- Custom Map Dot Positions (Approximate) --- */
-/* We need to define positions based on the European map placeholder */
-.dot-barcelona { top: 75%; left: 30%; }
-.dot-madrid { top: 85%; left: 15%; }
-.dot-irun { top: 60%; left: 10%; }
-.dot-valencia { top: 90%; left: 25%; }
-.dot-montpellier { top: 55%; left: 40%; }
-.dot-marseille { top: 65%; left: 45%; }
-.dot-nice { top: 60%; left: 50%; }
-.dot-novara { top: 40%; left: 55%; }
-.dot-milano { top: 45%; left: 60%; }
-.dot-venezia { top: 40%; left: 70%; }
-.dot-bologna { top: 55%; left: 65%; }
-
-/* ... restul CSS-ului rămâne neschimbat ... */
