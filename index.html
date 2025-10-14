@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Danubria — The Flow of Europe, The Power of Logistics</title>
-  <link rel="stylesheet" href="./index-DKW8K0VP.css" />
-</head>
-<body style="margin:0; background: radial-gradient(circle at 30% 30%, #001f3f, #000b1a); color:white; font-family: 'Outfit', sans-serif;">
-  <div id="app" style="height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column;">
-    <h1 style="font-size:3rem; letter-spacing:2px;">Danubria</h1>
-    <h2 style="font-weight:300;">The Flow of Europe, The Power of Logistics</h2>
-    <canvas id="truckCanvas" style="width:100%; height:60vh;"></canvas>
-  </div>
-  
-  <script type="module" src="./index-SgvjoOuD.js"></script>
-</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danubria — The Flow of Europe, The Power of Logistics</title>
+    <link rel="stylesheet" href="./index-DKW8K0VP.css" />
+  </head>
+  <body style="margin:0; background: radial-gradient(circle at 30% 30%, #001f3f, #000b1a); color:white; font-family:'Outfit',sans-serif;">
+    
+    <!-- ✅ React will render here -->
+    <div id="root"></div>
+    
+    <noscript>You need to enable JavaScript to view this site.</noscript>
+    
+    <!-- ✅ Load the compiled React bundle after DOM is ready -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        import("./index-SgvjoOuD.js");
+      });
+    </script>
+  </body>
