@@ -1,109 +1,261 @@
 /* ==================================================================== */
-/* 2. style.css - Updated for Lighter Blue Background & Dynamic Map */
+/* 1. style.css - Cinematic Blue/White, Glassmorphism, European Look */
 /* ==================================================================== */
 
 :root {
-    /* Color Palette */
-    --color-dark: #0A0F1A; 
-    --color-blue: #0077FF; 
-    --color-light-blue: #00BFFF; 
-    --color-white: #FFFFFF; 
-    --color-glass-bg: rgba(255, 255, 255, 0.05);
-    --color-glass-border: rgba(0, 119, 255, 0.2);
-    --color-lighter-bg: #1A233A; /* New slightly lighter base color for sections */
+    /* Color Palette: Dark Cinematic Base, Electric Blue Accent */
+    --color-dark: #070D18; /* Near-black for deep contrast */
+    --color-blue: #0088FF; /* Primary Electric Blue */
+    --color-light-blue: #00BFFF; /* Secondary Glow/Reflection Blue */
+    --color-white: #FFFFFF;
+    --color-glass-bg: rgba(255, 255, 255, 0.04); /* Very subtle glass background */
+    --color-glass-border: rgba(0, 136, 255, 0.3); /* Blue border for glass elements */
+    --color-section-bg: #0C1320; /* Slightly lighter dark for section separation */
 
-    /* Modern abstract font placeholder */
+    /* Modern Abstract Font */
     --font-primary: 'Poppins', sans-serif;
     --max-width: 1400px;
 }
 
-/* Base Body Background: Dark Blue Cinematic Look */
+/* Base and Typography */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
 body {
     font-family: var(--font-primary);
-    /* Changed from uniform dark to a subtle gradient for depth */
-    background: radial-gradient(circle at 50% 10%, var(--color-dark), #000408);
+    /* Dynamic Dark Blue Background for Cinematic Feel */
+    background: radial-gradient(circle at 50% 5%, var(--color-dark) 10%, #000408 90%);
     color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Hero Cinematic 3D (Simulation) */
-.hero-section {
-    /* ... (restul stilurilor raman) ... */
-    background: radial-gradient(circle at 50% 0%, rgba(0, 119, 255, 0.15), rgba(10, 15, 26, 0.9)); /* Dynamic light source effect */
+/* Layout */
+.section {
+    width: 100%;
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 3D Truck Placeholder Visual */
-.hero-3d-background {
-    /* Placeholder for the 3D scene */
-    position: absolute;
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Header and Navigation (Glassmorphism) */
+.header {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 1;
-    /* Simulate a complex dark background with blue accents */
-    background-color: var(--color-dark); 
-    background-image: 
-        /* Subtle diagonal lines/texture for depth (Terminal Industries style) */
-        linear-gradient(45deg, rgba(0, 119, 255, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 119, 255, 0.05) 75%, rgba(0, 119, 255, 0.05) 100%),
-        linear-gradient(-45deg, rgba(0, 119, 255, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 119, 255, 0.05) 75%, rgba(0, 119, 255, 0.05) 100%);
-    background-size: 40px 40px;
-    opacity: 0.8;
+    z-index: 100;
+    background: transparent;
+    transition: background-color 0.3s;
+}
+.header.scrolled {
+    background-color: rgba(7, 13, 24, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-glass-border);
 }
 
-/* Placeholder pentru Imagine Camion */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo-container h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--color-blue);
+    letter-spacing: 1px;
+}
+.logo-container span { color: var(--color-white); }
+.nav-links a {
+    color: var(--color-white);
+    text-decoration: none;
+    margin-left: 25px;
+    transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--color-light-blue); }
+.nav-links a.cta {
+    background-color: var(--color-blue);
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+#language-switcher {
+    margin-left: 20px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--color-section-bg);
+    color: var(--color-white);
+    border: 1px solid var(--color-glass-border);
+    cursor: pointer;
+}
+
+/* Hero Section (Cinematic) */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px;
+    position: relative;
+}
+
+/* 3D Truck Placeholder */
 .truck-image-placeholder {
     position: absolute;
-    bottom: 5%; /* Ajustare pentru a parea ca se misca pe drum */
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%; /* Dimensiune mare */
-    max-width: 1000px;
+    width: 90%;
+    max-width: 1100px;
     height: auto;
-    opacity: 0.5; /* Opacitate redusa pentru efect cinematic */
+    opacity: 0.4; /* Subtle background element */
     z-index: 3;
-    animation: truckMove 40s linear infinite; /* Animatie de miscare subtila */
+    animation: subtleZoom 40s linear infinite alternate; /* Originality: Subtle breathing zoom */
+}
+@keyframes subtleZoom {
+    0% { transform: translate(-50%, 0) scale(1.0); }
+    100% { transform: translate(-50%, 0) scale(1.03); }
 }
 
-@keyframes truckMove {
-    0% { transform: translate(-50%, 0) scale(1.0); opacity: 0.5; }
-    50% { transform: translate(-50%, 0) scale(1.03); opacity: 0.6; }
-    100% { transform: translate(-50%, 0) scale(1.0); opacity: 0.5; }
+.hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+}
+.hero-content h1 {
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+/* Glow effect similar to Terminal Industries text */
+.slogan-primary {
+    color: var(--color-white);
+    text-shadow: 0 0 10px var(--color-light-blue), 0 0 20px rgba(0, 136, 255, 0.4);
+}
+.slogan-secondary { color: var(--color-blue); }
+
+.button-main {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(0, 136, 255, 0.4); /* Button Glow */
+}
+.button-main:hover {
+    background-color: var(--color-light-blue);
+    box-shadow: 0 0 25px var(--color-light-blue);
 }
 
-/* Secțiunea Our Network (Harta Statică cu Dots) */
+/* Glassmorphism Card Style */
+.glass-card {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 136, 255, 0.2);
+}
+
+/* Our Network Section (Map Integration) */
+.network-section {
+    background-color: var(--color-section-bg); /* Section separation */
+    text-align: center;
+}
 
 .interactive-map-placeholder {
-    /* Setăm imaginea de hartă statică */
-    background-image: url('europe_map_placeholder.jpg'); /* PLACEHOLDER IMAGE */
+    width: 100%;
+    height: 550px;
+    position: relative;
+    border: 1px solid var(--color-glass-border);
+    border-radius: 10px;
+    margin: 40px auto;
+    overflow: hidden;
+    background-image: url('https://picsum.photos/1200/550/?european_logistics_map_routes'); /* Logistics-themed Map Image */
     background-size: cover;
     background-position: center;
-    position: relative;
-    width: 100%;
-    height: 600px;
-    border: 2px solid var(--color-blue);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 50px;
+    background-color: #1A233A; /* Fallback color */
 }
 
-/* Poziții pentru orașele solicitate (Ajustate aproximativ pentru Europa de Vest/Sud) */
-.dot-barcelona { top: 75%; left: 25%; }
-.dot-madrid { top: 85%; left: 15%; }
+/* Glowing City Dot Style */
+.map-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-light-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-light-blue), 0 0 20px var(--color-blue);
+    z-index: 10;
+    animation: glowPulse 1.8s infinite alternate;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.map-dot:hover {
+    transform: scale(1.8);
+}
+@keyframes glowPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1.0; }
+}
+
+/* City Dot Positions (Approximate Western/Southern European Locations) */
+.dot-barcelona { top: 70%; left: 28%; }
+.dot-madrid { top: 78%; left: 18%; }
 .dot-irun { top: 60%; left: 10%; }
-.dot-valencia { top: 90%; left: 20%; }
-.dot-montpellier { top: 55%; left: 35%; }
-.dot-marseille { top: 65%; left: 40%; }
-.dot-nice { top: 60%; left: 45%; }
-.dot-novara { top: 50%; left: 50%; }
-.dot-milano { top: 45%; left: 52%; }
-.dot-venezia { top: 40%; left: 57%; }
-.dot-bologna { top: 55%; left: 55%; }
+.dot-valencia { top: 85%; left: 22%; }
+.dot-montpellier { top: 55%; left: 40%; }
+.dot-marseille { top: 60%; left: 45%; }
+.dot-nice { top: 55%; left: 50%; }
+.dot-novara { top: 40%; left: 58%; }
+.dot-milano { top: 45%; left: 60%; }
+.dot-venezia { top: 40%; left: 65%; }
+.dot-bologna { top: 50%; left: 62%; }
 
-/* Secțiunile de fundal se vor folosi de noua culoare */
-.quote-section {
-    background-color: var(--color-lighter-bg); 
+/* Scroll Animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Păstrăm restul stilurilor Glassmorphism și Responsive */
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 45px;
+    }
+    .container {
+        padding: 0 20px;
+    }
+    .nav-links {
+        display: none; /* Hide for mobile; implement a hamburger menu for production */
+    }
+    .interactive-map-placeholder {
+        height: 350px;
+    }
+}
