@@ -7,71 +7,81 @@
     <meta name="description" content="Premium European logistics network connecting key industrial hubs with modern transportation solutions">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        danube: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-
-    <!-- Leaflet CSS + JS (no API key required) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-sA+e2H4gEw3gqv3kXkYJb6kq2v1GkYkz4b1pN6w5i2M=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-3g1k1s9p9R6m1xk1D5QGq5Yw2a3lP8n+G1k2b4T0v9o=" crossorigin=""></script>
-
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-
-    <style>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
-        .glassmorphism { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.18); }
-        .map-container { height: 600px; width: 100%; border-radius: 16px; overflow: hidden; position: relative; }
-        /* Pulsing marker style */
-        .pulse-marker {
-          width: 14px;
-          height: 14px;
-          border-radius: 50%;
-          background: #06a8e8;
-          box-shadow: 0 0 8px rgba(6,168,232,0.9);
-          position: relative;
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
-        .pulse-marker::after {
-          content: "";
-          width: 14px;
-          height: 14px;
-          border-radius: 50%;
-          position: absolute;
-          left: 0; top: 0;
-          box-shadow: 0 0 12px rgba(6,168,232,0.7);
-          animation: pulse 2s infinite;
-          opacity: 0.8;
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        @keyframes pulse {
-          0% { transform: scale(1); opacity: 0.7; }
-          50% { transform: scale(2.2); opacity: 0.15; }
-          100% { transform: scale(1); opacity: 0.0; }
+        
+        .map-glow {
+            box-shadow: 0 0 20px 5px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease;
         }
-        /* Label style for small popup-like badges */
-        .map-label {
-          background: rgba(255,255,255,0.95);
-          padding: 6px 8px;
-          border-radius: 6px;
-          box-shadow: 0 4px 12px rgba(2,132,199,0.12);
-          font-weight: 600;
-          font-size: 13px;
+        
+        .map-glow:hover {
+            box-shadow: 0 0 30px 10px rgba(14, 165, 233, 0.5);
+            transform: scale(1.05);
         }
-        /* small responsiveness */
-        @media (max-width: 768px) {
-          .map-container { height: 420px; }
+        
+        .language-switcher {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+        }
+        
+        #truck-container {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
     </style>
 </head>
 <body class="antialiased">
-
     <!-- Navigation -->
     <nav class="glassmorphism fixed w-full z-40 py-4 px-6 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yMCA0MEMzMS4wNDU3IDQwIDQwIDMxLjA0NTcgNDAgMjBDNDAgOC45NTQzIDMxLjA0NTcgMCAyMCAwQzguOTU0MyAwIDAgOC45NTQzIDAgMjBDMCAzMS4wNDU3IDguOTU0MyA0MCAyMCA0MFoiIGZpbGw9IiMwRUE1RTkiLz4KICAgIDxwYXRoIGQ9Ik0yMCAxMEMxNC40NzcyIDEwIDEwIDE0LjQ3NzIgMTAgMjBDMTAgMjUuNTIyOCAxNC40NzcyIDMwIDIwIDMwQzI1LjUyMjggMzAgMzAgMjUuNTIyOCAzMCAyMEMzMCAxNC40NzcyIDI1LjUyMjggMTAgMjAgMTBaTTE2IDI0TDEyIDIwTDEzLjQxNDIgMTguNTg1OEwxNiAyMS4xNzE2TDI2LjU4NTggMTAuNTg1OEwyOCAxMkwxNiAyNFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPg==" alt="Danubria Logo" class="w-10 h-10">
-                <span class="text-xl font-semibold text-danube-800">DANUBRIA</span>
+<span class="text-xl font-semibold text-danube-800">DANUBRIA</span>
             </div>
             <div class="hidden md:flex space-x-8">
                 <a href="#network" class="text-danube-800 hover:text-danube-600 transition-colors">Our Network</a>
@@ -79,13 +89,12 @@
                 <a href="#about" class="text-danube-800 hover:text-danube-600 transition-colors">About Us</a>
                 <a href="#contact" class="text-danube-800 hover:text-danube-600 transition-colors">Contact</a>
                 <a href="/calculator.html" class="bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors">Instant Quote</a>
-            </div>
+</div>
             <button class="md:hidden text-danube-800">
                 <i data-feather="menu"></i>
             </button>
         </div>
     </nav>
-
     <!-- Hero Section with 3D Transportation Network -->
     <section id="truck-container" class="relative">
         <div id="vanta-globe" class="absolute inset-0"></div>
@@ -96,23 +105,68 @@
             <p class="text-2xl md:text-3xl font-medium text-danube-700 mb-8">The power of logistics</p>
             <div class="flex space-x-4">
                 <a href="#network" class="bg-danube-600 text-white px-6 py-3 rounded-md hover:bg-danube-700 transition-colors text-lg">Explore Network</a>
-                <a href="/calculator.html" class="bg-white text-danube-600 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors text-lg border border-danube-300">Instant Quote</a>
-            </div>
+            <a href="/calculator.html" class="bg-white text-danube-600 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors text-lg border border-danube-300">Instant Quote</a>
+</div>
         </div>
     </section>
-
     <!-- Network Section -->
     <section id="network" class="py-20 px-4 max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-4">Our European Network</h2>
             <p class="text-lg text-danube-700 max-w-3xl mx-auto">Connecting key industrial hubs across the continent with our premium logistics solutions</p>
         </div>
-
-        <!-- REPLACED: Real interactive map -->
-        <div class="map-container mb-8 shadow-md">
-            <div id="europe-map" style="height:100%; width:100%"></div>
-        </div>
-
+        <div id="mini-network" class="h-64 w-full rounded-xl mb-8"></div>
+<div class="relative h-[600px] w-full bg-gray-100 rounded-2xl overflow-hidden">
+            <!-- Europe Map with Glowing Dots -->
+            <div class="absolute inset-0 bg-[url('https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=1200&height=630&center=lonlat:9.082,45.464&zoom=5.5&marker=lonlat:2.3522,48.8566;color:%230ea5e9;size:small&marker=lonlat:11.5761,48.1374;color:%230ea5e9;size:small&marker=lonlat:9.19,45.4642;color:%230ea5e9;size:small&marker=lonlat:12.4964,41.9028;color:%230ea5e9;size:small&marker=lonlat:-3.70379,40.4168;color:%230ea5e9;size:small&marker=lonlat:2.1734,41.3851;color:%230ea5e9;size:small')] bg-cover bg-center opacity-40"></div>
+<!-- Western Mediterranean Hub Cities -->
+            <div class="absolute top-[65%] left-[15%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Barcelona</div>
+                </div>
+            </div>
+            <div class="absolute top-[60%] left-[20%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Valencia</div>
+                </div>
+            </div>
+            <div class="absolute top-[55%] left-[25%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Madrid</div>
+                </div>
+            </div>
+            <div class="absolute top-[60%] left-[10%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Marseille</div>
+                </div>
+            </div>
+            <div class="absolute top-[55%] left-[10%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Montpellier</div>
+                </div>
+            </div>
+            <div class="absolute top-[50%] left-[35%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Milano</div>
+                </div>
+            </div>
+            <div class="absolute top-[45%] left-[30%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Torino</div>
+                </div>
+            </div>
+            <div class="absolute top-[55%] left-[40%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Bologna</div>
+                </div>
+            </div>
+            <div class="absolute top-[50%] left-[45%]">
+                <div class="map-glow w-4 h-4 bg-danube-500 rounded-full relative">
+                    <div class="absolute -top-8 -left-8 bg-white px-3 py-1 rounded-md shadow-md text-sm font-medium hidden">Venice</div>
+                </div>
+            </div>
+</div>
+        
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                 <h3 class="text-xl font-semibold text-danube-800 mb-3">Western Mediterranean Hub</h3>
@@ -123,32 +177,179 @@
                     <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Zaragoza</li>
                 </ul>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                 <h3 class="text-xl font-semibold text-danube-800 mb-3">Southern France Hub</h3>
                 <ul class="space-y-2">
                     <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Marseille</li>
+                    <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Montpellier</li>
                     <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Irun</li>
                 </ul>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                 <h3 class="text-xl font-semibold text-danube-800 mb-3">Northern Italy Hub</h3>
                 <ul class="space-y-2">
                     <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Milano</li>
+                    <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Novara</li>
+                    <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Venice</li>
                     <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Bologna</li>
-                    <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Roma</li>
-                    <li class="flex items-center"><i data-feather="map-pin" class="w-4 h-4 mr-2 text-danube-500"></i> Bucuresti</li>
                 </ul>
+            </div>
+</div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-danube-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-4">Our Services</h2>
+                <p class="text-lg text-danube-700 max-w-3xl mx-auto">Comprehensive logistics solutions tailored to your needs</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1">
+                    <div id="service-truck" class="h-48 mb-4"></div>
+                    <h3 class="text-xl font-semibold text-danube-800 mb-3">Road Transport</h3>
+                    <p class="text-danube-600">Reliable road transportation across Europe with our modern fleet.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1">
+                    <div id="service-network" class="h-48 mb-4"></div>
+                    <h3 class="text-xl font-semibold text-danube-800 mb-3">Network Solutions</h3>
+                    <p class="text-danube-600">Optimized routes through our extensive European network.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1">
+                    <div id="service-warehouse" class="h-48 mb-4"></div>
+                    <h3 class="text-xl font-semibold text-danube-800 mb-3">Warehousing</h3>
+                    <p class="text-danube-600">Secure storage solutions at strategic locations.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- (rest of page unchanged) -->
-    <!-- Services Section omitted here for brevity, original code continues... -->
-
     <script>
-        // Initialize Vanta.js effects (hero)
+        // Initialize service visualizations
+        document.addEventListener('DOMContentLoaded', () => {
+            VANTA.TRUNK({
+                el: "#service-truck",
+                mouseControls: false,
+                touchControls: false,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x0ea5e9,
+                backgroundColor: 0xffffff,
+                spacing: 5.00
+            });
+
+            VANTA.DOTS({
+                el: "#service-network",
+                mouseControls: false,
+                touchControls: false,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x0ea5e9,
+                backgroundColor: 0xffffff,
+                size: 3.00,
+                spacing: 20.00
+            });
+
+            VANTA.CELLS({
+                el: "#service-warehouse",
+                mouseControls: false,
+                touchControls: false,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color1: 0x0ea5e9,
+                color2: 0x0284c7,
+                backgroundColor: 0xffffff,
+                size: 1.20,
+                speed: 1.20
+            });
+        });
+    </script>
+<!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-6">About Danubria</h2>
+                    <p class="text-lg text-danube-700 mb-6">Founded in 2005, Danubria has grown to become a leading logistics provider specializing in European transportation networks.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-danube-100 p-2 rounded-full mr-4">
+                                <i data-feather="truck" class="w-5 h-5 text-danube-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-danube-800">Modern Fleet</h3>
+                                <p class="text-danube-600">Over 200 trucks with the latest technology</p>
+                            </div>
+                        </div>
+                        <!-- Add more features -->
+                    </div>
+                </div>
+                <div class="bg-gray-100 rounded-xl h-96">
+                    <!-- Placeholder for image -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 3D Transport Visualization -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div id="transport-3d" class="h-96 w-full rounded-xl"></div>
+                </div>
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-6">Advanced Transport Visualization</h2>
+                    <p class="text-lg text-danube-700 mb-6">See your shipments moving through our network in real-time with our advanced 3D visualization tools.</p>
+                    <a href="/quote.html" class="inline-block bg-danube-600 text-white px-6 py-3 rounded-md hover:bg-danube-700 transition-colors text-lg">Try Our Live Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-danube-600 text-white">
+<div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to optimize your logistics?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Get in touch with our team to discuss your specific requirements</p>
+            <a href="/quote.html" class="inline-block bg-white text-danube-600 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-lg font-medium">Request a Custom Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-danube-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                <img src="/static/logo.svg" alt="Danubria Logo" class="w-10 h-10">
+<span class="text-xl font-semibold">DANUBRIA</span>
+                </div>
+                <p class="text-danube-300">The flow of Europe, the power of logistics</p>
+            </div>
+            <!-- Footer columns -->
+        </div>
+        <div class="max-w-7xl mx-auto px-4 pt-8 mt-8 border-t border-danube-800 text-center text-danube-400">
+            <p>© 2023 Danubria Logistics. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <div class="bg-white rounded-full shadow-md p-2 flex space-x-2">
+            <a href="/index.html" class="w-8 h-8 rounded-full bg-danube-100 text-danube-800 text-sm font-medium flex items-center justify-center">EN</a>
+            <a href="/it/index.html" class="w-8 h-8 rounded-full text-danube-800 hover:bg-danube-100 text-sm font-medium flex items-center justify-center">IT</a>
+            <a href="/es/index.html" class="w-8 h-8 rounded-full text-danube-800 hover:bg-danube-100 text-sm font-medium flex items-center justify-center">ES</a>
+        </div>
+    </div>
+<script>
+        // Initialize Vanta.js effects
         const vantaGlobe = VANTA.GLOBE({
             el: "#vanta-globe",
             mouseControls: true,
@@ -162,6 +363,7 @@
             backgroundColor: 0xf8fafc,
             size: 0.8
         });
+
         const vantaNet = VANTA.NET({
             el: "#vanta-net",
             mouseControls: true,
@@ -177,87 +379,9 @@
             maxDistance: 24.00,
             spacing: 18.00
         });
-
-        // Initialize feather icons
+// Initialize feather icons
         feather.replace();
-
-        // --- LEAFLET MAP SETUP ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // create map
-            const map = L.map('europe-map', {
-                center: [46.0, 9.0], // center of Europe
-                zoom: 4,
-                scrollWheelZoom: false,
-                dragging: true,
-                tap: false
-            });
-
-            // add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            // city list with coordinates and labels
-            const cities = [
-                { name: 'Barcelona', coords: [41.3851, 2.1734] },
-                { name: 'Madrid', coords: [40.4168, -3.7038] },
-                { name: 'Irun', coords: [43.3390, -1.7831] },
-                { name: 'Valencia', coords: [39.4699, -0.3763] },
-                { name: 'Zaragoza', coords: [41.6488, -0.8891] },
-                { name: 'Marseille', coords: [43.2965, 5.3698] },
-                { name: 'Milano', coords: [45.4642, 9.19] },
-                { name: 'Bologna', coords: [44.4949, 11.3426] },
-                { name: 'Roma', coords: [41.9028, 12.4964] },
-                { name: 'Bucuresti', coords: [44.4268, 26.1025] }
-            ];
-
-            // Add pulsing/divIcon markers + labels/popups
-            cities.forEach(city => {
-                // create a div icon to allow pulse effect via CSS
-                const divIcon = L.divIcon({
-                    className: '',
-                    html: `<div class="pulse-marker" title="${city.name}"></div>`,
-                    iconSize: [14, 14],
-                    iconAnchor: [7, 7]
-                });
-
-                const marker = L.marker(city.coords, { icon: divIcon }).addTo(map);
-                // small permanent label (use a tooltip opened by default)
-                marker.bindTooltip(`<div class="map-label">${city.name}</div>`, {
-                    permanent: true,
-                    direction: 'right',
-                    offset: [12, 0],
-                    className: ''
-                });
-                // also add a popup with extra details
-                marker.bindPopup(`<strong>${city.name}</strong><br>Danubria hub`);
-            });
-
-            // Fit bounds so all markers are visible on load with padding
-            const bounds = L.latLngBounds(cities.map(c => c.coords));
-            map.fitBounds(bounds.pad(0.15));
-
-            // Optional: make tooltips smaller on mobile
-            function adjustTooltips() {
-                if (window.innerWidth < 640) {
-                    map.eachLayer(layer => {
-                        if (layer?.getTooltip) {
-                            layer.closeTooltip();
-                        }
-                    });
-                } else {
-                    map.eachLayer(layer => {
-                        if (layer?.openTooltip) {
-                            layer.openTooltip();
-                        }
-                    });
-                }
-            }
-            window.addEventListener('resize', () => { map.invalidateSize(); adjustTooltips(); });
-            adjustTooltips();
-        });
-
+        
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -266,6 +390,32 @@
                     behavior: 'smooth'
                 });
             });
+        });
+        // Animation for map dots
+        document.querySelectorAll('.map-glow').forEach(dot => {
+            dot.addEventListener('mouseenter', () => {
+                dot.querySelector('div').classList.remove('hidden');
+            });
+            dot.addEventListener('mouseleave', () => {
+                dot.querySelector('div').classList.add('hidden');
+            });
+        });
+
+        // Mini network visualization
+        const miniNet = VANTA.NET({
+            el: "#mini-network",
+            mouseControls: false,
+            touchControls: false,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x0ea5e9,
+            backgroundColor: 0xf8fafc,
+            points: 8.00,
+            maxDistance: 16.00,
+            spacing: 12.00
         });
     </script>
 </body>
