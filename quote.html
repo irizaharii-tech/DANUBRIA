@@ -1,116 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-en="Get a Quote | Danubria" data-lang-it="Richiedi Preventivo | Danubria" data-lang-es="Solicitar Cotización | Danubria">Get a Quote | Danubria Logistics</title>
-    <link rel="icon" type="image/png" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Request Quote | Danubria Logistics</title>
+    <meta name="description" content="Get a customized logistics quote for your European transportation needs">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
 </head>
-<body style="background-color: var(--color-dark);">
-
-    <header class="header scrolled">
-        <div class="container nav">
-            <div class="logo-container">
-                <h1><a href="index.html" style="color: var(--color-blue); text-decoration: none;">DANUBRIA</a> <span data-lang-en="| The Flow of Europe" data-lang-it="| Il Flusso d'Europa" data-lang-es="| El Flujo de Europa">| The Flow of Europe</span></h1>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="glassmorphism fixed w-full z-40 py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yMCA0MEMzMS4wNDU3IDQwIDQwIDMxLjA0NTcgNDAgMjBDNDAgOC45NTQzIDMxLjA0NTcgMCAyMCAwQzguOTU0MyAwIDAgOC45NTQzIDAgMjBDMCAzMS4wNDU3IDguOTU0MyA0MCAyMCA0MFoiIGZpbGw9IiMwRUE1RTkiLz4KICAgIDxwYXRoIGQ9Ik0yMCAxMEMxNC40NzcyIDEwIDEwIDE0LjQ3NzIgMTAgMjBDMTAgMjUuNTIyOCAxNC40NzcyIDMwIDIwIDMwQzI1LjUyMjggMzAgMzAgMjUuNTIyOCAzMCAyMEMzMCAxNC40NzcyIDI1LjUyMjggMTAgMjAgMTBaTTE2IDI0TDEyIDIwTDEzLjQxNDIgMTguNTg1OEwxNiAyMS4xNzE2TDI2LjU4NTggMTAuNTg1OEwyOCAxMkwxNiAyNFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPg==" alt="Danubria Logo" class="w-10 h-10">
+<span class="text-xl font-semibold text-danube-800">DANUBRIA</span>
             </div>
-            <nav class="nav-links" id="main-nav">
-                <a href="index.html" data-lang-en="Home" data-lang-it="Home" data-lang-es="Inicio">Home</a>
-                <select id="language-switcher" onchange="switchLanguage(this.value)">
-                    <option value="en">EN</option>
-                    <option value="it">IT</option>
-                    <option value="es">ES</option>
-                </select>
-            </nav>
+            <div class="hidden md:flex space-x-8">
+                <a href="/index.html#network" class="text-danube-800 hover:text-danube-600 transition-colors">Our Network</a>
+                <a href="/index.html#services" class="text-danube-800 hover:text-danube-600 transition-colors">Services</a>
+                <a href="/index.html#about" class="text-danube-800 hover:text-danube-600 transition-colors">About Us</a>
+                <a href="/index.html#contact" class="text-danube-800 hover:text-danube-600 transition-colors">Contact</a>
+                <a href="/calculator.html" class="bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors">Instant Quote</a>
+</div>
+            <button class="md:hidden text-danube-800">
+                <i data-feather="menu"></i>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <section id="quote" class="section" style="min-height: 100vh; padding-top: 120px;">
-        <div class="container quote-form-container animate-on-scroll glass-card">
-            <h2 style="text-align: center; margin-bottom: 40px; color: var(--color-light-blue);" data-lang-en="Request Your Transport Quotation" data-lang-it="Richiedi il Tuo Preventivo di Trasporto" data-lang-es="Solicita tu Cotización de Transporte">Request Your Transport Quotation</h2>
-            
-            <form action="mailto:info@danubria.com" method="post" enctype="text/plain">
-                
-                <h3 style="margin-bottom: 20px; color: var(--color-blue);" data-lang-en="1. Contact Details" data-lang-it="1. Dati di Contatto" data-lang-es="1. Datos de Contacto">1. Contact Details</h3>
-                <div class="form-group">
-                    <label for="name" data-lang-en="Full Name" data-lang-it="Nome Completo" data-lang-es="Nombre Completo">Full Name *</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email" data-lang-en="Email" data-lang-it="Email" data-lang-es="Correo Electrónico">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <h3 style="margin-top: 40px; margin-bottom: 20px; color: var(--color-blue);" data-lang-en="2. Shipment Details" data-lang-it="2. Dettagli della Spedizione" data-lang-es="2. Detalles del Envío">2. Shipment Details</h3>
-                
-                <div style="display: flex; gap: 20px;">
-                    <div class="form-group" style="flex: 1;">
-                        <label for="origin" data-lang-en="Origin (City, Country)" data-lang-it="Origine (Città, Paese)" data-lang-es="Origen (Ciudad, País)">Origin *</label>
-                        <input type="text" id="origin" name="origin" required>
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label for="destination" data-lang-en="Destination (City, Country)" data-lang-it="Destinazione (Città, Paese)" data-lang-es="Destino (Ciudad, País)">Destination *</label>
-                        <input type="text" id="destination" name="destination" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="transport_type" data-lang-en="Transport Type" data-lang-it="Tipo di Trasporto" data-lang-es="Tipo de Transporte">Transport Type *</label>
-                    <select id="transport_type" name="transport_type" required>
-                        <option value="" data-lang-en="Select Type" data-lang-it="Seleziona Tipo" data-lang-es="Selecciona Tipo">-- Select Type --</option>
-                        <option value="FTL" data-lang-en="Full Truck Load (FTL)" data-lang-it="Carico Completo (FTL)" data-lang-es="Carga Completa (FTL)">Full Truck Load (FTL)</option>
-                        <option value="LTL" data-lang-en="Less Than Truck Load (LTL)" data-lang-it="Carico Parziale (LTL)" data-lang-es="Carga Parcial (LTL)">Less Than Truck Load (LTL)</option>
-                        <option value="Express" data-lang-en="Express / Critical" data-lang-it="Espresso / Urgente" data-lang-es="Express / Crítico">Express / Critical</option>
+    <!-- Quote Form Section -->
+    <section class="pt-32 pb-20 px-4 max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-danube-900 mb-4">Request a Quote</h1>
+            <p class="text-lg text-danube-700">Fill out the form below and our logistics team will prepare a customized solution for your needs</p>
+        </div>
+        
+        <form class="bg-white rounded-xl shadow-md p-6 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="origin" class="block text-sm font-medium text-danube-700 mb-1">Origin</label>
+                    <select id="origin" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                        <option value="">Select origin city</option>
+                        <option value="vienna">Vienna, Austria</option>
+                        <option value="budapest">Budapest, Hungary</option>
+                        <!-- Add more options -->
                     </select>
                 </div>
-
-                <div style="display: flex; gap: 20px;">
-                    <div class="form-group" style="flex: 1;">
-                        <label for="temp_control" data-lang-en="Temperature Control?" data-lang-it="Controllo Temperatura?" data-lang-es="¿Control de Temperatura?">Temperature Control?</label>
-                        <select id="temp_control" name="temp_control">
-                            <option value="No" data-lang-en="No" data-lang-it="No" data-lang-es="No">No</option>
-                            <option value="Yes_Refrigerated" data-lang-en="Yes (Refrigerated)" data-lang-it="Sì (Refrigerato)" data-lang-es="Sí (Refrigerado)">Yes (Refrigerated)</option>
-                            <option value="Yes_Frozen" data-lang-en="Yes (Frozen)" data-lang-it="Sì (Congelato)" data-lang-es="Sí (Congelado)">Yes (Frozen)</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label for="trailer_type" data-lang-en="Trailer Type (Tarp/Box)" data-lang-it="Tipo Rimorchio (Telone/Box)" data-lang-es="Tipo Remolque (Lona/Caja)">Trailer Type (Tarp/Box) *</label>
-                        <select id="trailer_type" name="trailer_type" required>
-                            <option value="Tautliner" data-lang-en="Tautliner (Tarp)" data-lang-it="Centinato (Telone)" data-lang-es="Tauliner (Lona)">Tautliner (Tarp)</option>
-                            <option value="Box" data-lang-en="Box / Dry Van" data-lang-it="Furgone / Box" data-lang-es="Caja / Furgón Seco">Box / Dry Van</option>
-                            <option value="Mega" data-lang-en="Mega Trailer" data-lang-it="Mega Rimorchio" data-lang-es="Mega Remolque">Mega Trailer</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 20px;">
-                    <div class="form-group" style="flex: 1;">
-                        <label for="weight" data-lang-en="Weight (Tons)" data-lang-it="Peso (Tonnellate)" data-lang-es="Peso (Toneladas)">Weight (Tons) *</label>
-                        <input type="number" id="weight" name="weight" min="0" step="0.1" required>
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label for="dimensions" data-lang-en="Total Dimensions (L x W x H in meters)" data-lang-it="Dimensioni Totale (L x L x H in metri)" data-lang-es="Dimensiones Totales (L x A x H en metros)">Total Dimensions (L x W x H in meters) *</label>
-                        <input type="text" id="dimensions" name="dimensions" placeholder="e.g. 13.6 x 2.45 x 2.7" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="notes" data-lang-en="Additional Notes" data-lang-it="Note Aggiuntive" data-lang-es="Notas Adicionales">Additional Notes</label>
-                    <textarea id="notes" name="notes" rows="4" style="min-height: 100px;"></textarea>
+                
+                <div>
+                    <label for="destination" class="block text-sm font-medium text-danube-700 mb-1">Destination</label>
+                    <select id="destination" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                        <option value="">Select destination city</option>
+                        <option value="munich">Munich, Germany</option>
+                        <option value="prague">Prague, Czech Republic</option>
+                        <!-- Add more options -->
+                    </select>
                 </div>
                 
-                <button type="submit" class="button-main" data-lang-en="SEND QUOTATION REQUEST" data-lang-it="INVIA RICHIESTA DI PREVENTIVO" data-lang-es="ENVIAR SOLICITUD DE COTIZACIÓN">SEND QUOTATION REQUEST</button>
-            </form>
-        </div>
+                <div>
+                    <label for="transport-type" class="block text-sm font-medium text-danube-700 mb-1">Transport Type</label>
+                    <select id="transport-type" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                        <option value="road">Road Transport</option>
+                        <option value="rail">Rail Transport</option>
+                        <option value="intermodal">Intermodal</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="vehicle-type" class="block text-sm font-medium text-danube-700 mb-1">Vehicle Type</label>
+                    <select id="vehicle-type" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                        <option value="curtain">Curtain Side</option>
+                        <option value="box">Box Trailer</option>
+                        <option value="flatbed">Flatbed</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="weight" class="block text-sm font-medium text-danube-700 mb-1">Weight (tonnes)</label>
+                    <input type="number" id="weight" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                </div>
+                
+                <div>
+                    <label for="length" class="block text-sm font-medium text-danube-700 mb-1">Length (m)</label>
+                    <input type="number" id="length" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                </div>
+                
+                <div>
+                    <label for="temperature" class="block text-sm font-medium text-danube-700 mb-1">Temperature Control</label>
+                    <select id="temperature" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                        <option value="none">None</option>
+                        <option value="refrigerated">Refrigerated</option>
+                        <option value="frozen">Frozen</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <label for="additional-info" class="block text-sm font-medium text-danube-700 mb-1">Additional Information</label>
+                <textarea id="additional-info" rows="4" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500"></textarea>
+            </div>
+            
+            <div class="mt-8">
+                <button type="submit" class="w-full bg-danube-600 text-white py-3 px-6 rounded-md hover:bg-danube-700 transition-colors text-lg font-medium">Submit Quote Request</button>
+            </div>
+        </form>
     </section>
 
-    <footer class="section" style="padding: 40px 0; border-top: 1px solid var(--color-glass-border); text-align: center; background-color: var(--color-dark);">
-        <div class="container">
-            <p>&copy; <span id="year"></span> Danubria. All rights reserved. | info@danubria.com</p>
+    <!-- Footer -->
+    <footer class="bg-danube-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                <img src="/static/logo.svg" alt="Danubria Logo" class="w-10 h-10">
+<span class="text-xl font-semibold">DANUBRIA</span>
+                </div>
+                <p class="text-danube-300">The flow of Europe, the power of logistics</p>
+                <p class="text-danube-400 mt-2">info@danubria.com</p>
+            </div>
+            <!-- Footer columns -->
+        </div>
+        <div class="max-w-7xl mx-auto px-4 pt-8 mt-8 border-t border-danube-800 text-center text-danube-400">
+            <p>© 2023 Danubria Logistics. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Initialize feather icons
+        feather.replace();
+    </script>
 </body>
 </html>
