@@ -10,7 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places,distanceMatrix"></script>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         body {
@@ -144,74 +145,56 @@
                     </select>
                 </div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div>
-                    <label for="transport-type" class="block text-sm font-medium text-danube-700 mb-1">Transport Type</label>
-                    <select id="transport-type" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
-                        <option value="ftl">Full Truck Load (FTL)</option>
-                        <option value="ltl">Less Than Truckload (LTL)</option>
-                        <option value="reefer">Reefer (Temperature Controlled)</option>
-                    </select>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div>
+                <label for="transport-type" class="block text-sm font-medium text-danube-700 mb-1">Transport Type</label>
+                <select id="transport-type" class="w-full px-4 py-2 border border-danube-300 rounded-md focus:ring-danube-500 focus:border-danube-500">
+                    <option value="ftl">Full Truck Load (FTL)</option>
+                    <option value="ltl">Less Than Truckload (LTL)</option>
+                    <option value="reefer">Reefer (Temperature Controlled)</option>
+                </select>
             </div>
-            
-            <div id="quote-result" class="hidden fade-in bg-danube-50 p-6 rounded-lg mb-6">
-                <div id="ftl-result" class="space-y-2">
-                    <h3 class="text-lg font-semibold text-danube-800">Estimated Price</h3>
-                    <p class="text-2xl font-bold text-danube-900" id="price-estimate">€0.00</p>
-                    <p class="text-sm text-danube-700" id="distance-info">Distance: 0 km</p>
-                    <p class="text-sm text-danube-700" id="rate-info">Rate: €0.00 per km</p>
-                </div>
-                <div id="special-transport" class="hidden space-y-2">
-                    <h3 class="text-lg font-semibold text-danube-800">Custom Quote Needed</h3>
-                    <p class="text-danube-700">For LTL and temperature-controlled transport, please contact our operations team for a custom quote.</p>
-                    <a href="mailto:info@danubria.com" class="inline-block mt-2 bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors text-sm">
-                        <i data-feather="mail" class="w-4 h-4 mr-2 inline"></i> Contact Our Team
+        </div>
+        
+        <div id="quote-result" class="hidden fade-in bg-danube-50 p-6 rounded-lg mb-6">
+            <div id="ftl-result" class="space-y-4">
+                <h3 class="text-lg font-semibold text-danube-800">Estimated Transport Cost</h3>
+                <p class="text-2xl font-bold text-danube-900" id="price-estimate">€0.00</p>
+                <p class="text-sm text-danube-700" id="distance-info">Estimated Distance: 0 km</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="mailto:info@danubria.com" class="flex-1 bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors text-sm text-center">
+                        <i data-feather="mail" class="w-4 h-4 mr-2 inline"></i> Request Offer
+                    </a>
+                    <a href="mailto:info@danubria.com" class="flex-1 bg-white text-danube-600 border border-danube-600 px-4 py-2 rounded-md hover:bg-danube-50 transition-colors text-sm text-center">
+                        <i data-feather="phone" class="w-4 h-4 mr-2 inline"></i> Contact Our Team
                     </a>
                 </div>
             </div>
-            
-            <button id="calculate-btn" class="w-full bg-danube-600 text-white py-3 px-6 rounded-md hover:bg-danube-700 transition-colors text-lg font-medium">
+            <div id="special-transport" class="space-y-4">
+                <h3 class="text-lg font-semibold text-danube-800">Custom Quote Needed</h3>
+                <p class="text-danube-700">For LTL and temperature-controlled transport, please contact our operations team for a personalized quote at info@danubria.com</p>
+                <div class="flex space-x-4">
+                    <a href="mailto:info@danubria.com" class="flex-1 bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors text-sm text-center">
+                        <i data-feather="mail" class="w-4 h-4 mr-2 inline"></i> Request Offer
+                    </a>
+                    <a href="mailto:info@danubria.com" class="flex-1 bg-white text-danube-600 border border-danube-600 px-4 py-2 rounded-md hover:bg-danube-50 transition-colors text-sm text-center">
+                        <i data-feather="phone" class="w-4 h-4 mr-2 inline"></i> Contact Our Team
+                    </a>
+                </div>
+            </div>
+        </div>
+<button id="calculate-btn" class="w-full bg-danube-600 text-white py-3 px-6 rounded-md hover:bg-danube-700 transition-colors text-lg font-medium">
                 Calculate Quote
             </button>
         </div>
     </section>
 
     <script>
-        // Distance matrix (simplified for demo - real implementation would use Google Maps API)
-        const distances = {
-            // Spain
-            madrid: {
-                // Italy
-                milan: 1425, turin: 1260, bologna: 1520, venice: 1650, verona: 1580, 
-                florence: 1720, rome: 1360, naples: 1200, bari: 1700,
-                // France
-                paris: 1275, lyon: 1050, marseille: 950, bordeaux: 790, lille: 1450,
-                toulouse: 710, nice: 1150, nantes: 920, montpellier: 880, strasbourg: 1450,
-                // Spain
-                barcelona: 620, valencia: 355, zaragoza: 325, bilbao: 395, seville: 540,
-                malaga: 530, irun: 490, tarragona: 580, girona: 650
-            },
-            barcelona: {
-                // Italy
-                milan: 860, turin: 720, bologna: 980, venice: 1100, verona: 1030, 
-                florence: 1170, rome: 1110, naples: 1350, bari: 1850,
-                // France
-                paris: 1040, lyon: 640, marseille: 520, bordeaux: 690, lille: 1210,
-                toulouse: 380, nice: 620, nantes: 970, montpellier: 360, strasbourg: 1100,
-                // Spain
-                madrid: 620, valencia: 350, zaragoza: 300, bilbao: 610, seville: 990,
-                malaga: 960, irun: 640, tarragona: 90, girona: 100
-            },
-            // Add more cities as needed (simplified for demo)
-        };
-
-        // Rate matrix
+        // Rate matrix based on requirements
         const rates = {
-            // Export from Spain
-            'es-it-north': 1.15,
-            'es-it-south': 1.25,
+            // Export from Spain to Italy (all routes)
+            'es-it': 1.20,
+            // Export from Spain to France
             'es-fr': 1.50,
             // Import from France to Spain
             'fr-es': 1.15,
@@ -219,15 +202,69 @@
             'it-es': 1.80
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // Google Maps API integration
+        function getDistance(origin, destination) {
+            // In production, this would use Google Maps Distance Matrix API
+            // For demo purposes, we'll simulate API call with setTimeout
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const service = new google.maps.DistanceMatrixService();
+                    service.getDistanceMatrix({
+                        origins: [origin],
+                        destinations: [destination],
+                        travelMode: 'DRIVING',
+                        avoidHighways: false,
+                        avoidTolls: false,
+                    }, (response, status) => {
+                        if (status === 'OK') {
+                            const distance = response.rows[0].elements[0].distance.value / 1000;
+                            resolve(distance);
+                        } else {
+                            // Fallback to estimated distances
+                            const fallbackDistances = {
+                                // Spain to Italy (via Nice)
+                                'madrid-milan': 1420,
+                                'madrid-turin': 1260,
+                                'madrid-verona': 1580,
+                                'madrid-venice': 1650,
+                                'madrid-bologna': 1520,
+                                'madrid-florence': 1720,
+                                'madrid-rome': 1360,
+                                'madrid-naples': 1200,
+                                'madrid-bari': 1700,
+                                'barcelona-milan': 860,
+                                'barcelona-turin': 720,
+                                'barcelona-verona': 1030,
+                                'barcelona-venice': 1100,
+                                'barcelona-bologna': 980,
+                                'barcelona-florence': 1170,
+                                'barcelona-rome': 1110,
+                                'barcelona-naples': 1350,
+                                'barcelona-bari': 1850,
+                                // Spain to France
+                                'madrid-paris': 1275,
+                                'madrid-lyon': 1050,
+                                'madrid-marseille': 950,
+                                'barcelona-paris': 1040,
+                                'barcelona-lyon': 640,
+                                'barcelona-marseille': 520,
+                                // And other routes...
+                            };
+                            const key = `${origin}-${destination}`;
+                            resolve(fallbackDistances[key] || Math.floor(Math.random() * 1000) + 500);
+                        }
+                    });
+                }, 300);
+            });
+        }
+document.addEventListener('DOMContentLoaded', () => {
             feather.replace();
             
             const calculateBtn = document.getElementById('calculate-btn');
             const quoteResult = document.getElementById('quote-result');
             const ftlResult = document.getElementById('ftl-result');
             const specialTransport = document.getElementById('special-transport');
-            
-            calculateBtn.addEventListener('click', () => {
+            calculateBtn.addEventListener('click', async () => {
                 const origin = document.getElementById('origin').value;
                 const destination = document.getElementById('destination').value;
                 const transportType = document.getElementById('transport-type').value;
@@ -247,25 +284,20 @@
                     return;
                 }
                 
-                // Show FTL result
+                // Show loading state
                 ftlResult.classList.remove('hidden');
                 specialTransport.classList.add('hidden');
+                document.getElementById('price-estimate').textContent = 'Calculating...';
+                document.getElementById('distance-info').textContent = '';
                 
-                // Calculate distance (simplified - would use Google Maps API in production)
-                const distance = getDistance(origin, destination);
-                
-                // Determine rate
-                const rate = getRate(origin, destination);
-                
-                // Calculate price
-                const price = Math.round(distance * rate * 100) / 100;
-                
-                // Update UI
-                document.getElementById('price-estimate').textContent = `€${price.toLocaleString()}`;
-                document.getElementById('distance-info').textContent = `Distance: ${distance} km`;
-                document.getElementById('rate-info').textContent = `Rate: €${rate} per km`;
-                
-                // Animate result
+                try {
+                    // Calculate price with actual distance
+                    const { distance, price } = await calculatePrice(origin, destination, transportType);
+                    
+                    // Update UI
+                    document.getElementById('price-estimate').textContent = `€${price.toLocaleString()}`;
+                    document.getElementById('distance-info').textContent = `Estimated Distance: ${distance} km`;
+// Animate result
                 anime({
                     targets: '#quote-result',
                     opacity: [0, 1],
@@ -282,39 +314,32 @@
                 }
                 return Math.floor(Math.random() * 1000) + 500; // Fallback random distance
             }
-            
-            function getRate(origin, destination) {
-                // Determine country of origin
+            async function calculatePrice(origin, destination, transportType) {
+                const distance = await getDistance(origin, destination);
                 const originCountry = getCountry(origin);
                 const destCountry = getCountry(destination);
                 
-                // Export from Spain
+                let rate;
                 if (originCountry === 'es') {
                     if (destCountry === 'it') {
-                        // Check if destination is in Northern Italy
-                        const northItaly = ['milan', 'turin', 'bologna', 'venice', 'verona', 'florence'];
-                        return northItaly.includes(destination) ? rates['es-it-north'] : rates['es-it-south'];
+                        rate = rates['es-it']; // €1.20 for all Italy routes
+                    } else if (destCountry === 'fr') {
+                        rate = rates['es-fr']; // €1.50 for France
                     }
-                    if (destCountry === 'fr') {
-                        return rates['es-fr'];
-                    }
+                } else if (originCountry === 'fr' && destCountry === 'es') {
+                    rate = rates['fr-es']; // €1.15 from France to Spain
+                } else if (originCountry === 'it' && destCountry === 'es') {
+                    rate = rates['it-es']; // €1.80 from Italy to Spain
+                } else {
+                    rate = 1.50; // Default rate
                 }
                 
-                // Import from France to Spain
-                if (originCountry === 'fr' && destCountry === 'es') {
-                    return rates['fr-es'];
-                }
-                
-                // Import from Italy to Spain
-                if (originCountry === 'it' && destCountry === 'es') {
-                    return rates['it-es'];
-                }
-                
-                // Default rate
-                return 1.50;
+                return {
+                    distance: Math.round(distance),
+                    price: Math.round(distance * rate)
+                };
             }
-            
-            function getCountry(city) {
+function getCountry(city) {
                 const spain = ['madrid', 'irun', 'barcelona', 'zaragoza', 'valencia', 'bilbao', 'seville', 'malaga', 'tarragona', 'girona'];
                 const france = ['paris', 'lyon', 'marseille', 'bordeaux', 'lille', 'toulouse', 'nice', 'nantes', 'montpellier', 'strasbourg'];
                 const italy = ['milan', 'turin', 'bologna', 'venice', 'verona', 'florence', 'rome', 'naples', 'bari'];
