@@ -1,19 +1,18 @@
 {
-  "name": "danubria",
+  "name": "danubria-server",
   "version": "1.0.0",
-  "description": "Fullstack Danubria app (client + server)",
-  "main": "server/server.js",
+  "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server/server.js",
-    "build": "cd client && npm install && npm run build"
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1",
+    "cors": "^2.8.5"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "nodemailer": "^6.9.13",
-    "path": "^0.12.7"
   }
 }
