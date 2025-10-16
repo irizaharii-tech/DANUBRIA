@@ -1,0 +1,9 @@
+body { font-family: Arial, sans-serif; margin:0; padding:0; color:#111; background:#f7fafc; }
+.container { max-width:1100px; margin:24px auto; padding:16px; background:white; border-radius:8px; box-shadow:0 6px 18px rgba(2,6,23,0.06); }
+nav { padding: 12px 0; }
+a { color: #0366d6; text-decoration: none; margin-right: 8px; }
+h1 { font-size: 20px; margin-bottom: 12px; }
+button { padding: 8px 12px; background:#0366d6; color:white; border:none; border-radius:4px; cursor:pointer; }
+input, select { padding:8px; border:1px solid #e2e8f0; border-radius:6px; margin:6px 0; }
+ul { padding-left: 18px; }
+@media (max-width:600px){ .container{ margin:8px; padding:12px } h1{font-size:18px} }
