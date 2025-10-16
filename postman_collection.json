@@ -1,0 +1,111 @@
+{
+  "info": {
+    "name": "Danubria HGV Portal - Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Login (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"traffic.acbutescu@gmail.com\", \"password\": \"Porumbeiimei112\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get bookings (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/bookings/bookings",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "bookings",
+            "bookings"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create invoice (Dispatcher)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"clientId\": \"client\", \"items\": [{\"desc\": \"Freight\", \"qty\": 1, \"unitPrice\": 100}], \"vatPercent\": 20}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/invoices",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "invoices"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Submit supplier invoice (Subcontractor)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"bookingId\": \"b1\", \"amount\": 150}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/supplier-invoices",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "supplier-invoices"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://danubria-api.onrender.com"
+    }
+  ]
+}
