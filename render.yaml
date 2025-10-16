@@ -2,24 +2,38 @@ services:
   - type: web
     name: danubria-hgv-server
     env: node
-    region: oregon
     plan: free
+    region: frankfurt
     buildCommand: "cd server && npm install"
     startCommand: "cd server && npm start"
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: JWT_ACCESS_SECRET
-        value: "REPLACE_WITH_STRONG_ACCESS_SECRET"
+        sync: false
       - key: JWT_REFRESH_SECRET
-        value: "REPLACE_WITH_STRONG_REFRESH_SECRET"
+        sync: false
       - key: NOTIFY_EMAIL
-        value: "traffic.acbutescu@gmail.com"
+        sync: false
       - key: SMTP_HOST
-        value: ""
+        sync: false
       - key: SMTP_PORT
-        value: "587"
+        sync: false
       - key: SMTP_USER
-        value: ""
+        sync: false
       - key: SMTP_PASS
-        value: ""
-    persistentDisk: 1Gi
-    diskPath: /data
+        sync: false
+
+  - type: web
+    name: danubria-hgv-client
+    env: node
+    plan: free
+    region: frankfurt
+    buildCommand: "cd client && npm install && npm run build"
+    startCommand: "cd client && npm run preview"
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: danubria-hgv-server
+          property: host
