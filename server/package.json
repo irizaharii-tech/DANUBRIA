@@ -1,22 +1,19 @@
 {
-  "name": "danubria-hgv-portal-client",
+  "name": "danubria",
   "version": "1.0.0",
-  "private": true,
+  "description": "Fullstack Danubria app (client + server)",
+  "main": "server/server.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.1",
-    "react-leaflet": "^4.2.1",
-    "leaflet": "^1.9.4",
-    "axios": "^1.7.2"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.0"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.13",
+    "path": "^0.12.7"
   }
 }
