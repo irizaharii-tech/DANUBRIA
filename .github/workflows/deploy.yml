@@ -23,15 +23,18 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./client
-        run: npm install
+        run: npm ci
 
       - name: Build project
         working-directory: ./client
         run: npm run build
+
+      - name: Copy CNAME file
+        run: echo "www.danubria.com" > ./client/dist/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./client/dist
-          cname: www.danubria.com
+          publish_branch: gh-pages
