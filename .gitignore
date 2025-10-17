@@ -1,8 +1,23 @@
-# Ignore environment variables
+# === Git ignore list ===
+
+# Environment variables
 .env
 
-# Ignore node modules
+# Node
 node_modules/
+npm-debug.log
+yarn-error.log
 
-# Ignore system files
+# Logs
+logs/
+*.log
+
+# Build & cache
+dist/
+build/
+.cache/
+.tmp/
+
+# System files
 .DS_Store
+Thumbs.db
