@@ -6,6 +6,7 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   root: '.', // Root of the project (where index.html is)
+  base: '/', // Ensures correct routing on custom domain
   build: {
     outDir: 'dist', // Output folder for production build
     emptyOutDir: true
@@ -17,6 +18,10 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    host: true
+  },
+  preview: {
+    port: 4173,
     host: true
   }
 })
