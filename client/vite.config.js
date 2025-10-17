@@ -2,26 +2,21 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: './', // required for GitHub Pages
   plugins: [react()],
-  root: '.', // Root of the project (where index.html is)
-  base: '/', // Ensures correct routing on custom domain
+  root: '.', // project root (where index.html is)
   build: {
-    outDir: 'dist', // Output folder for production build
-    emptyOutDir: true
+    outDir: 'dist',
+    emptyOutDir: true,
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
-    }
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   server: {
     port: 5173,
-    host: true
+    host: true,
   },
-  preview: {
-    port: 4173,
-    host: true
-  }
 })
