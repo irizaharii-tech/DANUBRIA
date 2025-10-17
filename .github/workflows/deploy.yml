@@ -8,7 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write   # <-- critical line for gh-pages push
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,12 +20,14 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: ./client
-        run: npm install
+        run: |
+          cd client
+          npm ci
 
       - name: Build project
-        working-directory: ./client
-        run: npm run build
+        run: |
+          cd client
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
