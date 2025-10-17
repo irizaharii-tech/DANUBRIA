@@ -9,7 +9,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # <-- critical line for gh-pages push
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd client
-          npm ci
+          npm install  # ✅ changed from npm ci
 
       - name: Build project
         run: |
