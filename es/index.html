@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danubria | El flujo de Europa. El poder de la logística.</title>
+    <meta name="description" content="transporte de mercancías a través de innovación y conexión humana">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="glassmorphism fixed w-full z-40 py-4 px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yMCA0MEMzMS4wNDU3IDQwIDQwIDMxLjA0NTcgNDAgMjBDNDAgOC45NTQzIDMxLjA0NTcgMCAyMCAwQzguOTU0MyAwIDAgOC45NTQzIDAgMjBDMCAzMS4wNDU3IDguOTU0MyA0MCAyMCA0MFoiIGZpbGw9IiMwRUE1RTkiLz4KICAgIDxwYXRoIGQ9Ik0yMCAxMEMxNC40NzcyIDEwIDEwIDE0LjQ3NzIgMTAgMjBDMTAgMjUuNTIyOCAxNC40NzcyIDMwIDIwIDMwQzI1LjUyMjggMzAgMzAgMjUuNTIyOCAzMCAyMEMzMCAxNC40NzcyIDI1LjUyMjggMTAgMjAgMTBaTTE2IDI0TDEyIDIwTDEzLjQxNDIgMTguNTg1OEwxNiAyMS4xNzE2TDI2LjU4NTggMTAuNTg1OEwyOCAxMkwxNiAyNFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPg==" alt="Danubria Logo" class="w-10 h-10">
+                <span class="text-xl font-semibold text-danube-800">DANUBRIA</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#services" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="services">Servicios</a>
+                <a href="#about" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="about">Sobre Nosotros</a>
+                <a href="#network" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="network">Nuestra Red</a>
+                <a href="#sustainability" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="sustainability">Sostenibilidad</a>
+                <a href="#contact" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="contact">Contacto</a>
+                <a href="/es/calculator.html" class="bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors" data-i18n="instant_quote">Cotización Instantánea</a>
+            </div>
+<button class="md:hidden text-danube-800">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="truck-container" class="relative">
+        <div id="vanta-globe" class="absolute inset-0"></div>
+        <div id="vanta-net" class="absolute inset-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white opacity-30"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
+            <h1 class="text-5xl md:text-7xl font-bold text-danube-900 mb-4">El flujo de Europa</h1>
+            <p class="text-2xl md:text-3xl font-medium text-danube-700 mb-8">El poder de la logística</p>
+            <p class="text-xl text-danube-700 mb-8 max-w-2xl mx-auto">Transporte de mercancías a través de innovación y conexión humana</p>
+            <div class="flex space-x-4">
+                <a href="#vision" class="bg-danube-600 text-white px-6 py-3 rounded-md hover:bg-danube-700 transition-colors text-lg">Descubre Nuestra Visión</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rest of the Spanish version content would follow the same pattern as the English version, translated to Spanish -->
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <div class="bg-white rounded-full shadow-md p-2 flex space-x-2">
+            <a href="/index.html" class="w-8 h-8 rounded-full text-danube-800 hover:bg-danube-100 text-sm font-medium flex items-center justify-center">EN</a>
+            <a href="/it/index.html" class="w-8 h-8 rounded-full text-danube-800 hover:bg-danube-100 text-sm font-medium flex items-center justify-center">IT</a>
+            <a href="/es/index.html" class="w-8 h-8 rounded-full bg-danube-100 text-danube-800 text-sm font-medium flex items-center justify-center">ES</a>
+        </div>
+    </div>
+    <script>
+        // Initialize Vanta.js and Feather icons same as English version
+        feather.replace();
+        // Language translations
+        const translations = {
+            es: {
+                services: "Servicios",
+                about: "Sobre Nosotros",
+                network: "Nuestra Red",
+                sustainability: "Sostenibilidad",
+                contact: "Contacto",
+                instant_quote: "Cotización Instantánea",
+                main_title: "El flujo de Europa",
+                main_subtitle: "El poder de la logística",
+                main_description: "Transporte de mercancías a través de innovación y conexión humana",
+                discover_vision: "Descubre Nuestra Visión",
+                vision_title: "Nuestra Visión para la Optimización del Transporte",
+                vision_subtitle: "Equilibrando tecnología avanzada con el poder de las personas",
+                services_title: "Nuestros Servicios",
+                services_subtitle: "Soluciones logísticas completas adaptadas a tus necesidades",
+                about_title: "Sobre Danubria",
+                about_text1: "Danubria conecta Europa a través de logística inteligente",
+                about_text2: "Fundada en 2005, hemos crecido hasta convertirnos en un socio logístico de confianza",
+                fleet: "Flota Moderna",
+                fleet_desc: "Más de 200 camiones con la última tecnología",
+                sustainability_title: "Innovación & Sostenibilidad",
+                sustainability_subtitle: "Reduciendo el impacto ambiental a través de logística inteligente",
+                support_title: "Soporte Europeo 24/7",
+                support_text: "Danubria está siempre en línea - nuestro centro de operaciones nunca duerme",
+                contact_form: "Contacta con Nosotros",
+                name: "Tu Nombre",
+                company: "Empresa",
+                email: "Email",
+                message: "¿Cómo podemos ayudarte?",
+                send: "Enviar Mensaje",
+                operations: "Centro de Operaciones",
+                emergency: "Contacto de Emergencia",
+                cta_title: "¿Listo para optimizar tu logística?",
+                cta_subtitle: "Ponte en contacto con nuestro equipo para discutir tus requisitos específicos",
+                cta_button: "Obtener Soporte Ahora"
+            }
+        };
+        // Change language function
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+        // Initialize with Spanish
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('es');
+        });
+    </script>
+</body>
+</html>
