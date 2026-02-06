@@ -183,13 +183,21 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 relative overflow-hidden">
-                    <div id="service-truck" class="h-48 mb-4"></div>
+                   <img 
+  src="/images/Data Meets Reality (Balanced, modern, not sci-fi)_Concept__Real environment with subtle....png"
+  alt="European logistics network"
+  class="w-full h-48 object-cover rounded-xl mb-4">
+
                     <h3 class="text-xl font-semibold text-danube-800 mb-3">Road Transport</h3>
                     <p class="text-danube-600 relative z-10">Reliable road transportation across Europe with our modern fleet.</p>
                     <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-danube-50/30 to-transparent"></div>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 relative overflow-hidden">
-                    <div id="service-network" class="h-48 mb-4"></div>
+                    <<img 
+  src="/images/Data Meets Reality (Balanced, modern, not sci-fi)_Concept__Real environment with subtle....png"
+  alt="European logistics network"
+  class="w-full h-48 object-cover rounded-xl mb-4">
+>
                     <h3 class="text-xl font-semibold text-danube-800 mb-3">Network Solutions</h3>
                     <p class="text-danube-600 relative z-10">Optimized routes through our extensive European network.</p>
                     <div class="absolute inset-0 bg-gradient-to-tl from-transparent via-danube-50/30 to-transparent"></div>
@@ -217,6 +225,7 @@
                 spacing: 15.00,
                 animate: true
         });
+
         // Add scroll animation for services section
         window.addEventListener('scroll', () => {
             const servicesSection = document.getElementById('services');
@@ -278,7 +287,7 @@
                 <div>
                     <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-6">About Danubria</h2>
                     <p class="text-lg text-danube-700 mb-6">Danubria connects Europe through intelligent logistics — balancing advanced technology with the power of people.</p>
-                    <p class="text-lg text-danube-700 mb-6">Founded in 2025, we've grown fast to become a trusted logistics partner by combining innovation with human expertise.</p>
+                    <p class="text-lg text-danube-700 mb-6">Founded in 2005, we've grown to become a trusted logistics partner by combining innovation with human expertise.</p>
 <div class="space-y-4">
                         <div class="flex items-start">
                             <div class="bg-danube-100 p-2 rounded-full mr-4">
@@ -364,7 +373,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-danube-300">Emergency Contact</p>
-                        <p class="text-xl font-medium">+34 649300395 </p>
+                        <p class="text-xl font-medium">+34 681 272 851</p>
                     </div>
                 </div>
             </div>
@@ -425,7 +434,7 @@
                 services_subtitle: "Comprehensive logistics solutions tailored to your needs",
                 about_title: "About Danubria",
                 about_text1: "Danubria connects Europe through intelligent logistics",
-                about_text2: "Founded in 2025, we've grown to become a trusted logistics partner",
+                about_text2: "Founded in 2005, we've grown to become a trusted logistics partner",
                 fleet: "Modern Fleet",
                 fleet_desc: "Over 200 trucks with the latest technology",
                 sustainability_title: "Innovation & Sustainability",
@@ -465,6 +474,7 @@ it: {
                 discover_vision: "Descubre Nuestra Visión"
             }
         };
+
         // Change language function
         function changeLanguage(lang) {
             document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -474,6 +484,7 @@ it: {
                 }
             });
         }
+
         // Initialize with browser language or default to English
         document.addEventListener('DOMContentLoaded', () => {
             const userLang = navigator.language || navigator.userLanguage; 
@@ -497,6 +508,7 @@ it: {
             backgroundColor: 0xf8fafc,
             size: 0.8
         });
+
         const vantaNet = VANTA.NET({
             el: "#vanta-net",
             mouseControls: true,
@@ -533,6 +545,7 @@ it: {
                 dot.querySelector('div').classList.add('hidden');
             });
         });
+
         // Mini network visualization
         const miniNet = VANTA.NET({
             el: "#mini-network",
