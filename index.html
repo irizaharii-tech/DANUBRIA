@@ -1,523 +1,202 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Danubria | The flow of Europe. The power of logistics.</title>
-  <meta name="description" content="Freight forwarding through innovation and human connection — Danubria: European logistics powered by AI and people.">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://www.danubria.com/">
+  <meta name="description" content="Freight forwarding through innovation and human connection">
   <link rel="icon" href="./favicon.ico">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Danubria | European Logistics Network">
-  <meta property="og:description" content="The flow of Europe. The power of logistics.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.danubria.com/">
-  <meta property="og:image" content="https://www.danubria.com/images/og.jpg">
-
-  <!-- JSON-LD organization -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Danubria Logistics",
-    "url":"https://www.danubria.com/",
-    "logo":"https://www.danubria.com/images/logo.svg",
-    "contactPoint":[{"@type":"ContactPoint","telephone":"+34 681 272 851","contactType":"customer support","areaServed":"EU"}]
-  }
-  </script>
-
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: { extend: {
-        colors: { danube: {50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e'} }
-      }}
+      theme: {
+        extend: {
+          colors: {
+            danube: {
+              50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',
+              400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',
+              700:'#0369a1',800:'#075985',900:'#0c4a6e'
+            }
+          }
+        }
+      }
     }
   </script>
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+  <!-- Animation -->
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+  <!-- Three.js FIRST -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Vanta -->
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+
   <style>
-    :root { color-scheme: light; }
-    html,body { height:100%; margin:0; font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:#f8fafc; color:#0f172a; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-    .glassmorphism { background:rgba(255,255,255,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,0.12); }
-    .map-glow { box-shadow: 0 0 20px 5px rgba(14,165,233,0.25); transition: all .28s ease; }
-    .map-glow:hover { box-shadow: 0 0 30px 10px rgba(14,165,233,0.45); transform: scale(1.03); }
-    .language-switcher { position:fixed; bottom:1.5rem; right:1.5rem; z-index:60; }
-    /* responsive fine-tuning */
-    @media (max-width:640px){ h1.hero-title{font-size:2.2rem;} }
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-    }
+    body{font-family:'Inter',sans-serif;background:#f8fafc;color:#0f172a}
+    .glass{background:rgba(255,255,255,.9);backdrop-filter:blur(10px)}
   </style>
 </head>
+
 <body class="antialiased">
 
-  <!-- NAV -->
-  <nav class="glassmorphism fixed w-full z-40 py-4 px-6 shadow-sm" aria-label="Main navigation">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="./images/logo.svg" alt="Danubria logo" class="w-10 h-10" />
-        <span class="text-xl font-semibold text-danube-800">DANUBRIA</span>
-      </div>
-
-      <div class="hidden md:flex items-center gap-8" role="navigation" aria-label="Primary">
-        <a href="#services" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="services">Services</a>
-        <a href="#about" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="about">About Us</a>
-        <a href="#network" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="network">Our Network</a>
-        <a href="#sustainability" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="sustainability">Sustainability</a>
-        <a href="#support" class="text-danube-800 hover:text-danube-600 transition-colors" data-i18n="contact">Contact</a>
-        <a href="./calculator.html" class="bg-danube-600 text-white px-4 py-2 rounded-md hover:bg-danube-700 transition-colors" data-i18n="instant_quote">Instant Quote</a>
-      </div>
-
-      <button class="md:hidden text-danube-800" aria-label="Open menu" id="mobile-menu-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-  </nav>
-
-  <!-- HERO (dual Vanta: Globe + Net) -->
-  <section id="truck-container" class="relative h-screen overflow-hidden">
-    <div id="vanta-globe" class="absolute inset-0"></div>
-    <div id="vanta-net" class="absolute inset-0"></div>
-
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white opacity-30"></div>
-
-    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
-      <h1 class="hero-title text-5xl md:text-7xl font-bold text-danube-900 mb-4" data-i18n="main_title">The flow of Europe</h1>
-      <p class="text-2xl md:text-3xl font-medium text-danube-700 mb-4" data-i18n="main_subtitle">The power of logistics</p>
-      <p class="text-xl text-danube-700 mb-8 max-w-2xl mx-auto" data-i18n="main_description">Freight forwarding through innovation and human connection</p>
-      <div class="flex gap-4">
-        <a href="#vision" class="bg-danube-600 text-white px-6 py-3 rounded-md hover:bg-danube-700 transition-colors" data-i18n="discover_vision">Discover Our Vision</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- VISION -->
-  <section id="vision" class="py-20 px-4 max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-4" data-i18n="vision_title">Our Vision for Transport Optimization</h2>
-      <p class="text-lg text-danube-700 max-w-3xl mx-auto" data-i18n="vision_subtitle">Balancing advanced technology with the power of people</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- cards kept identical — icons with feather -->
-      <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1" role="article">
-        <div class="bg-danube-100 p-4 rounded-lg mb-4"><i data-feather="cpu" class="w-8 h-8 text-danube-600"></i></div>
-        <h3 class="text-xl font-semibold text-danube-800 mb-3">Smart Route Optimization</h3>
-        <p class="text-danube-600">AI continuously analyzes routes while human dispatchers validate and adapt in real-time.</p>
-      </div>
-
-      <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1" role="article">
-        <div class="bg-danube-100 p-4 rounded-lg mb-4"><i data-feather="truck" class="w-8 h-8 text-danube-600"></i></div>
-        <h3 class="text-xl font-semibold text-danube-800 mb-3">Vast Carrier Portfolio</h3>
-        <p class="text-danube-600">Our trusted carrier network digitally matches freight, minimizing empty runs while maintaining human relationships.</p>
-      </div>
-
-      <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1" role="article">
-        <div class="bg-danube-100 p-4 rounded-lg mb-4"><i data-feather="users" class="w-8 h-8 text-danube-600"></i></div>
-        <h3 class="text-xl font-semibold text-danube-800 mb-3">24/7 Operations Hub</h3>
-        <p class="text-danube-600">Live control center provides round-the-clock human assistance, ensuring transparency and real-time problem solving.</p>
-      </div>
-
-      <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1" role="article">
-        <div class="bg-danube-100 p-4 rounded-lg mb-4"><i data-feather="activity" class="w-8 h-8 text-danube-600"></i></div>
-        <h3 class="text-xl font-semibold text-danube-800 mb-3">Hybrid Dispatch System</h3>
-        <p class="text-danube-600">AI automates dispatch allocation while human experts optimize for specific customer needs and sensitive cargo.</p>
-      </div>
-
-      <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1" role="article">
-        <div class="bg-danube-100 p-4 rounded-lg mb-4"><i data-feather="shield" class="w-8 h-8 text-danube-600"></i></div>
-        <h3 class="text-xl font-semibold text-danube-800 mb-3">Predictive Capacity</h3>
-        <p class="text-danube-600">Advanced forecasting balances supply and demand while ensuring driver well-being and sustainable workloads.</p>
-      </div>
-
-      <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1" role="article">
-        <div class="bg-danube-100 p-4 rounded-lg mb-4"><i data-feather="zap" class="w-8 h-8 text-danube-600"></i></div>
-        <h3 class="text-xl font-semibold text-danube-800 mb-3">Innovation Powered by People</h3>
-        <p class="text-danube-600">At Danubria, we believe the future of logistics combines artificial intelligence with irreplaceable human judgment.</p>
-        <a href="#about" class="mt-4 inline-block text-danube-600 hover:text-danube-800 font-medium">Learn More →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES (with Vanta placeholders lazy-init) -->
-  <section id="services" class="py-20 bg-danube-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-4" data-i18n="services_title">Our Services</h2>
-        <p class="text-lg text-danube-700 max-w-3xl mx-auto" data-i18n="services_subtitle">Comprehensive logistics solutions tailored to your needs</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-xl shadow-sm relative overflow-hidden">
-          <div id="service-truck" class="h-48 mb-4"></div>
-          <h3 class="text-xl font-semibold text-danube-800 mb-3">Road Transport</h3>
-          <p class="text-danube-600">Reliable road transportation across Europe with our modern fleet.</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow-sm relative overflow-hidden">
-          <div id="service-network" class="h-48 mb-4"></div>
-          <h3 class="text-xl font-semibold text-danube-800 mb-3">Network Solutions</h3>
-          <p class="text-danube-600">Optimized routes through our extensive European network.</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-          <h3 class="text-xl font-semibold text-danube-800 mb-3">Operations Hub</h3>
-          <p class="text-danube-600">Round-the-clock human assistance for complex shipments.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="py-20">
-    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-6" data-i18n="about_title">About Danubria</h2>
-        <p class="text-lg text-danube-700 mb-6" data-i18n="about_text1">Danubria connects Europe through intelligent logistics — balancing advanced technology with the power of people.</p>
-        <p class="text-lg text-danube-700 mb-6" data-i18n="about_text2">Founded in 2005, we've grown to become a trusted logistics partner by combining innovation with human expertise.</p>
-      </div>
-      <div class="bg-gray-100 rounded-xl h-96" aria-hidden="true"></div>
-    </div>
-  </section>
-
-  <!-- SUSTAINABILITY -->
-  <section id="sustainability" class="py-20 bg-danube-50">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-danube-900 mb-6" data-i18n="sustainability_title">Innovation & Sustainability</h2>
-      <p class="text-lg text-danube-700 max-w-3xl mx-auto mb-8" data-i18n="sustainability_subtitle">Reducing environmental impact through intelligent logistics</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-          <div class="bg-danube-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><i data-feather="wind" class="w-8 h-8 text-danube-600"></i></div>
-          <h3 class="text-xl font-semibold text-danube-800 mb-3">AI for CO₂ Reduction</h3>
-          <p class="text-danube-600">Optimized routes reduce fuel consumption and emissions</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-          <div class="bg-danube-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><i data-feather="package" class="w-8 h-8 text-danube-600"></i></div>
-          <h3 class="text-xl font-semibold text-danube-800 mb-3">Load Consolidation</h3>
-          <p class="text-danube-600">Real-time matching minimizes empty runs</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-          <div class="bg-danube-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><i data-feather="award" class="w-8 h-8 text-danube-600"></i></div>
-          <h3 class="text-xl font-semibold text-danube-800 mb-3">Eco-Certified Carriers</h3>
-          <p class="text-danube-600">Partnering with sustainable transport providers</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SUPPORT & CONTACT -->
-  <section id="support" class="py-20 bg-danube-800 text-white">
-    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-bold mb-6" data-i18n="support_title">24/7 European Support</h2>
-        <p class="text-xl mb-8" data-i18n="support_text">Danubria is always online - our operations center never sleeps.</p>
-
-        <!-- Simple client-side validated form that falls back to mailto -->
-        <form id="contact-form" class="space-y-4" action="mailto:info@danubria.com" method="post" onsubmit="return handleContactSubmit(event)">
-          <h3 class="text-xl font-semibold mb-4" data-i18n="contact_form">Get in Touch</h3>
-          <div>
-            <label class="sr-only" for="name">Your name</label>
-            <input id="name" name="name" type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-md bg-danube-700 border border-danube-600 focus:outline-none focus:ring-2 focus:ring-white" required>
-          </div>
-          <div>
-            <label class="sr-only" for="company">Company</label>
-            <input id="company" name="company" type="text" placeholder="Company" class="w-full px-4 py-3 rounded-md bg-danube-700 border border-danube-600 focus:outline-none focus:ring-2 focus:ring-white">
-          </div>
-          <div>
-            <label class="sr-only" for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="Email" class="w-full px-4 py-3 rounded-md bg-danube-700 border border-danube-600 focus:outline-none focus:ring-2 focus:ring-white" required>
-          </div>
-          <div>
-            <label class="sr-only" for="message">Message</label>
-            <textarea id="message" name="message" placeholder="How can we help?" rows="4" class="w-full px-4 py-3 rounded-md bg-danube-700 border border-danube-600 focus:outline-none focus:ring-2 focus:ring-white" required></textarea>
-          </div>
-          <div>
-            <button type="submit" class="bg-white text-danube-800 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors font-medium" aria-label="Send message" data-i18n="send">Send Message</button>
-          </div>
-        </form>
-      </div>
-
-      <div class="bg-danube-900 p-8 rounded-xl">
-        <div class="mb-8">
-          <h3 class="text-xl font-semibold mb-2" data-i18n="operations">Operations Center</h3>
-          <p class="text-lg" data-i18n="operations_text">24/7/365 Support</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <div class="bg-danube-700 p-4 rounded-full"><i data-feather="phone" class="w-6 h-6 text-white"></i></div>
-          <div>
-            <p class="text-sm text-danube-300" data-i18n="emergency">Emergency Contact</p>
-            <p class="text-xl font-medium">+34 681 272 851</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 bg-danube-600 text-white">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6" data-i18n="cta_title">Ready to optimize your logistics?</h2>
-      <p class="text-xl mb-8 max-w-3xl mx-auto" data-i18n="cta_subtitle">Get in touch with our team to discuss your specific requirements</p>
-      <a href="#support" class="inline-block bg-white text-danube-600 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-lg font-medium" data-i18n="cta_button">Get Support Now</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-danube-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <img src="./images/logo.svg" alt="Danubria logo" class="w-10 h-10">
-          <span class="text-xl font-semibold">DANUBRIA</span>
-        </div>
-        <p class="text-danube-300">The flow of Europe, the power of logistics</p>
-      </div>
-      <!-- additional footer columns can be added here -->
-    </div>
-    <div class="max-w-7xl mx-auto px-4 pt-8 mt-8 border-t border-danube-800 text-center text-danube-400">
-      <p>© 2026 Danubria Logistics. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- LANGUAGE SWITCHER -->
-  <div class="language-switcher">
-    <div class="bg-white rounded-full shadow-md p-2 flex space-x-2" role="group" aria-label="Language switcher">
-      <button onclick="changeLanguage('en')" id="lang-en" aria-label="Switch to English" class="w-8 h-8 rounded-full bg-danube-100 text-danube-800 text-sm font-medium flex items-center justify-center">EN</button>
-      <button onclick="changeLanguage('it')" id="lang-it" aria-label="Switch to Italian" class="w-8 h-8 rounded-full text-danube-800 hover:bg-danube-100 text-sm font-medium flex items-center justify-center">IT</button>
-      <button onclick="changeLanguage('es')" id="lang-es" aria-label="Switch to Spanish" class="w-8 h-8 rounded-full text-danube-800 hover:bg-danube-100 text-sm font-medium flex items-center justify-center">ES</button>
+<!-- NAV -->
+<nav class="glass fixed w-full z-40 py-4 px-6 shadow-sm">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <span class="text-xl font-semibold text-danube-800">DANUBRIA</span>
+    <div class="hidden md:flex gap-6">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#sustainability">Sustainability</a>
+      <a href="#support">Contact</a>
+      <a href="./calculator.html" class="bg-danube-600 text-white px-4 py-2 rounded-md">Instant Quote</a>
     </div>
   </div>
+</nav>
 
-  <!-- Scripts: load last so DOM exists -->
-  <!-- feather (icons) already loaded in head script, we call replace here -->
-  <script> /* safe call; feather library already included in head if needed */ </script>
+<!-- HERO (3D GLOBE + NET) -->
+<section class="relative h-screen">
+  <div id="vanta-globe" class="absolute inset-0"></div>
+  <div id="vanta-net" class="absolute inset-0"></div>
 
-  <!-- App script: initialize animations, Vanta, i18n, form handling -->
-  <script>
-  (function(){
-    // --- Lightweight safeguards & globals ---
-    const isReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let vantaInstances = {}; // hold references to destroy if needed
+  <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
+    <h1 class="text-5xl md:text-7xl font-bold text-danube-900">The flow of Europe</h1>
+    <p class="text-2xl md:text-3xl text-danube-700 mt-4">The power of logistics</p>
+    <p class="text-xl text-danube-700 mt-6 max-w-2xl">
+      Freight forwarding through innovation and human connection
+    </p>
+  </div>
+</section>
 
-    // --- Feather icons initialization (safe) ---
-    if(window.feather) try{ window.feather.replace(); } catch(e){ console.warn('feather init failed', e); }
+<!-- SERVICES -->
+<section id="services" class="py-20 bg-danube-50">
+  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
 
-    // --- Translations (expanded), will use keys present in template -->
-    const translations = {
-      en: {
-        services:"Services", about:"About Us", network:"Our Network", sustainability:"Sustainability", contact:"Contact",
-        instant_quote:"Instant Quote", main_title:"The flow of Europe", main_subtitle:"The power of logistics",
-        main_description:"Freight forwarding through innovation and human connection", discover_vision:"Discover Our Vision",
-        vision_title:"Our Vision for Transport Optimization", vision_subtitle:"Balancing advanced technology with the power of people",
-        services_title:"Our Services", services_subtitle:"Comprehensive logistics solutions tailored to your needs",
-        about_title:"About Danubria", about_text1:"Danubria connects Europe through intelligent logistics",
-        about_text2:"Founded in 2005, we've grown to become a trusted logistics partner",
-        sustainability_title:"Innovation & Sustainability", sustainability_subtitle:"Reducing environmental impact through intelligent logistics",
-        support_title:"24/7 European Support", support_text:"Danubria is always online - our operations center never sleeps",
-        contact_form:"Get in Touch", name:"Your Name", company:"Company", email:"Email", message:"How can we help?", send:"Send Message",
-        operations:"Operations Center", emergency:"Emergency Contact",
-        cta_title:"Ready to optimize your logistics?", cta_subtitle:"Get in touch with our team to discuss your specific requirements",
-        cta_button:"Get Support Now"
-      },
-      it: {
-        services:"Servizi", about:"Chi Siamo", network:"La Nostra Rete", sustainability:"Sostenibilità", contact:"Contatti",
-        instant_quote:"Preventivo Istantaneo", main_title:"Il flusso dell'Europa", main_subtitle:"La potenza della logistica",
-        main_description:"Spedizioni merci attraverso innovazione e connessione umana", discover_vision:"Scopri la Nostra Visione",
-        vision_title:"La nostra visione per l'ottimizzazione dei trasporti", vision_subtitle:"Tecnologia avanzata e competenza umana",
-        services_title:"I nostri servizi", services_subtitle:"Soluzioni logistiche complete su misura per le tue esigenze",
-        about_title:"Chi è Danubria", about_text1:"Danubria connette l'Europa attraverso la logistica intelligente",
-        about_text2:"Fondata nel 2005, siamo cresciuti fino a diventare un partner logistico di fiducia",
-        sustainability_title:"Innovazione e Sostenibilità", sustainability_subtitle:"Ridurre l'impatto ambientale attraverso la logistica intelligente",
-        support_title:"Supporto Europeo 24/7", support_text:"Danubria è sempre online - il nostro centro operativo non dorme mai",
-        contact_form:"Contattaci", name:"Nome", company:"Azienda", email:"Email", message:"Come possiamo aiutarti?", send:"Invia Messaggio",
-        operations:"Centro Operativo", emergency:"Contatto di Emergenza",
-        cta_title:"Pronto ad ottimizzare la tua logistica?", cta_subtitle:"Contatta il nostro team per discutere le tue esigenze specifiche", cta_button:"Ottieni Supporto Ora"
-      },
-      es: {
-        services:"Servicios", about:"Sobre Nosotros", network:"Nuestra Red", sustainability:"Sostenibilidad", contact:"Contacto",
-        instant_quote:"Cotización Instantánea", main_title:"El flujo de Europa", main_subtitle:"El poder de la logística",
-        main_description:"Transporte de mercancías a través de innovación y conexión humana", discover_vision:"Descubre Nuestra Visión",
-        vision_title:"Nuestra visión para la optimización del transporte", vision_subtitle:"Tecnología avanzada y experiencia humana",
-        services_title:"Nuestros Servicios", services_subtitle:"Soluciones logísticas completas adaptadas a tus necesidades",
-        about_title:"Sobre Danubria", about_text1:"Danubria conecta Europa a través de la logística inteligente",
-        about_text2:"Fundada en 2005, nos hemos convertido en un socio logístico de confianza",
-        sustainability_title:"Innovación y Sostenibilidad", sustainability_subtitle:"Reduciendo el impacto ambiental mediante la logística inteligente",
-        support_title:"Soporte Europeo 24/7", support_text:"Danubria está siempre en línea - nuestro centro de operaciones nunca duerme",
-        contact_form:"Ponte en Contacto", name:"Nombre", company:"Empresa", email:"Correo", message:"¿Cómo podemos ayudar?", send:"Enviar Mensaje",
-        operations:"Centro de Operaciones", emergency:"Contacto de Emergencia",
-        cta_title:"¿Listo para optimizar tu logística?", cta_subtitle:"Contacta con nuestro equipo para comentar tus requisitos específicos", cta_button:"Solicita Soporte"
-      }
-    };
+    <!-- Road Transport (TOPOLOGY) -->
+    <div class="bg-white p-6 rounded-xl shadow-sm">
+      <div id="service-truck" class="h-40 mb-4"></div>
+      <h3 class="text-xl font-semibold">Road Transport</h3>
+      <p>Reliable European coverage.</p>
+    </div>
 
-    // --- i18n functions ---
-    function applyTranslations(lang){
-      document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const key = el.getAttribute('data-i18n');
-        if(translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
-      });
+    <!-- Network (GLOBE) -->
+    <div class="bg-white p-6 rounded-xl shadow-sm">
+      <div id="service-network" class="h-40 mb-4"></div>
+      <h3 class="text-xl font-semibold">Network Solutions</h3>
+      <p>Optimized logistics flow.</p>
+    </div>
+
+    <!-- Operations -->
+    <div class="bg-white p-6 rounded-xl shadow-sm">
+      <div id="mini-network" class="h-40 mb-4"></div>
+      <h3 class="text-xl font-semibold">24/7 Operations</h3>
+      <p>Human support always online.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SUPPORT -->
+<section id="support" class="py-20 bg-danube-800 text-white text-center">
+  <h2 class="text-4xl font-bold mb-4">24/7 European Support</h2>
+  <p class="text-xl">+34 681 272 851</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-danube-900 text-danube-300 py-8 text-center">
+  © 2026 Danubria Logistics
+</footer>
+
+<script>
+feather.replace();
+
+/* ---------- HERO 3D ---------- */
+const heroBase = {
+  mouseControls:true,
+  touchControls:true,
+  gyroControls:false,
+  minHeight:200,
+  minWidth:200,
+  scale:1,
+  scaleMobile:0.8,
+  color:0x0ea5e9,
+  backgroundColor:0xf8fafc
+};
+
+VANTA.GLOBE({
+  ...heroBase,
+  el:"#vanta-globe",
+  size:0.8,
+  rings:3,
+  points:12
+});
+
+VANTA.NET({
+  ...heroBase,
+  el:"#vanta-net",
+  points:12,
+  maxDistance:24,
+  spacing:18
+});
+
+/* ---------- LAZY 3D SERVICES ---------- */
+function lazyVanta(selector, init){
+  const el = document.querySelector(selector);
+  const obs = new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      init();
+      obs.disconnect();
     }
-    function changeLanguage(lang){ localStorage.setItem('danubria_lang', lang); applyTranslations(lang); highlightLangButton(lang); }
-    function highlightLangButton(lang){
-      ['en','it','es'].forEach(code=>{
-        const btn = document.getElementById('lang-'+code);
-        if(!btn) return;
-        btn.classList.toggle('ring-2', code===lang);
-      });
-    }
+  },{rootMargin:"200px"});
+  obs.observe(el);
+}
 
-    // set initial language (persisted or browser)
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const saved = localStorage.getItem('danubria_lang');
-      const browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-      const defaultLang = saved || (browser.startsWith('it')? 'it' : (browser.startsWith('es')? 'es' : 'en'));
-      applyTranslations(defaultLang);
-      highlightLangButton(defaultLang);
-    });
+lazyVanta("#service-truck", ()=>VANTA.TOPOLOGY({
+  el:"#service-truck",
+  mouseControls:false,
+  touchControls:false,
+  gyroControls:false,
+  color:0x0ea5e9,
+  backgroundColor:0xffffff,
+  points:6,
+  maxDistance:20,
+  spacing:15
+}));
 
-    // Expose changeLanguage for inline onclick calls
-    window.changeLanguage = changeLanguage;
+lazyVanta("#service-network", ()=>VANTA.GLOBE({
+  el:"#service-network",
+  mouseControls:false,
+  touchControls:false,
+  gyroControls:false,
+  color:0x0ea5e9,
+  backgroundColor:0xffffff,
+  size:0.7,
+  rings:3,
+  points:12
+}));
 
-    // --- contact form handler: basic validation, fallback to mailto if no backend ---
-    function handleContactSubmit(e){
-      e.preventDefault();
-      const form = e.target;
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-      if(!name || !email || !message){ alert('Please fill name, email and message'); return false; }
-      // If you have a backend endpoint, replace mailto fallback with fetch POST here.
-      // Use mailto fallback to open user's email client:
-      const subject = encodeURIComponent('Danubria contact from ' + name);
-      const body = encodeURIComponent('Company: ' + (form.company.value || '') + '\n\n' + message);
-      window.location.href = `mailto:info@danubria.com?subject=${subject}&body=${body}`;
-      return false;
-    }
-    window.handleContactSubmit = handleContactSubmit;
-
-    // --- Vanta management: HERO always init (but controlled) + lazy for service widgets ---
-    // Guard to avoid multiple initialization
-    function safeInit(key, initFn){
-      if(vantaInstances[key]) return;
-      try{
-        const inst = initFn();
-        if(inst) vantaInstances[key] = inst;
-      }catch(err){ console.warn('Vanta init failed', key, err); }
-    }
-
-    // Hero base options
-    const heroOptions = { mouseControls:true, touchControls:true, gyroControls:false, minHeight:200, minWidth:200, scale:1, scaleMobile:1, color:0x0ea5e9, backgroundColor:0xf8fafc };
-
-    // Initialize hero views when DOM ready but respect reduced motion
-    document.addEventListener('DOMContentLoaded', ()=>{
-      if(isReducedMotion) {
-        // Simple fallback background instead of heavy effects
-        document.getElementById('vanta-globe').style.background = 'linear-gradient(180deg,#f8fafc,#ffffff)';
-        document.getElementById('vanta-net').style.display = 'none';
-        return;
-      }
-      // Hero: Globe + Net (they coexist, tested)
-      safeInit('heroGlobe', ()=> VANTA.GLOBE({...heroOptions, el:'#vanta-globe', size:0.8, rings:3, points:12}));
-      safeInit('heroNet', ()=> VANTA.NET({...heroOptions, el:'#vanta-net', points:12, maxDistance:24, spacing:18}));
-    });
-
-    // Lazy initializer helper using IntersectionObserver
-    function lazyInit(targetSelector, key, initFn){
-      const el = document.querySelector(targetSelector);
-      if(!el) return;
-      // If element already on screen, init immediately
-      const rect = el.getBoundingClientRect();
-      if(rect.top < window.innerHeight && rect.bottom > 0){
-        safeInit(key, initFn);
-        return;
-      }
-      const obs = new IntersectionObserver((entries, observer)=>{
-        if(entries[0].isIntersecting){
-          safeInit(key, initFn);
-          observer.disconnect();
-        }
-      }, { rootMargin: '200px' });
-      obs.observe(el);
-    }
-
-    // Register lazy inits for service Vanta widgets
-    document.addEventListener('DOMContentLoaded', ()=>{
-      lazyInit('#service-truck','serviceTruck', ()=> VANTA.TOPOLOGY({
-        el:'#service-truck', mouseControls:false, touchControls:false, gyroControls:false, minHeight:200, minWidth:200,
-        color:0x0ea5e9, backgroundColor:0xffffff, points:6, maxDistance:20, spacing:15
-      }));
-      lazyInit('#service-network','serviceNetwork', ()=> VANTA.GLOBE({
-        el:'#service-network', mouseControls:false, touchControls:false, gyroControls:false, minHeight:200, minWidth:200,
-        color:0x0ea5e9, backgroundColor:0xffffff, size:0.75, rings:3, points:12
-      }));
-    });
-
-    // Optional: destroy off-screen Vanta instances after long inactivity to save memory (kept simple)
-    // Not aggressive: only destroy service widgets if page hidden for >5min
-    document.addEventListener('visibilitychange', ()=>{
-      if(document.hidden){
-        window._danubriaHiddenAt = Date.now();
-      } else {
-        const t = window._danubriaHiddenAt || 0;
-        if(t && (Date.now() - t) > 5*60*1000){
-          // destroy service instances (re-initialize when scrolled back)
-          ['serviceTruck','serviceNetwork'].forEach(k=>{
-            if(vantaInstances[k] && vantaInstances[k].destroy){ try{ vantaInstances[k].destroy(); }catch(e){} vantaInstances[k]=null; }
-          });
-        }
-      }
-    });
-
-    // Smooth anchor scrolling (native where possible)
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', function(e){
-        const href = this.getAttribute('href');
-        if(!href || href === '#') return;
-        const target = document.querySelector(href);
-        if(!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // Simple mobile menu toggle
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    mobileBtn && mobileBtn.addEventListener('click', ()=>{
-      // very small mobile nav injection (keeps page simple)
-      const existing = document.getElementById('mobile-nav');
-      if(existing){ existing.remove(); return; }
-      const nav = document.createElement('div');
-      nav.id = 'mobile-nav';
-      nav.className = 'fixed inset-0 bg-white z-50 p-6';
-      nav.innerHTML = `
-        <div class="flex justify-end"><button id="mobile-close" aria-label="Close menu" class="text-danube-800">Close</button></div>
-        <nav class="mt-6 flex flex-col gap-4 text-lg">
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#sustainability">Sustainability</a>
-          <a href="#support">Contact</a>
-        </nav>
-      `;
-      document.body.appendChild(nav);
-      document.getElementById('mobile-close').addEventListener('click', ()=> nav.remove());
-    });
-
-    // Expose simple API for debugging (optional)
-    window._danubria = {
-      vantaInstances,
-      safeInit
-    };
-  })();
-  </script>
+lazyVanta("#mini-network", ()=>VANTA.NET({
+  el:"#mini-network",
+  mouseControls:false,
+  touchControls:false,
+  gyroControls:false,
+  color:0x0ea5e9,
+  backgroundColor:0xffffff,
+  points:8,
+  maxDistance:16,
+  spacing:12
+}));
+</script>
 
 </body>
 </html>
